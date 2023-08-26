@@ -29,7 +29,7 @@ export default function MainPage() {
                 className="mw-editsection-divider"> | </span><a
 
                 title="Править преамбулу">править код</a><span className="mw-editsection-bracket">]</span></span>
-                <div id="siteSub" className="noprint">Материал из Википедии — свободной энциклопедии</div>
+                <div id="siteSub" className="noprint">Content from my head - free encyclopedia</div>
                 <div id="contentSub">
                     <div id="mw-content-subtitle">
                         <div id="mw-fr-reviewnotice" className="plainlinks flaggedrevs_preview">I'm too lazy to update
@@ -130,17 +130,17 @@ export default function MainPage() {
                         </table>
                         <figure typeof="mw:File/Thumb"><a
                             href="//commons.wikimedia.org/wiki/File:Vladimir_Putin_7_February_2001-1.jpg"
-                            className="mw-file-description"><img src="assets/cv.png" decoding="async" width="260"
+                            className="mw-file-description"><img src="/cv.png" decoding="async" width="260"
                                                                  height="174" className="mw-file-element"/></a>
                             <figcaption>Me while computer vision experiments (voided)</figcaption>
                         </figure>
                         <p><b>Ivan Vasilev</b> (<a>ru.</a>&nbsp;<span lang="ru" style={{fontStyle: "italic"}}>Иван Васильев</span>;
-                            <a title="29 November">29 November</a> <a className="mw-redirect" title="2002">2002</a>, <a
+                            <a title="29 November"> 29 November</a> <a className="mw-redirect" title="2002">2002</a>, <a
                                 title="Penza">Penza</a>) — <a title="pm pu">mathematician student </a>, a man of his
                             time,
                             the only person in Russia who got out of the wheel of Samsara. I found a metanarrative, but
                             does not
-                            show or tell anyone about it. Best esoteric bimbo gf.
+                            show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf.
                         </p>
                         <div id="toc" className="toc" role="navigation" aria-labelledby="mw-toc-heading"><input
                             type="checkbox"
@@ -163,9 +163,17 @@ export default function MainPage() {
                                     <span className="toctext">Fun content here</span></a>
                                     <ul>
                                         <li className="toclevel-2 tocsection-4"><a
-                                            href="#Гимн_Имперской_армии_Японии"><span
+                                            href="#Physarum"><span
                                             className="tocnumber">3.1</span> <span
-                                            className="toctext">Гимн Имперской армии Японии</span></a></li>
+                                            className="toctext">Physarum</span></a></li>
+                                        <li className="toclevel-2 tocsection-4"><a
+                                            href="#Pythagorean tree"><span
+                                            className="tocnumber">3.1</span> <span
+                                            className="toctext">Pythagorean tree</span></a></li>
+                                        <li className="toclevel-2 tocsection-4"><a
+                                            href="#Newton_pool"><span
+                                            className="tocnumber">3.1</span> <span
+                                            className="toctext">Newton's pool</span></a></li>
                                     </ul>
                                 </li>
                                 <li className="toclevel-1 tocsection-5"><a href="#Примечания"><span
@@ -195,7 +203,10 @@ export default function MainPage() {
                             Internet and decided to make it really personal. Also, going off the topic of fractals gives
                             me more freedom in content creation.
                         </p>
-                        <p>В 1884 году прибыл в <a title="Япония">Японии</a> в составе 3-й группы военных советников,
+                        <p> In general, coding is a good way to interact with the world. As if the well-known principles
+                            of composition and decomposition, substitution and inversion of dependencies are applicable
+                            to everything.
+                            В 1884 году прибыл в <a title="Япония">Японии</a> в составе 3-й группы военных советников,
                             изменил
                             Гюстава Шарля Дезире Драгона на должности инструктора армейских военных оркестров в первые
                             годы
@@ -251,7 +262,7 @@ export default function MainPage() {
                         </p>
                         <h3>
                     <span
-                        className="mw-headline" id="Гимн_Имперской_армии_Японии">Гимн Имперской армии Японии</span><span
+                        className="mw-headline" id="Physarum">Гимн Имперской армии Японии</span><span
                             className="mw-editsection"><span className="mw-editsection-bracket">[</span><a
 
                             className="mw-editsection-visualeditor"
@@ -294,34 +305,6 @@ export default function MainPage() {
                             состоялась премьера произведения в присутствии Его Величества Императора Японии. Песня стала
                             чрезвычайно популярной во всех слоях общества.
                         </p>
-                        <div className="side-box side-box-right listen noprint">
-                            <div className="side-box-flex">
-                                <div className="side-box-image">
-                                    <figure className="mw-halign-center" typeof="mw:File"><span><img alt=""
-                                                                                                     src="//upload.wikimedia.org/wikipedia/commons/thumb/8/87/Gnome-mime-sound-openclipart.svg/50px-Gnome-mime-sound-openclipart.svg.png"
-                                                                                                     decoding="async"
-                                                                                                     width="50"
-                                                                                                     height="50"
-                                                                                                     className="mw-file-element"
-                                                                                                     data-file-width="160"
-                                                                                                     data-file-height="160"/></span>
-                                        <figcaption></figcaption>
-                                    </figure>
-                                </div>
-                                <div className="side-box-text plainlist">
-                                    <div className="haudio">
-                                        <div className="listen-file-header">[[:File:Kanpeishiki Bunretsukōshinkyoku
-                                            Fusōka.ogg|]]
-                                        </div>
-                                        <div className="description">Запись 1928 года</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="side-box-abovebelow">
-                                <hr/>
-                                <i className="selfreference"><a title="Википедия:Помощь с медиафайлами">Помощь по
-                                    воспроизведению</a>.</i></div>
-                        </div>
                         <div style={{
                             float: "right",
                             margin: "10px 0px 10px 10px",
@@ -342,7 +325,22 @@ export default function MainPage() {
                             смерти,<br/>
                             И с исконно заговорщиками и предателями, проклятыми небесами, не видать хорошей жизни.
                         </div>
-                        <h2><span id=".D0.9F.D1.80.D0.B8.D0.BC.D0.B5.D1.87.D0.B0.D0.BD.D0.B8.D1.8F"></span><span
+                        <h2><span
+                            className="mw-headline" id="Произведения">Fun content here</span><span
+                            className="mw-editsection"><span
+                            className="mw-editsection-bracket">[</span><a
+
+                            className="mw-editsection-visualeditor"
+                            title="Редактировать раздел «Произведения»">править</a><span
+                            className="mw-editsection-divider"> | </span><a
+
+                            title="Редактировать раздел «Произведения»">править код</a><span
+                            className="mw-editsection-bracket">]</span></span>
+                        </h2>
+                        <p>
+
+                        </p>
+                        <h2><span
                             className="mw-headline" id="Примечания">P.S.</span><span className="mw-editsection"><span
                             className="mw-editsection-bracket">[</span><a
 
@@ -373,16 +371,16 @@ export default function MainPage() {
                                 </ol>
                             </div>
                         </div>
-                        <h2><span id=".D0.9B.D0.B8.D1.82.D0.B5.D1.80.D0.B0.D1.82.D1.83.D1.80.D0.B0"></span><span
-                            className="mw-headline" id="Литература">Литература</span><span
+                        <h2><span
+                            className="mw-headline" id="Литература">I recommend to watch</span><span
                             className="mw-editsection"><span
                             className="mw-editsection-bracket">[</span><a
 
                             className="mw-editsection-visualeditor"
-                            title="Редактировать раздел «Литература»">править</a><span
+                            title="good choice">advise me something</a><span
                             className="mw-editsection-divider"> | </span><a
 
-                            title="Редактировать раздел «Литература»">править код</a><span
+                            title="bad choice">your recommendations is trash</a><span
                             className="mw-editsection-bracket">]</span></span></h2>
                         <ul>
                             <li>David G. Hebert «Wind Bands and Cultural Identity in Japanese Schools» Springer,
@@ -415,17 +413,15 @@ export default function MainPage() {
                 </div>
                 <div id="catlinks" className="catlinks" data-mw="interface">
                     <div id="mw-normal-catlinks" className="mw-normal-catlinks"><a
-                        title="Служебная:Категории">Категории</a>:
+                        title="Служебная:Категории">Categories</a>:
                         <ul>
-                            <li><a title="Категория:Родившиеся 12 сентября">Родившиеся 12 сентября</a></li>
-                            <li><a title="Категория:Родившиеся в 1851 году">Родившиеся в 1851 году</a></li>
-                            <li><a title="Категория:Родившиеся в Париже">Родившиеся в Париже</a></li>
-                            <li><a title="Категория:Умершие 4 июля">Умершие 4 июля</a></li>
-                            <li><a title="Категория:Умершие в 1926 году">Умершие в 1926 году</a></li>
-                            <li><a title="Категория:Кавалеры ордена Священного сокровища 4 класса">Кавалеры ордена
-                                Священного
-                                сокровища 4 класса</a></li>
-                            <li><a title="Категория:Персоналии по алфавиту">Персоналии по алфавиту</a></li>
+                            <li><a title="Категория:Родившиеся 12 сентября">Sussy nerds</a></li>
+                            <li><a title="Категория:Родившиеся в 1851 году">Teapot instructions</a></li>
+                            <li><a title="Категория:Родившиеся в Париже">"Stone" studio</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces" title="Категория:Умершие 4 июля">Top</a></li>
+                            <li><a title="Категория:Умершие в 1926 году">Alvin and the chipmunks</a></li>
+                            <li><a title="Категория:Кавалеры ордена Священного сокровища 4 класса">Emo culture</a></li>
+                            <li><a title="Категория:Персоналии по алфавиту">Toads in hats</a></li>
                             <li>
                                 <a
                                     className="new" title="Категория:Военные дирижеры (страница отсутствует)">Военные
@@ -476,7 +472,7 @@ export default function MainPage() {
                             <li id="n-mainpage-description" className="mw-list-item"><a
                                 title="do nothing"
                                 accessKey="z"><span>This page</span></a></li>
-                            <li id="n-content" className="mw-list-item"><a><span>Contents</span></a></li>
+                            <li id="n-content" className="mw-list-item"><a href="/physarum"><span>Physarum</span></a></li>
                             <li id="n-featured" className="mw-list-item"><a
                                 title="Статьи, считающиеся лучшими статьями проекта"><span>Избранные статьи</span></a>
                             </li>
