@@ -116,7 +116,7 @@ export class Cup {
             return [c.BaseRotation, c.BaseStep]
         }
 
-        if (c.TooMuchCase) {
+        if (c.TooFewCase) {
             if (fer1 < c.TooFewPheromone && fer2 < c.TooFewPheromone) {
                 return [c.TooFewRotation, c.TooFewStep]
             }

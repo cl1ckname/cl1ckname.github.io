@@ -9,17 +9,20 @@ import {makeGradient, opposite} from "@/logic/physarum/color";
 import {GradientForm} from "./GradientForm";
 import {uniform} from "@/utils/random";
 import {FullfillContrainer} from "./FullfillContainer";
+import ContentSwitch from "@/components/physarum/ContentSwitch";
+import Description from "@/components/physarum/Description";
 
 interface Settings {
     population: PopulationProps
     agentConfig: Config
     color: Uint8Array
+    description: boolean
 }
 
 export default function App() {
     const from = uniform(0, 1 << 24)
     const to = opposite(from)
-    const [settings, setSettings] = useState<Settings>( {
+    const [settings, setSettings] = useState<Settings>({
         agentConfig: {
             Speed: 1,
             Farsight: 32,
@@ -42,7 +45,8 @@ export default function App() {
             pheroByStep: 75,
             decreaseValue: 0.5,
         },
-        color: makeGradient(from, to)
+        color: makeGradient(from, to),
+        description: false
     })
     useEffect(() => {
         setAgent(randomConfig())
@@ -51,7 +55,8 @@ export default function App() {
         setSettings({
             agentConfig: settings.agentConfig,
             population: p,
-            color: settings.color
+            color: settings.color,
+            description: settings.description
         })
     }
 
@@ -59,7 +64,8 @@ export default function App() {
         setSettings({
             agentConfig: c,
             population: settings.population,
-            color: settings.color
+            color: settings.color,
+            description: settings.description
         })
     }
 
@@ -67,15 +73,25 @@ export default function App() {
         setSettings({
             agentConfig: settings.agentConfig,
             population: settings.population,
-            color: c
+            color: c,
+            description: settings.description
+        })
+    }
+
+    const switchContent = () => {
+        setSettings({
+            agentConfig: settings.agentConfig,
+            population: settings.population,
+            color: settings.color,
+            description: !settings.description
         })
     }
 
     return (
         <div className="App">
-            <div className="options-menu">
+            <div className="options-menu thin-scroll">
                 <h2>Population settings</h2>
-                <PopulationSettings populationProps={settings.population} onChange={setPopulationProps} />
+                <PopulationSettings populationProps={settings.population} onChange={setPopulationProps}/>
                 <GradientForm from={from} to={to} onChange={setColor}/>
 
                 <h2>Agent settings</h2>
@@ -86,13 +102,16 @@ export default function App() {
                 />
             </div>
             <FullfillContrainer>
-                {(wh) => <Physarum
-                    w={wh[0]}
-                    h={wh[1]}
-                    populationProps={settings.population}
-                    agentConfig={settings.agentConfig}
-                    color={settings.color}
-                />}
+                {(wh) => <>
+                    <ContentSwitch onChange={switchContent} description={settings.description}/>
+                    {settings.description ? <Description/> :  <Physarum
+                        w={wh[0]}
+                        h={wh[1]}
+                        populationProps={settings.population}
+                        agentConfig={settings.agentConfig}
+                        color={settings.color}
+                    />}
+                </>}
             </FullfillContrainer>
         </div>
     );

@@ -13,7 +13,7 @@ export function AgentSettings(props: AgentSettingsProps) {
     const {onChange, agentConfig} = props
     const configCopy = Object.assign({}, agentConfig)
 
-    return <form className={"agent-form"}>
+    return <form className="agent-form">
             <fieldset>
                 <legend>Basic</legend>
                 <label>Farsight: {configCopy.Farsight}</label>
@@ -45,7 +45,7 @@ export function AgentSettings(props: AgentSettingsProps) {
             </fieldset>
 
             <fieldset>
-                <label>Normal phero range: {configCopy.TooFewPheromone}/{configCopy.TooMuchPheromone}</label>
+                <label>Normal pheromone range: {configCopy.TooFewPheromone}/{configCopy.TooMuchPheromone}</label>
                 <MultiRangeSlider
                     min={0}
                     max={360}

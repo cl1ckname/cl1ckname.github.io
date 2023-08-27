@@ -16,7 +16,7 @@ export function FullfillContrainer(props: FullfillContainerProps) {
         }
     }, [ref.current]);
 
-    return <div ref={ref} style={{width: "100%"}}>
+    return <div ref={ref} className="fullfill">
         {props.children(wh)}
     </div>
 }
