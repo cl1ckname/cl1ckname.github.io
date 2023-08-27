@@ -4,19 +4,26 @@ export default function Description() {
         <p>
 
             <a href="https://en.wikipedia.org/wiki/Physarum_polycephalum ">Physarum</a>&nbsp;
-            this is a remarkable microorganism capable of finding <b>shortest paths</b>. The tubular network is able to quickly
+            this is a remarkable microorganism capable of finding <b>shortest paths</b>. The tubular network is able to
+            quickly
             change, reorganizing itself in such a way as to extract most effectively from the environment
-            nutrients. At the same time, the slime mold does not have a single coordinating center, and the "memories" of
-            the location of food is encrypted in the very architecture of the body (mycelium) of the organism. This saved
+            nutrients. At the same time, the slime mold does not have a single coordinating center, and the "memories"
+            of
+            the location of food is encrypted in the very architecture of the body (mycelium) of the organism. This
+            saved
             the information is then used to make future decisions. This page presents an interactive
-            simulation of the growth of such an organism inspired by <a href="https://github.com/fogleman/physarum ">fogleman</a>.
+            simulation of the growth of such an organism inspired by <a
+            href="https://github.com/fogleman/physarum ">fogleman</a>.
         </p>
         <h3>How it works</h3>
-        Let's describe the principle of simulation: a set of <b>agents</b> are placed on the field, which move and leave behind
+        Let's describe the principle of simulation: a set of <b>agents</b> are placed on the field, which move and leave
+        behind
         a <b>pheromone</b>. Each agent has two sensors that pick up the pheromone and the direction of the gaze.
-        The sensors are located at a configurable distance from the agent and are equidistant from the direct direction of his gaze.
+        The sensors are located at a configurable distance from the agent and are equidistant from the direct direction
+        of his gaze.
         The pheromone in each cell can be from 0 to 255. The more pheromone is in
-        the cell, the more pronounced the color it is drawn. The calculation of the pheromone and the position of the agents occurs according to
+        the cell, the more pronounced the color it is drawn. The calculation of the pheromone and the position of the
+        agents occurs according to
         next cycle:
         <ol>
             <li>
@@ -63,13 +70,16 @@ export default function Description() {
             </li>
             <li>
                 <dt>Pheromone spraying</dt>
-                <dd>The amount of pheromone is added to the cell with the new position of the agent, according to the corresponding
+                <dd>The amount of pheromone is added to the cell with the new position of the agent, according to the
+                    corresponding
                     setting up
                 </dd>
             </li>
             <li>
                 <dt>Pheromone Reduction</dt>
-                <dd>The amount of pheromone is removed from each cell of the field according to the corresponding setting</dd>
+                <dd>The amount of pheromone is removed from each cell of the field according to the corresponding
+                    setting
+                </dd>
             </li>
             <li>
                 <dt>Rendering</dt>
@@ -96,7 +106,9 @@ export default function Description() {
                         </li>
                         <li>
                             <dt>Color</dt>
-                            <dd>Background color and pheromone color, according to which the linear gradient is calculated</dd>
+                            <dd>Background color and pheromone color, according to which the linear gradient is
+                                calculated
+                            </dd>
                         </li>
                     </ul>
                 </dd>
@@ -115,14 +127,17 @@ export default function Description() {
                         </li>
                         <li>
                             <dt>Base rotation</dt>
-                            <dd>The turn of the agent in case the pheromone is not too much and not too little and the difference is
-                                on sensors, it is significant (carried out in the direction of the sensor with a large number of
+                            <dd>The turn of the agent in case the pheromone is not too much and not too little and the
+                                difference is
+                                on sensors, it is significant (carried out in the direction of the sensor with a large
+                                number of
                                 pheromone)
                             </dd>
                         </li>
                         <li>
                             <dt>Base step</dt>
-                            <dd>Agent step in case the pheromone is not too much and not too little and the difference is
+                            <dd>Agent step in case the pheromone is not too much and not too little and the difference
+                                is
                                 on sensors , it is essential
                             </dd>
                         </li>

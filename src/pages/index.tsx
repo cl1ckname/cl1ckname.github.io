@@ -1,3 +1,4 @@
+import "../styles/wiki.css"
 import "../styles/homepage.css"
 
 export default function MainPage() {
@@ -12,6 +13,7 @@ export default function MainPage() {
             <div className="mw-indicators">
             </div>
             <h1 id="firstHeading" className="firstHeading mw-first-heading"><span className="mw-page-title-main">Clickname (Ivan Vasilev)</span>
+            <img src="/pepe_dance.gif" className="gif-emoji"/>
             </h1>
             <div id="bodyContent" className="vector-body"><span className="mw-editsection mw-content-ltr ve-hide"
                                                                 dir="ltr"
@@ -186,7 +188,7 @@ export default function MainPage() {
                         </div>
 
                         <h2><span
-                            className="mw-headline" id="Общие_сведения">Why I create this page</span><span
+                            className="mw-headline" id="Общие_сведения">Why I create this page🤔</span><span
                             className="mw-editsection"><span
                             className="mw-editsection-bracket">[</span><a
 
@@ -198,35 +200,27 @@ export default function MainPage() {
                             className="mw-editsection-bracket">]</span></span></h2>
                         <p>Initially, I just had a site dedicated to fractals, I was interested in drawing them and
                             giving my friends the opportunity to do it interactively. However, it soon became clear that
-                            there are not so many interesting fractals, just drawing various Lsystems is not so
+                            there are not so many interesting fractals, just drawing various L-systems is not so
                             interesting. Subsequently, I somewhat rethought the concept of a personal page on the
                             Internet and decided to make it really personal. Also, going off the topic of fractals gives
                             me more freedom in content creation.
                         </p>
-                        <p> In general, coding is a good way to interact with the world. As if the well-known principles
+                        <p> The <b className="rainbow-text"> frontend developer </b> can show the page. The mobile developer can show the app. A ML
+                            engineer can show a neural network (as a rule, if he does not do really boring things). What
+                            can a backend developer do? Say something like <q>look, mom, this JSON is assembled by my <a
+                                href="https://kubernetes.io/"> k8s</a> cluster which is proxied through <a
+                                href="https://nginx.org/"> Nginx</a> and pulls
+                                data from the leading node of the replica,
+                                look at my benchmarks mom, are you happy mom? Are you proud of me? Parents, beloved,
+                                friends, why you're leaving, it's only the first endpoint don't leave me, I'm scared</q>.
+                            In
+                            general, coding is a good way to interact with the world. As if the well-known principles
                             of composition and decomposition, substitution and inversion of dependencies are applicable
                             to everything.
-                            В 1884 году прибыл в <a title="Япония">Японии</a> в составе 3-й группы военных советников,
-                            изменил
-                            Гюстава Шарля Дезире Драгона на должности инструктора армейских военных оркестров в первые
-                            годы
-                            существования <a title="Императорская армия Японии">Имперской армии Японии</a>. В 1886 году
-                            был
-                            награжден Орденом Восходящего Солнца 5-й степени.&nbsp;В 1889 году вернулся во Францию, где
-                            был
-                            назначен капельмейстером 98-го пехотного полка, с дислокацией в <a title="Лион">Лионе</a>. В
-                            1899-м
-                            получил чин капельмейстера первого класса (равный званию <a
-                                title="Капитан (воинское звание)">капитана</a>).
-                            В 1900 году был награжден Орденом Почетного Легиона. В 1906 году вышел в отставку и
-                            поселился в
-                            шахтерском городке <a
-
-                                className="new" title="Монсо-ле-Мин (страница отсутствует)">Монсо-ле-Мин</a>, где
-                            руководил
-                            местным духовым оркестром. В последние годы жил в <a title="Версаль">Версале</a>, где и
-                            скончался 4
-                            июля 1926 года в возрасте 74 лет.
+                            Sounds so so. What is even more depressing is that this site is not the answer to this
+                            question. But this is something very close, as if with the exception of the technologies
+                            used (not a single docker container was affected during the development process). Most of
+                            the projects here require good optimization so that a weak laptop or phone can run them.
                         </p>
                         <h2><span
                             className="mw-headline" id="Произведения">CS interests</span><span
@@ -418,7 +412,8 @@ export default function MainPage() {
                             <li><a title="Категория:Родившиеся 12 сентября">Sussy nerds</a></li>
                             <li><a title="Категория:Родившиеся в 1851 году">Teapot instructions</a></li>
                             <li><a title="Категория:Родившиеся в Париже">"Stone" studio</a></li>
-                            <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces" title="Категория:Умершие 4 июля">Top</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces"
+                                   title="Категория:Умершие 4 июля">Top</a></li>
                             <li><a title="Категория:Умершие в 1926 году">Alvin and the chipmunks</a></li>
                             <li><a title="Категория:Кавалеры ордена Священного сокровища 4 класса">Emo culture</a></li>
                             <li><a title="Категория:Персоналии по алфавиту">Toads in hats</a></li>
@@ -472,7 +467,8 @@ export default function MainPage() {
                             <li id="n-mainpage-description" className="mw-list-item"><a
                                 title="do nothing"
                                 accessKey="z"><span>This page</span></a></li>
-                            <li id="n-content" className="mw-list-item"><a href="/physarum"><span>Physarum</span></a></li>
+                            <li id="n-content" className="mw-list-item"><a href="/physarum"><span>Physarum</span></a>
+                            </li>
                             <li id="n-featured" className="mw-list-item"><a
                                 title="Статьи, считающиеся лучшими статьями проекта"><span>Избранные статьи</span></a>
                             </li>
