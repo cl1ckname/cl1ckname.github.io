@@ -1,5 +1,6 @@
 import "../styles/wiki.css"
 import "../styles/homepage.css"
+import FlipText from "@/components/homepage/flipText";
 
 export default function MainPage() {
     return <div>
@@ -13,7 +14,7 @@ export default function MainPage() {
             <div className="mw-indicators">
             </div>
             <h1 id="firstHeading" className="firstHeading mw-first-heading"><span className="mw-page-title-main">Clickname (Ivan Vasilev)</span>
-            <img src="/pepe_dance.gif" className="gif-emoji"/>
+                <img src="/pepe_dance.gif" className="gif-emoji" alt="sad pepe"/>
             </h1>
             <div id="bodyContent" className="vector-body"><span className="mw-editsection mw-content-ltr ve-hide"
                                                                 dir="ltr"
@@ -68,7 +69,9 @@ export default function MainPage() {
                         <table className="infobox infobox-064c6ca8d70d5243" data-name="Персона">
                             <tbody>
                             <tr>
-                                <th colSpan={2} scope="colgroup" className="infobox-above">Clickname</th>
+                                <th colSpan={2} scope="colgroup" className="infobox-above">
+                                    Clickname🐢
+                                </th>
                             </tr>
                             <tr>
                                 <td colSpan={2} className="infobox-image">
@@ -134,7 +137,9 @@ export default function MainPage() {
                             href="//commons.wikimedia.org/wiki/File:Vladimir_Putin_7_February_2001-1.jpg"
                             className="mw-file-description"><img src="/cv.png" decoding="async" width="260"
                                                                  height="174" className="mw-file-element"/></a>
-                            <figcaption>Me while computer vision experiments (voided)</figcaption>
+                            <figcaption>Me while computer vision experiments
+                                (v̨͔͖̪̟͊̓o͙̻̞̩̩̠̺̽͘ͅi̟̤̥͎͈̥̪͋͗͘d̷͍̭̙̲͚̫͇̘͛ͩͩ̓e̙̭͓̼͕ͩ̐́ͅd̜̯͍̩̝͎͑̋̿̀͘ͅ)
+                            </figcaption>
                         </figure>
                         <p><b>Ivan Vasilev</b> (<a>ru.</a>&nbsp;<span lang="ru" style={{fontStyle: "italic"}}>Иван Васильев</span>;
                             <a title="29 November"> 29 November</a> <a className="mw-redirect" title="2002">2002</a>, <a
@@ -143,6 +148,7 @@ export default function MainPage() {
                             the only person in Russia who got out of the wheel of Samsara. I found a metanarrative, but
                             does not
                             show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf.
+                            <img className="gif-emoji" src="/bulbasaur.gif" alt="lazy bulbasaur"/>
                         </p>
                         <div id="toc" className="toc" role="navigation" aria-labelledby="mw-toc-heading"><input
                             type="checkbox"
@@ -198,16 +204,20 @@ export default function MainPage() {
 
                             title="Редактировать раздел «Общие сведения»">править код</a><span
                             className="mw-editsection-bracket">]</span></span></h2>
-                        <p>Initially, I just had a site dedicated to fractals, I was interested in drawing them and
-                            giving my friends the opportunity to do it interactively. However, it soon became clear that
+                        <p>Initially, I just had a site dedicated to fractals, I was <b>interested</b> in drawing them
+                            and
+                            giving my friends the opportunity to do it <FlipText>interactively</FlipText>. However, it
+                            soon became clear that
                             there are not so many interesting fractals, just drawing various L-systems is not so
                             interesting. Subsequently, I somewhat rethought the concept of a personal page on the
                             Internet and decided to make it really personal. Also, going off the topic of fractals gives
                             me more freedom in content creation.
                         </p>
-                        <p> The <b className="rainbow-text"> frontend developer </b> can show the page. The mobile developer can show the app. A ML
+                        <p> The <b className="rainbow-text"> frontend developer </b> can show the page. The mobile
+                            developer can show the app. A ML
                             engineer can show a neural network (as a rule, if he does not do really boring things). What
-                            can a backend developer do? Say something like <q>look, mom, this JSON is assembled by my <a
+                            can a backend developer do? Say something like <q className="void-text">look, mom, this <a
+                                href="https://ru.wikipedia.org/wiki/JSON">JSON</a> is assembled by my <a
                                 href="https://kubernetes.io/"> k8s</a> cluster which is proxied through <a
                                 href="https://nginx.org/"> Nginx</a> and pulls
                                 data from the leading node of the replica,
@@ -217,7 +227,7 @@ export default function MainPage() {
                             general, coding is a good way to interact with the world. As if the well-known principles
                             of composition and decomposition, substitution and inversion of dependencies are applicable
                             to everything.
-                            Sounds so so. What is even more depressing is that this site is not the answer to this
+                            Sounds so so😒. What is even more depressing is that this site is not the answer to this
                             question. But this is something very close, as if with the exception of the technologies
                             used (not a single docker container was affected during the development process). Most of
                             the projects here require good optimization so that a weak laptop or phone can run them.
@@ -234,29 +244,22 @@ export default function MainPage() {
                             title="Редактировать раздел «Произведения»">править код</a><span
                             className="mw-editsection-bracket">]</span></span>
                         </h2>
-                        <p>Самыми известными произведениями Леру есть музыка к песне Тоямы Масакадзу «Батто:тай» (<a
-                            title="Японский язык">яп.</a> <span lang="ja"
-                                                                style={{
-                                                                    fontSize: "110%",
-                                                                    fontStyle: "normal"
-                                                                }}>抜刀隊</span>
-                            «С лезвием наголо») и написанная им собственноручно «Фусо:ка» (<a
-                                title="Японский язык">яп.</a>
-                            <span lang="ja" style={{fontSize: "110%", fontStyle: "normal"}}>扶桑歌</span> «Песня о
-                            Стране
-                            Шелковичных Деревьев»). Впоследствии он объединил эти два мотива в композиции «Армейский
-                            марш»
-                            которая стала официальным <a title="Гимн">гимном</a> Имперской армии Японии. Кроме того
-                            Clickname
-                            является автором многих произведений для фортепиано.
+                        <p>It has long been so customary that I am engaged in backend. Why? It just seems to me that the
+                            backend gives more interesting tasks, and the study of the backend itself is much more
+                            interesting. In addition, the backend gives more choice in terms of language, platform,
+                            delivery method, etc. For example, I prefer Sql to Nosql for basic CRUD tasks, and I truly
+                            love it. I prefer to develop in two languages at the same time - GoLang and NodeJS,
+                            because I want to. Go is good for parallel and productive programs, system programming. You
+                            can write fast and fun on the node, you can write the WEB. By themselves, these languages
+                            are very strange, but this is rather a plus.
                         </p>
-                        <p>В 1910 году был опубликован его труд «La Musique classNameique Japonaise» (Японская
-                            классическая музыка)&nbsp;—
-                            первый изданный на Западе сочинение про японскую музыку.
+                        <p>However, it's all about work, like to earn money. But the world of CS is much wider and more
+                            interesting. As I wrote above, programming is a way of interacting with the world. And this
+                            is a huge scope for creativity and self-realization.
                         </p>
                         <h3>
                     <span
-                        className="mw-headline" id="Physarum">Гимн Имперской армии Японии</span><span
+                        className="mw-headline" id="Physarum">Things that I find funny</span><span
                             className="mw-editsection"><span className="mw-editsection-bracket">[</span><a
 
                             className="mw-editsection-visualeditor"
@@ -272,32 +275,26 @@ export default function MainPage() {
                             data-file-height="1204"/></a>
                             <figcaption>Обложка партитуры «Fou So Ka»</figcaption>
                         </figure>
-                        <p>Составлен 1886 года на мотивы двух произведений&nbsp;— «Фусо:ка» и «Батто:тай». Кроме армии
-                            также
-                            является маршем <a title="Национальное полицейское агентство Японии">японской по</a><a
-                                title="Национальное полицейское агентство Японии">лиции</a>.
+                        <p>First of all - computer graphics. In my first year, I realized what a shader is. This made a
+                            very strong impression on me, because it is a very simple and elegant way to "draw" with the
+                            help of mathematics. Even just throwing random functions, some "mathematical noise" gives
+                            interesting results.
                         </p>
-                        <p>«Батто:тай» — вторая японская военная песня «западного стиля» после «Мия-сан, мия-сан». Она
-                            была
-                            откликом на <a className="mw-redirect" title="Юго-западная война">войну 1877 года</a>, когда
-                            во главе
-                            повстанцев стал бывший генерал <a title="Сайго Такамори">Такамори Сайго</a>. В решающем
-                            жестоком бои
-                            восставшим <a title="Самурай">самураям</a> противостояли войска «нового образца» <a
-                                title="Император Мэйдзи">Императора Мэйдзи</a>. В 1882 году был опубликован первый
-                            сборник
-                            поэзии «В западном стиле», к которому вошел стих проректора по литературной кафедры <a
-                                title="Токийский университет">Токийского университета</a> Масакадзу Тоямы «Песня отряд с
-                            обнаженными мечами». В качестве образца он использовал американские походные песни, так как
-                            в 1870-е
-                            годы учился в <a title="Мичиганский университет">Мичиганском университете</a>. Французский
-                            инструктор армейского оркестра Clickname написал к нему музыку, и в июле 1885 года на
-                            большом
-                            концерте в недавно построенном «Рокумейкани»(<a title="Японский язык">яп.</a> <span
-                                lang="ja"
-                                style={{fontSize: "110%", fontStyle: "normal"}}>鹿鳴館</span>)
-                            состоялась премьера произведения в присутствии Его Величества Императора Японии. Песня стала
-                            чрезвычайно популярной во всех слоях общества.
+                        <p>Next comes image processing. Rooms with distorting mirrors and video effects on the first
+                            smartphones made me laugh and amused. However, learning to look for more and more niche
+                            information, I began to stumble upon more and more interesting solutions. Computer vision in
+                            the same bunch. Once upon a time, neural networks even seemed interesting to me in the
+                            context of image processing. Maybe they give visually pleasing pictures, but the way to get
+                            them is very clumsy and usually the same for completely different things. Conventionally,
+                            the neuron that colors the pictures and that applies the Van Gogh style to the images are
+                            made almost the same. But algorithms like Seam Carving or Strip photography have nothing in
+                            common at all.
+                        </p>
+                        <p>
+                            I am also very impressed and fascinated by everything related to data storage. Archivers,
+                            data structures, file systems. Walking in the forest of binary trees is very interesting. My
+                            favorites are the Van Ende Broass tree and the AVL tree. This is something that seems very
+                            important to me, but I didn’t have enough time to study it in detail (yet).
                         </p>
                         <div style={{
                             float: "right",
@@ -366,7 +363,7 @@ export default function MainPage() {
                             </div>
                         </div>
                         <h2><span
-                            className="mw-headline" id="Литература">I recommend to watch</span><span
+                            className="mw-headline" id="Литература">My tech skills</span><span
                             className="mw-editsection"><span
                             className="mw-editsection-bracket">[</span><a
 
@@ -374,31 +371,27 @@ export default function MainPage() {
                             title="good choice">advise me something</a><span
                             className="mw-editsection-divider"> | </span><a
 
-                            title="bad choice">your recommendations is trash</a><span
+                            title="bad choice">your skills is trash</a><span
                             className="mw-editsection-bracket">]</span></span></h2>
                         <ul>
-                            <li>David G. Hebert «Wind Bands and Cultural Identity in Japanese Schools» Springer,
-                                2011. <a
-                                    className="internal mw-magiclink-isbn">ISBN 9789400721777</a>. p. 30
+                            <li>Golang <a
+                                className="internal mw-magiclink-isbn">ISBN 9781492077213</a>
                             </li>
-                            <li>Junko Oba «To Fight the Losing War, to Remember the Lost War: The Changing Role of
-                                Gunka,
-                                Japanese War Songs» in Richard King «Global Goes Local: Popular Culture in Asia»,
-                                2002, <a
-                                    className="internal mw-magiclink-isbn">ISBN 9780774808750</a>, p. 228
+                            <li>NodeJs + Typescript <a
+                                className="internal mw-magiclink-isbn">ISBN 9781800562523</a>
                             </li>
-                            <li>江藤淳『南洲残影』文藝春秋〈文春文庫〉、平成13年(2001年）、<a
+                            <li>Git <a
                                 className="internal mw-magiclink-isbn">ISBN
-                                4-16-353840-2</a></li>
-                            <li>阿部勘一・細川周平・塚原康子・東谷護・高澤智昌『ブラスバンドの社会史
-                                軍楽隊から歌伴へ』青弓社〈青弓社ライブラリー〉、平成13年（2001年）、<a
-                                    className="internal mw-magiclink-isbn">ISBN 4-7872-3192-8</a></li>
-                            <li>中村理平『洋楽導入者の軌跡－日本近代洋楽史序説－』刀水書房、平成5年（1993年）、<a
-                                className="internal mw-magiclink-isbn">ISBN 4-88708-146-4</a></li>
-                            <li>三浦俊三郎『本邦洋樂變遷史』日東書院、昭和6年（1931年）10月</li>
-                            <li>山口常光『陸軍軍楽隊史』三青社、昭和43年（1968年）</li>
-                            <li>『音楽界』148号、音楽出版社、大正3年（1914年）2月</li>
-                            <li>『お雇い外国人の見た日本～日本洋楽事始』（CD）</li>
+                                9781430218333</a></li>
+                            <li>Linux administration<a
+                                className="internal mw-magiclink-isbn">ISBN 978-5-907144-10-1</a></li>
+                            <li>Python <a
+                                className="internal mw-magiclink-isbn">ISBN 9785496030687</a></li>
+                            <li>SQL (prefere PostgreSql) <a className="internal mw-magiclink-isbn">ISBN 978-1800567498
+                            </a></li>
+                            <li>Docker</li>
+                            <li>Blockchain</li>
+                            <li>AWS</li>
                         </ul>
                     </div>
                     <div className="printfooter" data-nosnippet="">Источник — <a dir="ltr"
@@ -409,8 +402,8 @@ export default function MainPage() {
                     <div id="mw-normal-catlinks" className="mw-normal-catlinks"><a
                         title="Служебная:Категории">Categories</a>:
                         <ul>
-                            <li><a title="Категория:Родившиеся 12 сентября">Sussy nerds</a></li>
-                            <li><a title="Категория:Родившиеся в 1851 году">Teapot instructions</a></li>
+                            <li><a title="Really sussy, really nerd">Sussy nerds</a></li>
+                            <li><a title="Категория:Родившиеся в 2002 году">Teapot instructions</a></li>
                             <li><a title="Категория:Родившиеся в Париже">"Stone" studio</a></li>
                             <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces"
                                    title="Категория:Умершие 4 июля">Top</a></li>
@@ -470,14 +463,15 @@ export default function MainPage() {
                             <li id="n-content" className="mw-list-item"><a href="/physarum"><span>Physarum</span></a>
                             </li>
                             <li id="n-featured" className="mw-list-item"><a
-                                title="Статьи, считающиеся лучшими статьями проекта"><span>Избранные статьи</span></a>
+                                href="/tree"
+                                title="old but good"><span>Pythagorean tree</span></a>
                             </li>
-                            <li id="n-randompage" className="mw-list-item"><a
-                                title="Посмотреть случайно выбранную страницу [alt-shift-x]" accessKey="x"><span>Случайная статья</span></a>
-                            </li>
-                            <li id="n-currentevents" className="mw-list-item"><a
-                                title="Статьи о текущих событиях в мире"><span>Текущие события</span></a>
-                            </li>
+                            {/*<li id="n-randompage" className="mw-list-item"><a*/}
+                            {/*    title="Посмотреть случайно выбранную страницу [alt-shift-x]" accessKey="x"><span>Случайная статья</span></a>*/}
+                            {/*</li>*/}
+                            {/*<li id="n-currentevents" className="mw-list-item"><a*/}
+                            {/*    title="Статьи о текущих событиях в мире"><span>Текущие события</span></a>*/}
+                            {/*</li>*/}
                             <li id="n-sitesupport" className="mw-list-item"><a
                                 href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_ru.wikipedia.org&amp;uselang=ru"
                                 title="do it"><span>Donate to wikipedia</span></a></li>
@@ -491,30 +485,36 @@ export default function MainPage() {
                      className="vector-menu mw-portlet mw-portlet-participation vector-menu-portal portal"
                      aria-labelledby="p-participation-label" role="navigation">
                     <h3 id="p-participation-label" className="vector-menu-heading ">
-                        <span className="vector-menu-heading-label">Участие</span>
+                        <span className="vector-menu-heading-label">Social networks</span>
                     </h3>
                     <div className="vector-menu-content">
 
                         <ul className="vector-menu-content-list">
                             <li id="n-bug_in_article" className="mw-list-item"><a
-                                title="Сообщить об ошибке в этой статье"><span>Сообщить об&nbsp;ошибке</span></a>
+                                href="https://t.me/clickname"
+                                title="Prefered way to connect me"><span>Telegram</span></a>
                             </li>
-                            <li id="n-introduction" className="mw-list-item"><a><span>Как править статьи</span></a></li>
+                            <li id="n-introduction" className="mw-list-item"><a
+                                href="https://vk.com/clickname"
+                            ><span>Vk.ru</span></a></li>
                             <li id="n-portal" className="mw-list-item"><a
-                                title="О проекте, о том, чем здесь можно заниматься, а также — где что находится"><span>Сообщество</span></a>
+                                href="https://github.com/cl1ckname"
+                                title="My favorite social network"><span>Github</span></a>
                             </li>
                             <li id="n-forum" className="mw-list-item"><a
-                                title="Форум участников Википедии"><span>Форум</span></a>
+                                href="https://twitter.com/Cl1ckName"
+                                title="Or X.com??"><span>Twitter</span></a>
                             </li>
                             <li id="n-recentchanges" className="mw-list-item"><a
-                                title="Список последних изменений [alt-shift-r]"
-                                accessKey="r"><span>Свежие правки</span></a></li>
-                            <li id="n-newpages" className="mw-list-item"><a
-                                title="Список недавно созданных страниц"><span>Новые страницы</span></a>
-                            </li>
-                            <li id="n-help" className="mw-list-item"><a
-                                title="Место расположения Справки"><span>Справка</span></a>
-                            </li>
+                                href="https://shikimori.me/Ivan+Vasilev"
+                                title="russian <My anime list>"
+                                accessKey="r"><span>Shikimori</span></a></li>
+                            {/*<li id="n-newpages" className="mw-list-item"><a*/}
+                            {/*    title="Список недавно созданных страниц"><span>Новые страницы</span></a>*/}
+                            {/*</li>*/}
+                            {/*<li id="n-help" className="mw-list-item"><a*/}
+                            {/*    title="Место расположения Справки"><span>Справка</span></a>*/}
+                            {/*</li>*/}
                         </ul>
 
                     </div>
@@ -549,27 +549,6 @@ export default function MainPage() {
 
                                 title="Информация о том, как цитировать эту страницу"><span>Цитировать страницу</span></a>
                             </li>
-                        </ul>
-
-                    </div>
-                </nav>
-
-                <nav id="p-coll-print_export"
-                     className="vector-menu mw-portlet mw-portlet-coll-print_export vector-menu-portal portal"
-                     aria-labelledby="p-coll-print_export-label" role="navigation">
-                    <h3 id="p-coll-print_export-label" className="vector-menu-heading ">
-                        <span className="vector-menu-heading-label">Печать/экспорт</span>
-                    </h3>
-                    <div className="vector-menu-content">
-
-                        <ul className="vector-menu-content-list">
-                            <li id="coll-download-as-rl" className="mw-list-item"><a
-
-                                title="Скачать эту страницу как файл PDF"><span>Скачать как PDF</span></a></li>
-                            <li id="t-print" className="mw-list-item"><a
-
-                                title="Версия этой страницы для печати [alt-shift-p]"
-                                accessKey="p"><span>Версия для печати</span></a></li>
                         </ul>
 
                     </div>

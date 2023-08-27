@@ -17,4 +17,43 @@
 
 .gif-emoji {
     display: inline;
+    width: 1em;
+    height: 1em;
+}
+
+.void-text {
+    background-color: black;
+    color: red;
+}
+
+.void-text a:link {
+    color: pink;
+}
+
+.void-text a:visited {
+    color: pink;
+}
+
+.flip-text {
+    display: inline-block;
+    color: #0b0080;
+    cursor: pointer;
+}
+
+.flipping-text {
+    animation: spin 3s linear;
+    -webkit-animation:spin 3s linear;
+    -moz-animation:spin 3s linear;
+}
+@-moz-keyframes spin {
+    50% { -moz-transform: rotate(180deg); }
+    100% { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    50% {transform: rotate(180deg);}
+    100% {transform:rotate(360deg);}
 }

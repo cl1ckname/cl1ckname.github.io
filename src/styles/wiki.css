@@ -44,10 +44,6 @@ blockquote {
     }
 }
 
-.filehistory a img,#file img {
-
-}
-
 body.ns-talk a.external[href*="//ru.wikipedia.org/"],body.ns-4 a.external[href*="//ru.wikipedia.org/"],body.ns-104 a.external[href*="//ru.wikipedia.org/"],body.ns-106 a.external[href*="//ru.wikipedia.org/"] {
     background: none !important;
     padding-right: 0 !important
@@ -1109,30 +1105,6 @@ th.navbox-group {
     padding-left: 0.5em
 }
 
-.mw-body-content .geo-services {
-    font-size: 82%
-}
-
-.geo-services a > span {
-    margin: 0.25em
-}
-
-.geo-services > :first-child a > span {
-    margin-left: 0.4em
-}
-
-.geo-geo-dec .geo-dec,.geo-geo-dms .geo-dms {
-    display: inline
-}
-
-.geo-geo-dec .geo-dms,.geo-geo-dms .geo-dec,.geo-multi-punct {
-    display: none
-}
-
-.geo-lat,.geo-lon {
-    white-space: nowrap
-}
-
 body.page-Заглавная_страница #ca-current,body.page-Заглавная_страница #ca-delete,body.page-Заглавная_страница #t-cite,body.page-Заглавная_страница #catlinks,body.page-Заглавная_страница #lastmod,body.page-Заглавная_страница #footer-info-lastmod,body.page-Заглавная_страница.action-view #siteSub,body.page-Заглавная_страница.action-view #contentSub,body.page-Заглавная_страница.action-view #contentSub2,body.page-Заглавная_страница.action-view #mw-data-after-content {
     display: none !important
 }
@@ -1317,60 +1289,6 @@ ol.references li:target,sup.reference:target {
     line-height: normal;
     opacity: 0.87;
     color: transparent
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge:hover,#pt-notifications-notice .mw-echo-notifications-badge:hover,#pt-notifications-alert .mw-echo-notifications-badge:active,#pt-notifications-notice .mw-echo-notifications-badge:active,#pt-notifications-alert .mw-echo-notifications-badge:focus,#pt-notifications-notice .mw-echo-notifications-badge:focus {
-    outline: 1px solid transparent
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge:focus,#pt-notifications-notice .mw-echo-notifications-badge:focus {
-    box-shadow: 0 0 0 1px #fff,0 0 0 3px #36c;
-    opacity: 1
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge:focus::after,#pt-notifications-notice .mw-echo-notifications-badge:focus::after {
-    border-color: #3366cc
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge::after,#pt-notifications-notice .mw-echo-notifications-badge::after {
-    position: absolute;
-    display: inline-block;
-    cursor: pointer;
-    top: 9px;
-    text-indent: 0;
-    left: 55%;
-    font-size: 0.9em;
-    font-weight: bold;
-    padding: 0 0.3em;
-    border: 1px solid #ffffff;
-    border-radius: 2px;
-    background-color: #72777d;
-    content: attr(data-counter-text);
-    color: #ffffff
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge-dimmed,#pt-notifications-notice .mw-echo-notifications-badge-dimmed {
-    opacity: 0.4
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-long-label,#pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-long-label {
-    margin-right: 0.5em
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-long-label::after,#pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-long-label::after {
-    left: 35%
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read,#pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
-    opacity: 0.51
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read::after,#pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read::after {
-    visibility: hidden
-}
-
-#pt-notifications-alert .mw-echo-notifications-badge.oo-ui-flaggedElement-unseen::after,#pt-notifications-alert .mw-echo-notifications-badge.mw-echo-unseen-notifications::after {
-    background-color: #dd3333
 }
 
 #pt-notifications-notice .mw-echo-notifications-badge.oo-ui-flaggedElement-unseen::after,#pt-notifications-notice .mw-echo-notifications-badge.mw-echo-unseen-notifications::after {
