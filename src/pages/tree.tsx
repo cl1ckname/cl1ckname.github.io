@@ -1,11 +1,16 @@
+import "../styles/physarum.css"
+import {FullfillContrainer} from "@/components/FullfillContainer";
+import Tree from "@/components/tree/Tree";
 export default function TreePage() {
-    return <div>
-        <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
-            <path d="M150 0 L75 200 L225 200 Z" fill="black" stroke="black"/>
-            <circle cx="10" cy="10" r="2" fill="red"/>
-            <circle cx="90" cy="90" r="2" fill="red"/>
-            <circle cx="90" cy="10" r="2" fill="red"/>
-            <circle cx="10" cy="90" r="2" fill="red"/>
-        </svg>
+    return <div className="App">
+        <div className="options-menu thin-scroll">
+            <h1>Tree</h1>
+        </div>
+        <FullfillContrainer>
+            {(wh) => {
+                return <Tree w={wh[0]} h={wh[1]}/>
+            }}
+        </FullfillContrainer>
+
     </div>
 }

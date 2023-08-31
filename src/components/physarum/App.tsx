@@ -8,7 +8,7 @@ import {PopulationProps} from "@/logic/physarum/cup";
 import {makeGradient, opposite} from "@/logic/physarum/color";
 import {GradientForm} from "./GradientForm";
 import {uniform} from "@/utils/random";
-import {FullfillContrainer} from "./FullfillContainer";
+import {FullfillContrainer} from "../FullfillContainer";
 import ContentSwitch from "@/components/physarum/ContentSwitch";
 import Description from "@/components/physarum/Description";
 

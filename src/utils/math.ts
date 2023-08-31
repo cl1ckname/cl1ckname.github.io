@@ -9,6 +9,10 @@ export function sin(a: number): number {
 export function cos(a: number): number {
     return sin(a + 90)
 }
+
+export function tan(a: number): number {
+    return sin(a) / cos(a)
+}
 export const angles =[...new Array(360).fill(0)].map((_,i) => (
     Math.sin(i * pi180)
 ));
