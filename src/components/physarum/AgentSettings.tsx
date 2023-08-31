@@ -1,7 +1,7 @@
 import {Config, randomConfig} from "@/logic/physarum/config";
 import React from "react";
 import {MultiRangeSlider} from "./doubleSlider";
-import {Slider} from "./slider";
+import {Slider} from "../slider";
 import {AnglePicker} from "./anglePicker";
 
 export interface AgentSettingsProps {

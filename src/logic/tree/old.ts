@@ -90,5 +90,5 @@ export default function oldGeneration(w: number, h: number, A: number, n: number
 }
 
 function figureToString(f: figure): string {
-    return `${f.points[0].x}, ${f.points[0].y},${f.points[1].x},${f.points[1].y},${f.points[2].x},${f.points[2].y},${f.points[3].x},${f.points[3].y},`
+    return `${f.points[0].x}, ${f.points[0].y},${f.points[1].x},${f.points[1].y},${f.points[2].x},${f.points[2].y},${f.points[3].x},${f.points[3].y}`
 }

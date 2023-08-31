@@ -1,5 +1,5 @@
 import {PopulationProps} from "../agent/cup";
-import {Slider} from "./slider";
+import {Slider} from "../slider";
 
 export interface PopulationSettingsProps {
     populationProps: PopulationProps

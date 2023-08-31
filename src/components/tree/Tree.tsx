@@ -1,14 +1,31 @@
-import oldGeneration from "@/logic/tree/old";
+import {FullfillContrainer} from "@/components/FullfillContainer";
+import TreeSVG from "@/components/tree/TreeSVG";
+import {useState} from "react";
+import TreeSettings from "@/components/tree/TreeSettings";
 
-interface TreeProps {
-    w: number,
-    h: number
+
+export interface TreeParams {
+    n: number
+    angle: number
 }
+export default function Tree() {
 
-export default function Tree(props: TreeProps) {
-    const path = oldGeneration(props.w, props.h, Math.PI / 4, 8)
+    const [settings, setSettings] = useState<TreeParams>({
+        angle: Math.PI / 4,
+        n: 2,
+    })
 
-    return <svg width={props.w} height={props.h}>
-        {path.map((p, i) => (<polygon points={p} fill={"#" + Math.floor(Math.random()*16777215).toString(16)} key={i}/>))}
-    </svg>
+
+    return <div className="App">
+        <div className="options-menu thin-scroll">
+            <h1>Tree</h1>
+            <TreeSettings tree={settings} onChange={setSettings}/>
+        </div>
+        <FullfillContrainer>
+            {(wh) => {
+                return <TreeSVG w={wh[0]} h={wh[1]} angle={settings.angle} n={settings.n}/>
+            }}
+        </FullfillContrainer>
+
+    </div>
 }
