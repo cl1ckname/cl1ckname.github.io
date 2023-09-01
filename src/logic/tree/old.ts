@@ -64,21 +64,21 @@ export const squareThroughtCoordinates = (x: number,
     return {points: [p1, p2, p3, p4], number: number, depth: depth}
 }
 
-export default function oldGeneration(w: number, h: number, A: number, n: number) {
+export default function oldGeneration(w: number, h: number, A: number, n: number): number[][] {
     const CX = w / 2
     const CY = h * 2 / 3
     const [triangle, square] = makeFigures(A)
     const firstSq = squareThroughtCoordinates(CX, CY, 100, 1, 0)
     let leafs: figure[] = [firstSq]
     let nodes: figure[] = []
-    const sqs: string[] = [figureToString(firstSq)]
+    const sqs: number[][] = [firstSq.points.reduce((p,n) => p.concat([n.x, n.y]), [] as number[])]
 
     for (let i = 0; i < n; i++) {
         leafs.forEach(leaf => {
             nodes.push(square(leaf))
         })
         leafs.forEach(n => {
-            sqs.push(figureToString(n))
+            sqs.push(n.points.reduce((p,n) => p.concat([n.x, n.y]), [] as number[]))
         })
         leafs.length = 0
         nodes.forEach(node => {
