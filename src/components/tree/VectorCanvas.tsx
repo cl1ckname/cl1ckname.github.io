@@ -16,6 +16,7 @@ interface VectorCanvasProps {
 
 export default function VectorCanvas(props: VectorCanvasProps) {
     const canvasRef = props.canvasRef
+    const {offsetX, offsetY, width, height} = props.viewport;
     useEffect(() => {
         if (!canvasRef.current) {
             return
@@ -28,9 +29,9 @@ export default function VectorCanvas(props: VectorCanvasProps) {
         for (const p of props.polygons) {
             ctx.fillStyle = '#f00'
             ctx.beginPath()
-            ctx.moveTo(p[0], p[1])
+            ctx.moveTo(offsetX + p[0] * width, offsetY + p[1] * height)
                 for (let j = 2; j < p.length; j+=2) {
-                    ctx.lineTo(p[j], p[j+1])
+                    ctx.lineTo(offsetX+ p[j] * width, offsetY + p[j+1] * height)
                 }
             ctx.closePath()
             ctx.fill()

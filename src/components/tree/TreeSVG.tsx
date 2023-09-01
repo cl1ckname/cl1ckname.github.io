@@ -11,7 +11,7 @@ interface TreeProps {
 }
 
 export default function TreeSVG(props: TreeProps) {
-    const path = oldGeneration(props.w, props.h, props.angle, props.n)
+    const path = oldGeneration(props.angle, props.n)
 
     return <PanCanvas>
         {(scale, offsetX, offsetY, ref) =>
@@ -20,10 +20,10 @@ export default function TreeSVG(props: TreeProps) {
                 h={props.h}
                 polygons={path}
                 viewport={{
-                    offsetX: 0,
-                    offsetY: 0,
-                    height: props.h,
-                    width: props.w
+                    offsetX: offsetX,
+                    offsetY: offsetY,
+                    height: props.h * scale,
+                    width: props.w * scale
                 }}
                 canvasRef={ref}
             />
