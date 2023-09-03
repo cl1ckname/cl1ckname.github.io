@@ -4569,6 +4569,7 @@ body > .oo-ui-windowManager,.oo-ui-defaultOverlay {
 }
 
 body {
+    font-size: 1em !important;
     margin: 0
 }
 
@@ -4959,8 +4960,8 @@ figure[typeof~='mw:File/Thumb'] > figcaption:empty {
     }
 
     .vector-body {
-        font-size: 0.875em;
-        font-size: calc(1em * 0.875);
+        /*font-size: 0.875em;*/
+        /*font-size: calc(1em * 0.875);*/
         line-height: 1.6
     }
 

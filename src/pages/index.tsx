@@ -2,9 +2,10 @@ import "../styles/wiki.css"
 import "../styles/homepage.css"
 import FlipText from "@/components/homepage/flipText";
 import Head from "next/head";
-import { Bungee_Spice } from "next/font/google"
+import {Bungee_Spice, VT323} from "next/font/google"
 
-const bungee = Bungee_Spice({ subsets: ['latin'], weight: "400" })
+const bungee = Bungee_Spice({subsets: ['latin'], weight: "400"})
+const vt323 = VT323({subsets: ['latin'], weight: "400"})
 export default function MainPage() {
     return <>
         <Head>
@@ -12,6 +13,7 @@ export default function MainPage() {
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com"/>
             <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://unpkg.com/xp.css"/>
         </Head>
         <div>
             <div id="mw-page-base" className="noprint"></div>
@@ -106,7 +108,9 @@ export default function MainPage() {
                                 <tr>
                                     <th scope="row" className="plainlist">Date&nbsp;of death</th>
                                     <td className="plainlist">
-                                        <span className="nowrap"><a title="Never">Never</a> </span></td>
+                                        <span className="nowrap"><a
+                                            title="enamelled vessel, the window, the nightstand, the bed,">Never</a> </span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="plainlist">Country</th>
@@ -145,10 +149,10 @@ export default function MainPage() {
                                 </tr>
                                 </tbody>
                             </table>
-                            <figure typeof="mw:File/Thumb"><a
-                                href="//commons.wikimedia.org/wiki/File:Vladimir_Putin_7_February_2001-1.jpg"
-                                className="mw-file-description"><img src="/cv.png" decoding="async" width="260"
-                                                                     height="174" className="mw-file-element"/></a>
+
+                            <figure typeof="mw:File/Thumb">
+                                <img src="/cv.png" decoding="async" width="260"
+                                     height="174" className="mw-file-element"/>
                                 <figcaption>Me while computer vision experiments
                                     (v̨͔͖̪̟͊̓o͙̻̞̩̩̠̺̽͘ͅi̟̤̥͎͈̥̪͋͗͘d̷͍̭̙̲͚̫͇̘͛ͩͩ̓e̙̭͓̼͕ͩ̐́ͅd̜̯͍̩̝͎͑̋̿̀͘ͅ)
                                 </figcaption>
@@ -158,7 +162,7 @@ export default function MainPage() {
                                                                            title="2002">2002</a>, <a
                                     title="Penza">Penza</a>) — <a title="pm pu">mathematician student </a>, a man of his
                                 time,
-                                the only person in Russia who got out of the wheel of Samsara. I found a metanarrative,
+                                the only person in Russia who got out of the wheel of Samsara. Found a metanarrative,
                                 but
                                 does not
                                 show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf.
@@ -239,11 +243,12 @@ export default function MainPage() {
                                         href="https://ru.wikipedia.org/wiki/JSON">JSON</a> is assembled by my <a
                                         href="https://kubernetes.io/"> k8s</a> cluster which is proxied through <a
                                         href="https://nginx.org/"> Nginx</a> and pulls
-                                    data from the leading node of the replica,
+                                    data from sharded database,
                                     look at my benchmarks mom, are you happy mom? Are you proud of me? Parents, beloved,
                                     friends, why you're leaving, it's only the first endpoint don't leave me, I'm scared</q>.
                                 In
-                                general, coding is a good way to interact with the world. As if the well-known
+                                general, coding is a good way to <FlipText>interact</FlipText> with the world. As if the
+                                well-known
                                 principles
                                 of composition and decomposition, substitution and inversion of dependencies are
                                 applicable
@@ -252,7 +257,8 @@ export default function MainPage() {
                                 question. But this is something very close, as if with the exception of the technologies
                                 used (not a single docker container was affected during the development process). Most
                                 of
-                                the projects here require good optimization so that a weak laptop or phone can run them.
+                                the projects here require ⚡good optimization⚡ so that a weak laptop or phone can run
+                                them.
                             </p>
                             <h2><span
                                 className={"mw-headline " + bungee.className} id="Произведения">CS interests</span><span
@@ -269,19 +275,32 @@ export default function MainPage() {
                             <p>It has long been so customary that I am engaged in backend. Why? It just seems to me that
                                 the
                                 backend gives more interesting tasks, and the study of the backend itself is much more
-                                interesting. In addition, the backend gives more choice in terms of language, platform,
-                                delivery method, etc. For example, I prefer Sql to Nosql for basic <a
+                                interesting. In addition, the backend gives more choice in terms of <select>
+                                    <option>language</option>
+                                    <option>platform</option>
+                                    <option>database</option>
+                                    <option>architecture</option>
+                                    <option>delivery</option>
+                                    <option>api</option>
+                                    <option>authentication</option>
+                                </select>,
+                                For example, I prefer Sql to Nosql for basic <a
                                     href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9SMpGhqwYdcXFzhA_mRnxaol8zjdtRi8lAQ&usqp=CAU">CRUD</a> tasks,
                                 and I
                                 truly
-                                love it. I prefer to develop in two languages at the same time - GoLang and NodeJS,
+                                love it🥰. I prefer to develop in two languages at the same time - GoLang and NodeJS,
                                 because I want to. Go is good for parallel and productive programs, system programming.
                                 You
                                 can write fast and fun on the node, you can write the WEB. By themselves, these
                                 languages
                                 are very strange, but this is rather a plus.
                             </p>
-                            <p>However, it's all about work, like to earn money. But the world of CS is much wider and
+                            <p>However, it's all about work, like to <span style={{
+                                color: "#fc566c",
+                                backgroundColor: "#faddaf",
+                                fontFamily: "monospace"
+                            }}>$earn_money();</span>.
+                                But the world of ₵$ is much wider and
                                 more
                                 interesting. As I wrote above, programming is a way of interacting with the world. And
                                 this
@@ -308,7 +327,10 @@ export default function MainPage() {
                                 data-file-height="1204"/></a>
                                 <figcaption>yes, you can trust me with firearms (well, or your server)</figcaption>
                             </figure>
-                            <p>First of all - computer graphics. In my first year, I realized what a shader is. This
+                            <p>First of all - <span className={vt323.className} style={{
+                                color: "darkgreen",
+                                fontSize: "1.5em"
+                            }}>computer graphics</span>. In my first year, I realized what a shader is. This
                                 made a
                                 very strong impression on me, because it is a very simple and elegant way to "draw" with
                                 the
@@ -316,8 +338,14 @@ export default function MainPage() {
                                 gives
                                 interesting results.
                             </p>
-                            <p>Next comes image processing. Rooms with distorting mirrors and video effects on the first
-                                smartphones made me laugh and amused. However, learning to look for more and more niche
+                            <p>Next comes image processing.
+                                <span style={{
+                                    display: "inline-block",
+                                    transform: "skew(15deg) scaleY(1.3)",
+                                    color: "#30c7b6"
+                                }}>Rooms with distorting mirrors and video effects on the first
+                                smartphones made me laugh and amused.</span> However, learning to look for more and more
+                                niche
                                 information, I began to stumble upon more and more interesting solutions. Computer
                                 vision in
                                 the same bunch. Once upon a time, neural networks even seemed interesting to me in the
@@ -327,38 +355,54 @@ export default function MainPage() {
                                 Conventionally,
                                 the neuron that colors the pictures and that applies the Van Gogh style to the images
                                 are
-                                made almost the same. But algorithms like Seam Carving or Strip photography have nothing
+                                made almost the same. But algorithms like <a
+                                    href="https://trekhleb.dev/js-image-carver/">Seam Carving</a> or <a
+                                    href="https://www.youtube.com/watch?v=n4tbdFD18vs">Strip photography</a> have
+                                nothing
                                 in
                                 common at all.
                             </p>
                             <p>
-                                I am also very impressed and fascinated by everything related to data storage.
+                                I am also very impressed <img src={"/impression.gif"} className="gif-emoji"/> and
+                                fascinated by everything related to data storage.
                                 Archivers,
                                 data structures, file systems. Walking in the forest of binary trees is very
                                 interesting. My
-                                favorites are the Van Ende Broass tree and the AVL tree. This is something that seems
+                                favorites are the <a href="https://en.wikipedia.org/wiki/Van_Emde_Boas_tree">Van Ende
+                                Boas</a> tree and the <a href="https://en.wikipedia.org/wiki/AVL_tree">AVL</a> tree.
+                                This is something that seems
                                 very
                                 important to me, but I didn’t have enough time to study it in detail (yet).
                             </p>
                             <div style={{
                                 float: "right",
-                                margin: "10px 0px 10px 10px",
-                                backgroundColor: "white",
                                 color: "black",
                                 fontSize: "80%",
                                 fontFamily: "monospace",
                                 fontWeight: "bold",
-                                verticalAlign: "center",
-                                padding: "10px",
-                                borderStyle: "double",
-                                borderWidth: "3px",
                                 clear: "both"
                             }}>
-                                Мы — императорская армия, и враги Императора — наши враги, которым нет пощады под
-                                небесами<br/>
-                                Генерал противника — пример отчаянной храбрости, а его солдаты — бесстрашные и не боятся
-                                смерти,<br/>
-                                И с исконно заговорщиками и предателями, проклятыми небесами, не видать хорошей жизни.
+                                <div className={"window"} style={{display: "block"}}>
+                                    <div className={"title-bar"}>
+                                        <div className="title-bar-text">
+                                            Text
+                                        </div>
+                                        <div className="title-bar-controls">
+                                            <button aria-label="Minimize"></button>
+                                            <button aria-label="Maximize"></button>
+                                            <button aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                    <div className="window-body">
+                                        <img src="/gopher-dance.gif" alt="gopher-dance" width={192} height={192}/>
+                                        <br/>
+                                        <span>me when i... sorry,<br/> i lied, i never</span>
+                                    </div>
+                                    <div className="status-bar">
+                                        <p className="status-bar-field">Press F1 for help</p>
+                                        <p className="status-bar-field">Close</p>
+                                    </div>
+                                </div>
                             </div>
                             <h2><span
                                 className="mw-headline" id="Произведения">Fun content here</span><span
@@ -373,7 +417,6 @@ export default function MainPage() {
                                 className="mw-editsection-bracket">]</span></span>
                             </h2>
                             <p>
-
                             </p>
                             <h2><span
                                 className="mw-headline" id="Примечания">P.S.</span><span
@@ -408,7 +451,7 @@ export default function MainPage() {
                                 </div>
                             </div>
                             <h2><span
-                                className="mw-headline" id="Литература">My tech skills</span><span
+                                className="mw-headline" id="Литература">My tech stack</span><span
                                 className="mw-editsection"><span
                                 className="mw-editsection-bracket">[</span><a
 
@@ -449,14 +492,14 @@ export default function MainPage() {
                             title="Служебная:Категории">Categories</a>:
                             <ul>
                                 <li><a title="Really sussy, really nerd">Sussy nerds</a></li>
-                                <li><a title="Категория:Родившиеся в 2002 году">Teapot instructions</a></li>
-                                <li><a title="Категория:Родившиеся в Париже">"Stone" studio</a></li>
+                                <li><a title="Category:Teapot instructions">Teapot instructions</a></li>
+                                <li><a title="Category: Stone studio">"Stone" studio</a></li>
                                 <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces"
-                                       title="Категория:Умершие 4 июля">Top</a></li>
-                                <li><a title="Категория:Умершие в 1926 году">Alvin and the chipmunks</a></li>
+                                       title="Category: Top">Top</a></li>
+                                <li><a title="Category:Alvin and the chipmunks">Alvin and the chipmunks</a></li>
                                 <li><a title="Категория:Кавалеры ордена Священного сокровища 4 класса">Emo culture</a>
                                 </li>
-                                <li><a title="Категория:Персоналии по алфавиту">Toads in hats</a></li>
+                                <li><a title="Category: i really have a super nice straw hat">Toads in hats</a></li>
                                 <li>
                                     <a
                                         className="new" title="Категория:Военные дирижеры (страница отсутствует)">Военные
@@ -660,7 +703,7 @@ export default function MainPage() {
 
             <footer id="footer" className="mw-footer" role="contentinfo">
                 <ul id="footer-info">
-                    <li id="footer-info-lastmod"> This page was last edited on July 13, 2023, at 00:00.</li>
+                    <li id="footer-info-lastmod"> This page was last edited on September 3, 2023, at 12:40.</li>
                     <li id="footer-info-copyright">please do not try to sue me for licking the appearance and all the
                         CSS
                         tables
