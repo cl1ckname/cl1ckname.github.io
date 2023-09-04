@@ -1,4 +1,4 @@
-import {ReactNode, RefObject, useCallback, useEffect, useRef, useState} from "react";
+import {ReactNode, RefObject, useEffect, useRef, useState} from "react";
 
 interface PanCanvasOpts {
     children: (
@@ -24,37 +24,22 @@ function addPoints(p1: Point, p2: Point) {
     return {x: p1.x + p2.x, y: p1.y + p2.y}
 }
 
-function scalePoint(p1: Point, scale: number) {
-    return {x: p1.x * scale, y: p1.y * scale};
-}
-
 export default function PanCanvas(props: PanCanvasOpts) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
     const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
     const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
-    const [size, setSize] = useState<Point>(ORIGIN)
+
 
     useEffect(() => {
         if (canvasRef.current != null) {
             const canvasElem = canvasRef.current
-            const w = canvasElem.width
-            const h = canvasElem.height
-            setSize({x: w, y: h})
-        }
-    }, []);
-
-    useEffect(() => {
-        if (canvasRef.current != null) {
-            const canvasElem = canvasRef.current
-            const w = canvasElem.width
-            const h = canvasElem.height
-            // setSize({x: w, y: h})
+            const w = canvasRef.current.width
+            const h = canvasRef.current.height
 
             canvasElem.onmousedown = (ev: MouseEvent) => {
                 setStartPoint({x: ev.clientX, y: ev.clientY})
-                console.log("down", startPoint, {x: ev.clientX, y: ev.clientY})
             }
             canvasElem.onmousemove = (ev: MouseEvent) => {
                 if (startPoint != ORIGIN) {
@@ -63,7 +48,7 @@ export default function PanCanvas(props: PanCanvasOpts) {
                     setOffset(addPoints(startOffset, diffOffset))
                 }
             }
-            canvasElem.onmouseup = (ev: MouseEvent) => {
+            canvasElem.onmouseup = (_: MouseEvent) => {
                 if (startPoint != ORIGIN) {
                     setStartPoint(ORIGIN)
                     setStartOffset(offset)
@@ -74,12 +59,13 @@ export default function PanCanvas(props: PanCanvasOpts) {
                 let newScale = Math.max(scale + zoom, 0)
                 newScale = Math.min(newScale, 64)
                 setScale(newScale)
-                const c = {x: size.x * zoom / 2, y: size.y * zoom / 2}
+
+                const c = {x: w * zoom / 2, y: h * zoom / 2}
                 setOffset(prev => diffPoints(prev, c))
                 setStartOffset(offset)
             }
         }
-    }, [offset, scale, size, startOffset, startPoint, canvasRef.current]);
+    }, [offset, scale, startOffset, startPoint, canvasRef.current]);
 
 
     return <>
