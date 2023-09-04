@@ -35,6 +35,7 @@ export default function VectorCanvas(props: VectorCanvasProps) {
                 }
             ctx.closePath()
             ctx.fill()
+            // ctx.scale(1, props.w/props.h)
         }
     }, [canvasRef, props]);
 

@@ -1,4 +1,4 @@
-import {ReactNode, RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {ReactNode, RefObject, useCallback, useEffect, useRef, useState} from "react";
 
 interface PanCanvasOpts {
     children: (
@@ -9,7 +9,7 @@ interface PanCanvasOpts {
     ) => ReactNode
 }
 
-const ZOOM_SENSITIVITY = 1000
+const ZOOM_SENSITIVITY = 500
 type Point = {
     x: number;
     y: number;
@@ -25,123 +25,65 @@ function addPoints(p1: Point, p2: Point) {
 }
 
 function scalePoint(p1: Point, scale: number) {
-    return {x: p1.x / scale, y: p1.y / scale};
+    return {x: p1.x * scale, y: p1.y * scale};
 }
 
 export default function PanCanvas(props: PanCanvasOpts) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
-    const [mousePos, setMousePos] = useState<Point>(ORIGIN);
-    const [viewportTopLeft, setViewportTopLeft] = useState<Point>(ORIGIN);
-    const lastMousePosRef = useRef<Point>(ORIGIN)
-    const lastOffsetRef = useRef<Point>(ORIGIN);
+    const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
+    const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
+    const [size, setSize] = useState<Point>(ORIGIN)
 
     useEffect(() => {
-        lastOffsetRef.current = offset;
-    }, [offset]);
-
-    useEffect(() => {
-        if (canvasRef.current) {
-            setContext(canvasRef.current.getContext("2d"))
+        if (canvasRef.current != null) {
+            const canvasElem = canvasRef.current
+            const w = canvasElem.width
+            const h = canvasElem.height
+            setSize({x: w, y: h})
         }
-    }, [canvasRef.current]);
-
-
-    const mouseMove = useCallback(
-        (event: MouseEvent) => {
-            const lastMousePos = lastMousePosRef.current;
-            const currentMousePos = {x: event.pageX, y: event.pageY}; // use document so can pan off element
-            lastMousePosRef.current = currentMousePos;
-
-            const mouseDiff = scalePoint(diffPoints(currentMousePos, lastMousePos), 1/scale);
-            setOffset((prevOffset) => addPoints(prevOffset, mouseDiff));
-        },
-        [offset]
-    );
-
-    const mouseUp = useCallback(() => {
-        document.removeEventListener("mousemove", mouseMove);
-        document.removeEventListener("mouseup", mouseUp);
-    }, [mouseMove])
-
-    const startPan = useCallback(
-        (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-            document.addEventListener("mousemove", mouseMove);
-            document.addEventListener("mouseup", mouseUp);
-            lastMousePosRef.current = {x: event.pageX, y: event.pageY};
-        },
-        [mouseMove, mouseUp]
-    );
-
-    useEffect(() => {
-        const svgElem = canvasRef.current
-        if (svgElem == null) {
-            return
-        }
-
-        function handleWheel(event: WheelEvent) {
-            event.preventDefault()
-            if (context) {
-                const zoom = 1 - event.deltaY / ZOOM_SENSITIVITY;
-                const viewportTopLeftDelta = {
-                    x: (mousePos.x / scale) * (1 - 1 / zoom),
-                    y: (mousePos.y / scale) * (1 - 1 / zoom)
-                };
-                const newViewportTopLeft = addPoints(
-                    viewportTopLeft,
-                    viewportTopLeftDelta
-                );
-
-                setViewportTopLeft(newViewportTopLeft)
-                setScale(Math.min(scale * zoom, 10))
-                // context.reset()
-            }
-        }
-
-        svgElem.addEventListener("wheel", handleWheel)
-        return () => svgElem.removeEventListener("wheel", handleWheel);
-    }, [scale, viewportTopLeft]);
-
-    useEffect(() => {
-        if (lastOffsetRef.current) {
-            const offsetDiff = scalePoint(
-                diffPoints(offset, lastOffsetRef.current),
-                scale
-            );
-            setViewportTopLeft((prevVal) => diffPoints(prevVal, offsetDiff));
-        }
-    }, [scale]);
-
-    useEffect(() => {
-        const canvasElem = canvasRef.current
-        if (canvasElem == null) {
-            return
-        }
-
-        function handleUpdateMouse(event: MouseEvent) {
-            event.preventDefault()
-            if (canvasRef.current) {
-                const viewportMousePos = { x: event.clientX, y: event.clientY };
-                const topLeftCanvasPos = {
-                    x: canvasRef.current.offsetLeft,
-                    y: canvasRef.current.offsetTop
-                };
-                setMousePos(diffPoints(viewportMousePos, topLeftCanvasPos));
-            }
-        }
-        canvasElem.addEventListener("mousemove", handleUpdateMouse);
-        canvasElem.addEventListener("wheel", handleUpdateMouse);
-        // @ts-ignore
-        canvasElem.onmousedown = startPan
-        return () => {
-            canvasElem.removeEventListener("mousemove", handleUpdateMouse);
-            canvasElem.removeEventListener("wheel", handleUpdateMouse);
-        };
     }, []);
+
+    useEffect(() => {
+        if (canvasRef.current != null) {
+            const canvasElem = canvasRef.current
+            const w = canvasElem.width
+            const h = canvasElem.height
+            // setSize({x: w, y: h})
+
+            canvasElem.onmousedown = (ev: MouseEvent) => {
+                setStartPoint({x: ev.clientX, y: ev.clientY})
+                console.log("down", startPoint, {x: ev.clientX, y: ev.clientY})
+            }
+            canvasElem.onmousemove = (ev: MouseEvent) => {
+                if (startPoint != ORIGIN) {
+                    const cur = {x: ev.clientX, y: ev.clientY}
+                    const diffOffset = diffPoints(cur, startPoint)
+                    setOffset(addPoints(startOffset, diffOffset))
+                }
+            }
+            canvasElem.onmouseup = (ev: MouseEvent) => {
+                if (startPoint != ORIGIN) {
+                    setStartPoint(ORIGIN)
+                    setStartOffset(offset)
+                }
+            }
+            canvasElem.onwheel = (ev: WheelEvent) => {
+                const zoom = - ev.deltaY / ZOOM_SENSITIVITY
+                let newScale = Math.max(scale + zoom, 0)
+                newScale = Math.min(newScale, 64)
+                setScale(newScale)
+                const c = {x: size.x * zoom / 2, y: size.y * zoom / 2}
+                setOffset(prev => diffPoints(prev, c))
+                setStartOffset(offset)
+            }
+        }
+    }, [offset, scale, size, startOffset, startPoint, canvasRef.current]);
+
 
     return <>
         {props.children(scale, offset.x, offset.y, canvasRef)}
     </>
 }
+

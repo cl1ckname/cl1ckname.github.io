@@ -17,7 +17,7 @@ export default function TreeSVG(props: TreeProps) {
         {(scale, offsetX, offsetY, ref) =>
             <VectorCanvas
                 w={props.w}
-                h={props.h}
+                h={props.w}
                 polygons={path}
                 viewport={{
                     offsetX: offsetX,
