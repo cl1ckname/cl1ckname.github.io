@@ -82,52 +82,23 @@ export const squareByCoordinates = (x: number,
     return {points: [p1, p2, p3, p4], number: number, depth: depth, a: 0}
 }
 
-export default function generateSquare(A: number, n: number): Square[] {
-    const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(0, 0, 0.5, 1, n)
-    let leafs: Polygon[] = [firstSq]
-    let nodes: Polygon[] = []
-    const sqs: Square[] = []
-
-    for (let i = 0; i < n; i++) {
-        sqs.push(...(leafs.map(l => ({
-            p: center(l.points),
-            a: l.a,
-            depth: l.depth,
-            number: l.number,
-            side: Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))
-        }))))
-        nodes.push(...leafs)
-        leafs.length = 0
-        nodes.forEach(node => {
-            leafs.push(...produce(node))
-        })
-        nodes.length = 0
-    }
-    return sqs
-}
-
 export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, color: ColorFunction, width: number, heght: number, offsetX: number, offsetY: number) {
+    const factor = heght * heght / width
     const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(0, 0, 0.5, 1, n)
+    const firstSq = squareByCoordinates(0, 0, 1, 1, n)
     let leafs: Polygon[] = [firstSq]
     let nodes: Polygon[] = []
     ctx.reset()
-    const factor = heght * heght / width
+
     for (let i = 0; i < n; i++) {
         for (const l of leafs) {
-            const sq = {p: center(l.points), a: l.a, depth: l.depth, number: l.number, side: Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))}
-
-            ctx.fillStyle = color(sq.number, sq.depth)
-            const startX = sq.p.x * factor
-            const startY = sq.p.y * factor
-            const w = sq.side * factor
-            const h = sq.side * factor
-
-            // ctx.translate(offsetX+startX, offsetY+startY)
-            // ctx.rotate(-sq.a)
-            ctx.setTransform(1,0, 0, 1, offsetX+startX, offsetY+startY)
-            ctx.fillRect(-w/2, -h/2, w,h)
+            ctx.fillStyle = color(l.number, l.depth)
+            const start = center(l.points)
+            const b = Math.cos(l.a)
+            const a = Math.sin(l.a)
+            const side = factor * Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))
+            ctx.setTransform(a*side,b*side, -b*side, a*side, offsetX+start.x*factor, offsetY+start.y*factor)
+            ctx.fillRect(-0.5, -0.5, 1, 1)
             ctx.resetTransform()
         }
         nodes.push(...leafs)

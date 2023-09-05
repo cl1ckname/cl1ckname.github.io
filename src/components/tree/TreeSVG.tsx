@@ -1,4 +1,3 @@
-import generateSquare from "@/logic/tree/generator";
 import PanCanvas from "@/components/tree/PanCanvas";
 import VectorCanvas from "@/components/tree/VectorCanvas";
 import {ColorFunction} from "@/logic/tree/colors";
