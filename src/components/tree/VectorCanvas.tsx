@@ -11,7 +11,6 @@ interface VectorCanvasViewport {
 interface VectorCanvasProps {
     w: number
     h: number
-    squares: Square[]
     color: ColorFunction
     angle: number
     n: number
@@ -31,22 +30,9 @@ export default function VectorCanvas(props: VectorCanvasProps) {
             return
         }
 
-        drawTree(props.angle, props.n, ctx, props.color, width, height, offsetX, offsetY)
-        // ctx.reset()
-        //
-        // const factor = height * height / width
-        // props.squares.map(sq => {
-        //     ctx.fillStyle = props.color(sq.number, sq.depth)
-        //     const startX = sq.p.x * factor
-        //     const startY = sq.p.y * factor
-        //     const w = sq.side * factor
-        //     const h = sq.side * factor
-        //
-        //     ctx.translate(offsetX+startX, offsetY+startY)
-        //     ctx.rotate(-sq.a)
-        //     ctx.fillRect(-w/2, -h/2, w,h)
-        //     ctx.resetTransform()
-        // })
+        requestAnimationFrame(() => {
+            drawTree(props.angle, props.n, ctx, props.color, width, height, offsetX, offsetY)
+        })
     }, [canvasRef, props]);
 
     return <canvas

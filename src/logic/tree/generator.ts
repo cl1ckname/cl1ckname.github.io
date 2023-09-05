@@ -1,4 +1,5 @@
 import {ColorFunction} from "@/logic/tree/colors";
+import PolygonBlob from "@/logic/tree/polygonBlob";
 
 type Point = {
     x: number
@@ -86,27 +87,40 @@ export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, co
     const factor = heght * heght / width
     const produce = makeFigures(A)
     const firstSq = squareByCoordinates(0, 0, 1, 1, n)
-    let leafs: Polygon[] = [firstSq]
-    let nodes: Polygon[] = []
+    let leafs: PolygonBlob = new PolygonBlob(n)
+    leafs.add(firstSq)
+    let nodes: PolygonBlob = new PolygonBlob(n)
     ctx.reset()
 
+    function drawLeafs(j: number) {
+        const l = leafs.at(j)
+        ctx.fillStyle = color(l.number, l.depth)
+        const start = center(l.points)
+        const b = Math.cos(l.a)
+        const a = Math.sin(l.a)
+        const side = factor * Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))
+        ctx.setTransform(a * side, b * side, -b * side, a * side, offsetX + start.x * factor, offsetY + start.y * factor)
+        ctx.fillRect(-0.5, -0.5, 1, 1)
+        ctx.resetTransform()
+    }
+
     for (let i = 0; i < n; i++) {
-        for (const l of leafs) {
-            ctx.fillStyle = color(l.number, l.depth)
-            const start = center(l.points)
-            const b = Math.cos(l.a)
-            const a = Math.sin(l.a)
-            const side = factor * Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))
-            ctx.setTransform(a*side,b*side, -b*side, a*side, offsetX+start.x*factor, offsetY+start.y*factor)
-            ctx.fillRect(-0.5, -0.5, 1, 1)
-            ctx.resetTransform()
+        for (let j = 0; j < leafs.last; j++) {
+            drawLeafs(j);
         }
-        nodes.push(...leafs)
-        leafs.length = 0
-        for (const node of nodes) {
-            leafs.push(...produce(node))
+        for (let j = 0; j < leafs.last; j++) {
+            const l2cpy = leafs.at(j)
+            nodes.add(l2cpy)
         }
-        nodes.length = 0
+        // console.log(leafs)
+        leafs.clear()
+
+        for (let j = 0; j < nodes.last; j++) {
+            const [sq1, sq2] = produce(nodes.at(j))
+            leafs.add(sq1)
+            leafs.add(sq2)
+        }
+        nodes.clear()
     }
 }
 
