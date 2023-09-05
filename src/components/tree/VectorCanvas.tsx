@@ -1,5 +1,5 @@
 import {RefObject, useEffect} from "react";
-import {Polygon, Square} from "@/logic/tree/generator";
+import {drawTree, Polygon, Square} from "@/logic/tree/generator";
 import {ColorCollection, ColorFunction} from "@/logic/tree/colors";
 
 interface VectorCanvasViewport {
@@ -13,6 +13,8 @@ interface VectorCanvasProps {
     h: number
     squares: Square[]
     color: ColorFunction
+    angle: number
+    n: number
     viewport: VectorCanvasViewport
     canvasRef: RefObject<HTMLCanvasElement>
 }
@@ -28,28 +30,23 @@ export default function VectorCanvas(props: VectorCanvasProps) {
         if (!ctx) {
             return
         }
-        ctx.reset()
 
-        ctx.translate(offsetX, offsetY)
-        let i = 1;
-        // console.log(props.squares)
-        const factor = height * height / width
-        for (const sq of props.squares) {
-            ctx.fillStyle = props.color(sq.number, sq.depth)
-            const startX = sq.p.x * factor
-            const startY = sq.p.y * factor
-            const w = sq.side * factor
-            const h = sq.side * factor
-
-            ctx.save()
-            ctx.translate(startX, startY)
-            ctx.rotate(-sq.a)
-            ctx.fillRect(-w/2, -h/2, w,h)
-            ctx.restore()
-            // ctx.rotate(sq.a)
-            // ctx.translate(-startX, -startY)
-            i++
-        }
+        drawTree(props.angle, props.n, ctx, props.color, width, height, offsetX, offsetY)
+        // ctx.reset()
+        //
+        // const factor = height * height / width
+        // props.squares.map(sq => {
+        //     ctx.fillStyle = props.color(sq.number, sq.depth)
+        //     const startX = sq.p.x * factor
+        //     const startY = sq.p.y * factor
+        //     const w = sq.side * factor
+        //     const h = sq.side * factor
+        //
+        //     ctx.translate(offsetX+startX, offsetY+startY)
+        //     ctx.rotate(-sq.a)
+        //     ctx.fillRect(-w/2, -h/2, w,h)
+        //     ctx.resetTransform()
+        // })
     }, [canvasRef, props]);
 
     return <canvas

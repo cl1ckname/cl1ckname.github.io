@@ -1,3 +1,5 @@
+import {ColorFunction} from "@/logic/tree/colors";
+
 type Point = {
     x: number
     y: number
@@ -102,13 +104,39 @@ export default function generateSquare(A: number, n: number): Square[] {
         })
         nodes.length = 0
     }
-    // sqs.push(...(leafs.map(l => ({
-    //     p: l.points[0],
-    //     a: l.a,
-    //     depth: l.depth,
-    //     number: l.number
-    // }))))
     return sqs
+}
+
+export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, color: ColorFunction, width: number, heght: number, offsetX: number, offsetY: number) {
+    const produce = makeFigures(A)
+    const firstSq = squareByCoordinates(0, 0, 0.5, 1, n)
+    let leafs: Polygon[] = [firstSq]
+    let nodes: Polygon[] = []
+    ctx.reset()
+    const factor = heght * heght / width
+    for (let i = 0; i < n; i++) {
+        for (const l of leafs) {
+            const sq = {p: center(l.points), a: l.a, depth: l.depth, number: l.number, side: Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))}
+
+            ctx.fillStyle = color(sq.number, sq.depth)
+            const startX = sq.p.x * factor
+            const startY = sq.p.y * factor
+            const w = sq.side * factor
+            const h = sq.side * factor
+
+            // ctx.translate(offsetX+startX, offsetY+startY)
+            // ctx.rotate(-sq.a)
+            ctx.setTransform(1,0, 0, 1, offsetX+startX, offsetY+startY)
+            ctx.fillRect(-w/2, -h/2, w,h)
+            ctx.resetTransform()
+        }
+        nodes.push(...leafs)
+        leafs.length = 0
+        for (const node of nodes) {
+            leafs.push(...produce(node))
+        }
+        nodes.length = 0
+    }
 }
 
 function center(p: [Point, Point, Point, Point]): Point {
