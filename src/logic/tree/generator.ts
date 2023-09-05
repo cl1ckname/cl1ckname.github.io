@@ -43,7 +43,12 @@ export const makeFigures = (angle: number): (sq: Polygon) => [Polygon, Polygon] 
         let sp4 = {x: p[1].x + (p[1].x - p[2].x) * ldv, y: p[1].y + (p[1].y - p[2].y) * ldv}
 
 
-        let leftSquare: Polygon = {points: [sp3, sp4, p[1], p[0]], number: sq.number * 2, depth: sq.depth, a: sq.a + angle};
+        let leftSquare: Polygon = {
+            points: [sp3, sp4, p[1], p[0]],
+            number: sq.number * 2,
+            depth: sq.depth,
+            a: sq.a - angle
+        };
 
 
         size = Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2)
@@ -51,7 +56,12 @@ export const makeFigures = (angle: number): (sq: Polygon) => [Polygon, Polygon] 
         sp4 = {x: p[1].x + (p[1].x - p[0].x) * rdv, y: p[1].y + (p[1].y - p[0].y) * rdv}
         sp3 = {x: p[2].x + (p[1].x - p[0].x) * rdv, y: p[2].y + (p[1].y - p[0].y) * rdv}
 
-        const rightSquare: Polygon = {points: [sp4, sp3, p[2], p[1]], number: sq.number * 2 + 1, depth: sq.depth, a: sq.a - angle};
+        const rightSquare: Polygon = {
+            points: [sp4, sp3, p[2], p[1]],
+            number: sq.number * 2 + 1,
+            depth: sq.depth,
+            a: sq.a + (Math.PI / 2 - angle)
+        };
         return [rightSquare, leftSquare]
     }
 }
@@ -103,7 +113,7 @@ export default function generateSquare(A: number, n: number): Square[] {
 
 function center(p: [Point, Point, Point, Point]): Point {
     return {
-        x: p.reduce((i,j) => i+j.x , 0) / 4,
-        y: p.reduce((i,j) => i+j.y , 0) / 4,
+        x: p.reduce((i, j) => i + j.x, 0) / 4,
+        y: p.reduce((i, j) => i + j.y, 0) / 4,
     }
 }

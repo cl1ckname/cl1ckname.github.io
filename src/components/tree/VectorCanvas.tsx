@@ -30,10 +30,10 @@ export default function VectorCanvas(props: VectorCanvasProps) {
         }
         ctx.reset()
 
+        ctx.translate(offsetX, offsetY)
         let i = 1;
         // console.log(props.squares)
         const factor = height * height / width
-        ctx.translate(offsetX, offsetY)
         for (const sq of props.squares) {
             ctx.fillStyle = props.color(sq.number, sq.depth)
             const startX = sq.p.x * factor
@@ -41,22 +41,14 @@ export default function VectorCanvas(props: VectorCanvasProps) {
             const w = sq.side * factor
             const h = sq.side * factor
 
+            ctx.save()
             ctx.translate(startX, startY)
-            ctx.rotate(sq.a)
-            ctx.fillRect(-w/2, -h/2, w,h)
-            // ctx.reset()
             ctx.rotate(-sq.a)
-            ctx.translate(-startX, -startY)
+            ctx.fillRect(-w/2, -h/2, w,h)
+            ctx.restore()
+            // ctx.rotate(sq.a)
+            // ctx.translate(-startX, -startY)
             i++
-            // ctx.fill()
-            // ctx.beginPath()
-            // ctx.moveTo(offsetX + sq.points[0].x * width, offsetY + sq.points[0].y * height)
-            // for (const p of sq.points) {
-            //     ctx.lineTo(offsetX+ p.x * width, offsetY + p.y * height)
-            // }
-            // ctx.closePath()
-            // ctx.fill()
-            // ctx.scale(1, props.w/props.h)
         }
     }, [canvasRef, props]);
 
