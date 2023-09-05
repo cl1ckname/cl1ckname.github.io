@@ -1,5 +1,7 @@
 import {TreeParams} from "@/components/tree/Tree";
 import {Slider} from "@/components/slider";
+import ColorPicker from "@/components/tree/ColorPicker";
+import {ColorCollection} from "@/logic/tree/colors";
 
 interface TreeSettingsProps {
     tree: TreeParams,
@@ -19,6 +21,11 @@ export default function TreeSettings(props: TreeSettingsProps) {
             <label>Angle</label>
             <Slider min={0} max={90} value={treeCopy.angle / Math.PI * 2 * 90} onChange={(a) => {
                 treeCopy.angle = Math.PI / 2 / 90 * a
+                onChange(treeCopy)
+            }}/>
+            <label>Color</label>
+            <ColorPicker value={treeCopy.color} collection={ColorCollection} onChange={e => {
+                treeCopy.color = e
                 onChange(treeCopy)
             }}/>
         </fieldset>

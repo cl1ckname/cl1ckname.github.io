@@ -1,4 +1,6 @@
-import {RefObject, useEffect, useRef} from "react";
+import {RefObject, useEffect} from "react";
+import {Square} from "@/logic/tree/generator";
+import {ColorCollection, ColorFunction} from "@/logic/tree/colors";
 
 interface VectorCanvasViewport {
     offsetX: number
@@ -9,7 +11,8 @@ interface VectorCanvasViewport {
 interface VectorCanvasProps {
     w: number
     h: number
-    polygons: number[][]
+    squares: Square[]
+    color: ColorFunction
     viewport: VectorCanvasViewport
     canvasRef: RefObject<HTMLCanvasElement>
 }
@@ -26,19 +29,19 @@ export default function VectorCanvas(props: VectorCanvasProps) {
             return
         }
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
-        for (const p of props.polygons) {
-            ctx.fillStyle = '#f00'
+
+        for (const sq of props.squares) {
+            ctx.fillStyle = props.color(sq.number, sq.depth)
             ctx.beginPath()
-            ctx.moveTo(offsetX + p[0] * width, offsetY + p[1] * height)
-                for (let j = 2; j < p.length; j+=2) {
-                    ctx.lineTo(offsetX+ p[j] * width, offsetY + p[j+1] * height)
-                }
+            ctx.moveTo(offsetX + sq.points[0].x * width, offsetY + sq.points[0].y * height)
+            for (const p of sq.points) {
+                ctx.lineTo(offsetX+ p.x * width, offsetY + p.y * height)
+            }
             ctx.closePath()
             ctx.fill()
             // ctx.scale(1, props.w/props.h)
         }
     }, [canvasRef, props]);
-
 
     return <canvas
         ref={canvasRef}
