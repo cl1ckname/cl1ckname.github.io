@@ -31,6 +31,14 @@ export default function PanCanvas(props: PanCanvasOpts) {
     const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
     const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
 
+    useEffect(() => {
+        if (canvasRef.current != null) {
+            const canvasElem = canvasRef.current
+            const w = canvasRef.current.width
+            const h = canvasRef.current.height
+            setOffset({x: w / 2, y: h / 2})
+        }
+    }, [])
 
     useEffect(() => {
         if (canvasRef.current != null) {
@@ -55,7 +63,7 @@ export default function PanCanvas(props: PanCanvasOpts) {
                 }
             }
             canvasElem.onwheel = (ev: WheelEvent) => {
-                const zoom = - ev.deltaY / ZOOM_SENSITIVITY
+                const zoom = -ev.deltaY / ZOOM_SENSITIVITY
                 let newScale = Math.max(scale + zoom, 0)
                 newScale = Math.min(newScale, 64)
                 setScale(newScale)

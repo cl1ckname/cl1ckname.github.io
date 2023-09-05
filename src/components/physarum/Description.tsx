@@ -1,6 +1,6 @@
 export default function Description() {
     return <div className="description thin-scroll">
-        <h1>Physarum</h1>
+        <h1>Physarum.md</h1>
         <p>
 
             <a href="https://en.wikipedia.org/wiki/Physarum_polycephalum ">Physarum</a>&nbsp;
