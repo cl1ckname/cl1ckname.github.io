@@ -3,6 +3,7 @@ import TreeSVG from "@/components/tree/TreeSVG";
 import {useState} from "react";
 import TreeSettings from "@/components/tree/TreeSettings";
 import {ColorCollection} from "@/logic/tree/colors";
+import "@/styles/tree.css"
 
 
 export interface TreeParams {

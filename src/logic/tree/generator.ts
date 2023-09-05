@@ -36,7 +36,7 @@ export const makeFigures = (angle:number): (sq: Square) => [Square, Square] => {
         let sp4 = {x: p[1].x + (p[1].x - p[2].x)*ldv, y: p[1].y + (p[1].y - p[2].y)*ldv}
 
 
-        let leftSquare: Square = {points:[sp3, sp4, p[1], p[0]], number:  sq.number * 2, depth: sq.depth+1};
+        let leftSquare: Square = {points:[sp3, sp4, p[1], p[0]], number:  sq.number * 2, depth: sq.depth};
 
 
         size = Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2)
@@ -44,7 +44,7 @@ export const makeFigures = (angle:number): (sq: Square) => [Square, Square] => {
         sp4 = {x: p[1].x + (p[1].x - p[0].x)*rdv, y: p[1].y + (p[1].y - p[0].y)*rdv}
         sp3 = {x: p[2].x + (p[1].x - p[0].x)*rdv, y: p[2].y + (p[1].y - p[0].y)*rdv}
 
-        const rightSquare: Square = {points: [sp4, sp3, p[2], p[1]], number: sq.number * 2 + 1, depth: sq.depth+1};
+        const rightSquare: Square = {points: [sp4, sp3, p[2], p[1]], number: sq.number * 2 + 1, depth: sq.depth};
         return [rightSquare, leftSquare]
     }
 }
@@ -67,7 +67,7 @@ export default function generateSquare(A: number, n: number): Square[] {
     const CX = 0.5
     const CY = 0.5
     const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(CX, CY, 0.1, 1, 1)
+    const firstSq = squareByCoordinates(CX, CY, 0.1, 1, n)
     let leafs: Square[] = [firstSq]
     let nodes: Square[] = []
     const sqs: Square[] = [firstSq]

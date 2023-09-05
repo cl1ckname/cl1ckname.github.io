@@ -1,0 +1,12 @@
+.color-picker {
+    font-size: 1.2em;
+    text-align: center;
+    width: 100%;
+    border: 0;
+    background-color: rgba(211, 211, 211, 0.69);
+    margin-top: 0.4em;
+}
+
+.color-picker option {
+    font-size: 0.8em;
+}
