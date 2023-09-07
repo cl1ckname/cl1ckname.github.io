@@ -1,6 +1,7 @@
-import {ReactNode, RefObject, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {ColorFunction} from "@/logic/tree/colors";
 import {drawTree} from "@/logic/tree/generator";
+import ViewportCanvas from "@/components/viewportCanvas";
 
 interface PanCanvasOpts {
     w: number
@@ -10,7 +11,6 @@ interface PanCanvasOpts {
     color: ColorFunction
 }
 
-const ZOOM_SENSITIVITY = 1000
 type Point = {
     x: number;
     y: number;
@@ -21,8 +21,8 @@ function diffPoints(p1: Point, p2: Point) {
     return {x: p1.x - p2.x, y: p1.y - p2.y};
 }
 
-function addPoints(p1: Point, p2: Point) {
-    return {x: p1.x + p2.x, y: p1.y + p2.y}
+function mulPoint(p1: Point, a: number) {
+    return {x: p1.x * a, y: p1.y * a}
 }
 
 export default function TreeCanvas(props: PanCanvasOpts) {
@@ -30,8 +30,6 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     const virtualRef = useRef<HTMLCanvasElement>(null)
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
-    const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
-    const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
     const [ctx, setCtx] = useState<CanvasRenderingContext2D>()
 
     function redraw() {
@@ -53,47 +51,20 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         ctx.fillRect(0, 0, props.w, props.h)
         ctx.scale(scale, scale)
         ctx.drawImage(ctx2.canvas, offset.x, offset.y)
-
     }
 
     useEffect(() => {
-        if (canvasRef.current != null) {
-            const canvasElem = canvasRef.current
-            const w = canvasRef.current.width
-            const h = canvasRef.current.height
+        redraw()
+    }, [virtualRef.current, ctx, offset, scale]);
 
-            canvasElem.onmousedown = (ev: MouseEvent) => {
-                setStartPoint({x: ev.clientX, y: ev.clientY})
-            }
-            canvasElem.onmousemove = (ev: MouseEvent) => {
-                if (startPoint != ORIGIN) {
-                    const cur = {x: ev.clientX, y: ev.clientY}
-                    const diffOffset = diffPoints(cur, startPoint)
-                    setOffset(addPoints(startOffset, diffOffset))
-                    redraw()
-                }
-            }
-            canvasElem.onmouseup = (_: MouseEvent) => {
-                if (startPoint != ORIGIN) {
-                    setStartPoint(ORIGIN)
-                    setStartOffset(offset)
-                    redraw()
-                }
-            }
-            canvasElem.onwheel = (ev: WheelEvent) => {
-                const zoom = -ev.deltaY / ZOOM_SENSITIVITY
-                let newScale = Math.max(scale + zoom, 0)
-                newScale = Math.min(newScale, 64)
-                newScale = Math.max(newScale, 1)
-                setScale(newScale)
+    function onPan(delta: number) {
+        setScale(prev => prev + delta)
+    }
 
-                const c = {x: w * zoom / 2, y: h * zoom / 2}
-                setOffset(prev => diffPoints(prev, c))
-                setStartOffset(offset)
-                redraw()
-            }
-        }
-    }, [offset, scale, startOffset, startPoint, canvasRef.current, ctx]);
+    function onDrag(delta: Point) {
+        const scaledDelta = mulPoint(delta, 1/scale)
+        setOffset(diffPoints(offset, scaledDelta))
+    }
 
     useEffect(() => {
         if (!canvasRef.current) {
@@ -115,7 +86,6 @@ export default function TreeCanvas(props: PanCanvasOpts) {
             return
         }
 
-
         if (ctx.canvas.width) {
             drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h)
             redraw()
@@ -124,9 +94,15 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     }, [canvasRef, ctx, props]);
 
     return <div className={"tree"}>
-        <canvas ref={canvasRef}
-                width={props.w}
-                height={props.h}/>
+        <ViewportCanvas
+            onPan={onPan}
+            onScroll={onPan}
+            onDrag={onDrag}
+            width={props.w}
+            height={props.h}
+            ref={canvasRef}
+
+        />
         <canvas style={{display: "none"}}
                 ref={virtualRef}
                 width={props.w}
