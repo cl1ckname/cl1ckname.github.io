@@ -27,6 +27,7 @@ function addPoints(p1: Point, p2: Point) {
 
 export default function PanCanvas(props: PanCanvasOpts) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const virtualRef = useRef<HTMLCanvasElement>(null)
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
     const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
@@ -41,9 +42,17 @@ export default function PanCanvas(props: PanCanvasOpts) {
         if (!imdata) {
             return
         }
+        if (!virtualRef.current) {
+            return;
+        }
+        const ctx2 = virtualRef.current.getContext("2d")
+        if (!ctx2) {
+            return
+        }
         ctx.reset()
-        // ctx.setTransform(scale, 0, 0, scale, offset.x, offset.y)
-        ctx.putImageData(imdata, 0,0)
+        ctx.scale(scale, scale)
+        ctx.drawImage(ctx2.canvas, offset.x, offset.y)
+
     }
 
     useEffect(() => {
@@ -93,16 +102,32 @@ export default function PanCanvas(props: PanCanvasOpts) {
         }
         setCtx(ctx)
 
+        if (!virtualRef.current) {
+            return
+        }
+        const virtualCtx = virtualRef.current.getContext("2d")
+        if (!virtualCtx) {
+            return
+        }
+
+
         if (ctx.canvas.width) {
-            drawTree(props.angle, props.n, ctx, props.color, props.w, props.h)
+            drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h)
             setImdata(ctx.getImageData(0, 0, props.w, props.h))
             redraw()
         }
 
     }, [canvasRef, ctx, props]);
 
-    return <canvas  ref={canvasRef}
-                    width={props.w}
-                    height={props.h}/>
+    return <>
+        <canvas ref={canvasRef}
+                width={props.w}
+                height={props.h}/>
+        <canvas style={{}}
+                ref={virtualRef}
+                width={props.w}
+                height={props.h}
+        />
+    </>
 }
 
