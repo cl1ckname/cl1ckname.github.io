@@ -24,7 +24,7 @@ const generateGradient = (color1: number, color2: number) => {
     const g2 = Math.floor(color2 / 16 ** 2) % 16 ** 2
     const b2 = color2 % 16 ** 2
     return (number: number, depth: number) => {
-        const stage = number / depth
+        const stage = Math.log2(number) / depth
         const r = Math.floor((r1 * (1 - stage) + r2 * stage))
         const g = Math.floor((g1 * (1 - stage) + g2 * stage))
         const b = Math.floor((b1 * (1 - stage) + b2 * stage))
@@ -75,7 +75,7 @@ export const NoSignal = (number: number, depth: number) => {
 export const ColorCollection: ColorCollectionElement[] = [
     {func: violetGrow, name: 'VioletGrow'},
     {func: Gradient, name: 'Gradient'},
-    {func: Flare, name: 'Flare'},
+    {func: generateGradient(0xf12711, 0xf5af19), name: 'Flare'},
     {func: generateGradient(0xc31432, 0x240b36), name: 'Witching Hour'},
     {func: generateGradient(0x74ebd5, 0xACB6E5), name: 'Digital Water'},
     {func: generateGradient(0x155799, 0x159957), name: 'Crystal Clear'},

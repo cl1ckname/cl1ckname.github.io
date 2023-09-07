@@ -11,25 +11,11 @@ interface TreeProps {
 }
 
 export default function TreeSVG(props: TreeProps) {
-    // const squares = generateSquare(props.angle, props.n)
-
-    return <PanCanvas>
-        {(scale, offsetX, offsetY, ref) =>
-            <VectorCanvas
-                w={props.w}
-                h={props.w}
-                squares={[]}
-                angle={props.angle}
-                n={props.n}
-                viewport={{
-                    offsetX: offsetX,
-                    offsetY: offsetY,
-                    height: props.h * scale,
-                    width: props.w * scale
-                }}
-                color={props.color}
-                canvasRef={ref}
-            />
-                }
-            </PanCanvas>
-        }
+    return <PanCanvas
+        w={props.w}
+        h={props.w}
+        angle={props.angle}
+        n={props.n}
+        color={props.color}
+    />
+}

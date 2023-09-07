@@ -83,15 +83,15 @@ export const squareByCoordinates = (x: number,
     return {points: [p1, p2, p3, p4], number: number, depth: depth, a: 0}
 }
 
-export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, color: ColorFunction, width: number, heght: number, offsetX: number, offsetY: number) {
+export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, color: ColorFunction, width: number, heght: number) {
     const factor = heght * heght / width
     const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(0, 0, 1, 1, n)
+    const firstSq = squareByCoordinates(0.5, 0.5, 0.125, 1, n)
     let leafs: PolygonBlob = new PolygonBlob(n)
     leafs.add(firstSq)
     let nodes: PolygonBlob = new PolygonBlob(n)
     ctx.reset()
-
+    ctx.lineWidth = 0.1
     function drawLeafs(j: number) {
         const l = leafs.at(j)
         ctx.fillStyle = color(l.number, l.depth)
@@ -99,8 +99,9 @@ export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, co
         const b = Math.cos(l.a)
         const a = Math.sin(l.a)
         const side = factor * Math.sqrt((Math.pow(l.points[0].x - l.points[1].x, 2) + Math.pow(l.points[0].y - l.points[1].y, 2)))
-        ctx.setTransform(a * side, b * side, -b * side, a * side, offsetX + start.x * factor, offsetY + start.y * factor)
+        ctx.setTransform(a * side, b * side, -b * side, a * side, start.x * factor, start.y * factor)
         ctx.fillRect(-0.5, -0.5, 1, 1)
+        ctx.strokeRect(-0.5, -0.5, 1,1)
         ctx.resetTransform()
     }
 

@@ -1,12 +1,13 @@
 import {ReactNode, RefObject, useEffect, useRef, useState} from "react";
+import {ColorFunction} from "@/logic/tree/colors";
+import {drawTree} from "@/logic/tree/generator";
 
 interface PanCanvasOpts {
-    children: (
-        scale: number,
-        offsetX: number,
-        offsetY: number,
-        ref: RefObject<HTMLCanvasElement>
-    ) => ReactNode
+    w: number
+    h: number
+    angle: number
+    n: number
+    color: ColorFunction
 }
 
 const ZOOM_SENSITIVITY = 500
@@ -30,15 +31,20 @@ export default function PanCanvas(props: PanCanvasOpts) {
     const [offset, setOffset] = useState<Point>(ORIGIN);
     const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
     const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
+    const [ctx, setCtx] = useState<CanvasRenderingContext2D>()
+    const [imdata, setImdata] = useState<ImageData>()
 
-    useEffect(() => {
-        if (canvasRef.current != null) {
-            const canvasElem = canvasRef.current
-            const w = canvasRef.current.width
-            const h = canvasRef.current.height
-            setOffset({x: w / 2, y: h / 2})
+    function redraw() {
+        if (!ctx) {
+            return;
         }
-    }, [])
+        if (!imdata) {
+            return
+        }
+        ctx.reset()
+        // ctx.setTransform(scale, 0, 0, scale, offset.x, offset.y)
+        ctx.putImageData(imdata, 0,0)
+    }
 
     useEffect(() => {
         if (canvasRef.current != null) {
@@ -60,6 +66,7 @@ export default function PanCanvas(props: PanCanvasOpts) {
                 if (startPoint != ORIGIN) {
                     setStartPoint(ORIGIN)
                     setStartOffset(offset)
+                    redraw()
                 }
             }
             canvasElem.onwheel = (ev: WheelEvent) => {
@@ -71,13 +78,31 @@ export default function PanCanvas(props: PanCanvasOpts) {
                 const c = {x: w * zoom / 2, y: h * zoom / 2}
                 setOffset(prev => diffPoints(prev, c))
                 setStartOffset(offset)
+                redraw()
             }
         }
-    }, [offset, scale, startOffset, startPoint, canvasRef.current]);
+    }, [offset, scale, startOffset, startPoint, canvasRef.current, ctx]);
 
+    useEffect(() => {
+        if (!canvasRef.current) {
+            return
+        }
+        const ctx = canvasRef.current.getContext("2d")
+        if (!ctx) {
+            return
+        }
+        setCtx(ctx)
 
-    return <>
-        {props.children(scale, offset.x, offset.y, canvasRef)}
-    </>
+        if (ctx.canvas.width) {
+            drawTree(props.angle, props.n, ctx, props.color, props.w, props.h)
+            setImdata(ctx.getImageData(0, 0, props.w, props.h))
+            redraw()
+        }
+
+    }, [canvasRef, ctx, props]);
+
+    return <canvas  ref={canvasRef}
+                    width={props.w}
+                    height={props.h}/>
 }
 
