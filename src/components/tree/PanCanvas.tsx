@@ -33,19 +33,17 @@ export default function PanCanvas(props: PanCanvasOpts) {
     const [startPoint, setStartPoint] = useState<Point>(ORIGIN)
     const [startOffset, setStartOffset] = useState<Point>(ORIGIN)
     const [ctx, setCtx] = useState<CanvasRenderingContext2D>()
-    const [imdata, setImdata] = useState<ImageData>()
 
     function redraw() {
         if (!ctx) {
             return;
         }
-        if (!imdata) {
-            return
-        }
         if (!virtualRef.current) {
             return;
         }
-        const ctx2 = virtualRef.current.getContext("2d")
+        const ctx2 = virtualRef.current.getContext("2d", {
+            willReadFrequently: true
+        })
         if (!ctx2) {
             return
         }
@@ -82,6 +80,7 @@ export default function PanCanvas(props: PanCanvasOpts) {
                 const zoom = -ev.deltaY / ZOOM_SENSITIVITY
                 let newScale = Math.max(scale + zoom, 0)
                 newScale = Math.min(newScale, 64)
+                newScale = Math.max(newScale, 1)
                 setScale(newScale)
 
                 const c = {x: w * zoom / 2, y: h * zoom / 2}
@@ -105,7 +104,9 @@ export default function PanCanvas(props: PanCanvasOpts) {
         if (!virtualRef.current) {
             return
         }
-        const virtualCtx = virtualRef.current.getContext("2d")
+        const virtualCtx = virtualRef.current.getContext("2d", {
+            willReadFrequently: true
+        })
         if (!virtualCtx) {
             return
         }
@@ -113,7 +114,6 @@ export default function PanCanvas(props: PanCanvasOpts) {
 
         if (ctx.canvas.width) {
             drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h)
-            setImdata(ctx.getImageData(0, 0, props.w, props.h))
             redraw()
         }
 
