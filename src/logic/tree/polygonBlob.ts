@@ -1,4 +1,4 @@
-import {Polygon} from "@/logic/tree/generator";
+import {Square} from "@/logic/tree/generator";
 
 export default class PolygonBlob {
 
@@ -13,7 +13,7 @@ export default class PolygonBlob {
         this.buffer = new Float32Array(10 * this.len)
     }
     
-    at(i: number): Polygon {
+    at(i: number): Square {
         if (i >= this.last) {
             throw "arrrgr"
         }
@@ -31,7 +31,7 @@ export default class PolygonBlob {
         }
     }
 
-    add(p: Polygon) {
+    add(p: Square) {
         const offset = this.last * 10
 
         for (let i = 0; i < 4; i++) {

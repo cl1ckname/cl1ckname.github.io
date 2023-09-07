@@ -18,6 +18,7 @@ body {
 .options-menu {
     min-width: 35vw;
     height: fit-content;
+    min-height: 100vh;
     max-height: 100vh;
     /*top: 0;*/
     /*left: 0;*/

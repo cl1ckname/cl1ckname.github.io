@@ -10,7 +10,7 @@ interface PanCanvasOpts {
     color: ColorFunction
 }
 
-const ZOOM_SENSITIVITY = 500
+const ZOOM_SENSITIVITY = 1000
 type Point = {
     x: number;
     y: number;
@@ -25,7 +25,7 @@ function addPoints(p1: Point, p2: Point) {
     return {x: p1.x + p2.x, y: p1.y + p2.y}
 }
 
-export default function PanCanvas(props: PanCanvasOpts) {
+export default function TreeCanvas(props: PanCanvasOpts) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const virtualRef = useRef<HTMLCanvasElement>(null)
     const [scale, setScale] = useState<number>(1);
@@ -47,7 +47,10 @@ export default function PanCanvas(props: PanCanvasOpts) {
         if (!ctx2) {
             return
         }
-        ctx.reset()
+        // ctx.reset()
+        ctx.setTransform(1,0,0,1,0,0)
+        ctx.fillStyle = "#fff"
+        ctx.fillRect(0, 0, props.w, props.h)
         ctx.scale(scale, scale)
         ctx.drawImage(ctx2.canvas, offset.x, offset.y)
 
@@ -67,6 +70,7 @@ export default function PanCanvas(props: PanCanvasOpts) {
                     const cur = {x: ev.clientX, y: ev.clientY}
                     const diffOffset = diffPoints(cur, startPoint)
                     setOffset(addPoints(startOffset, diffOffset))
+                    redraw()
                 }
             }
             canvasElem.onmouseup = (_: MouseEvent) => {
@@ -119,15 +123,15 @@ export default function PanCanvas(props: PanCanvasOpts) {
 
     }, [canvasRef, ctx, props]);
 
-    return <>
+    return <div className={"tree"}>
         <canvas ref={canvasRef}
                 width={props.w}
                 height={props.h}/>
-        <canvas style={{}}
+        <canvas style={{display: "none"}}
                 ref={virtualRef}
                 width={props.w}
                 height={props.h}
         />
-    </>
+    </div>
 }
 

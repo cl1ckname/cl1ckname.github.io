@@ -1,5 +1,5 @@
 import {FullfillContrainer} from "@/components/FullfillContainer";
-import TreeSVG from "@/components/tree/TreeSVG";
+import TreeCanvas from "@/components/tree/TreeCanvas";
 import {useState} from "react";
 import TreeSettings from "@/components/tree/TreeSettings";
 import {ColorCollection} from "@/logic/tree/colors";
@@ -28,8 +28,8 @@ export default function Tree() {
         </div>
         <FullfillContrainer>
             {(wh) => {
-                return <TreeSVG w={wh[0]} h={wh[1]} angle={settings.angle} n={settings.n}
-                                color={ColorCollection[settings.color].func}/>
+                return <TreeCanvas w={wh[0]} h={wh[1]} angle={settings.angle} n={settings.n}
+                             color={ColorCollection[settings.color].func}/>
             }}
         </FullfillContrainer>
 

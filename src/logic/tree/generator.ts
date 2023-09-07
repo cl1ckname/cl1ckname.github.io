@@ -14,22 +14,13 @@ const rotate = (o: Point, p: Point, angle: number) => {
     return {x: c * dx - s * dy + o.x, y: s * dx + c * dy + o.y}
 }
 
-export type Polygon = {
-    points: [Point, Point, Point, Point]
-    a: number
-    number: number
-    depth: number
-}
-
 export type Square = {
-    p: Point
-    a: number
+    points: [Point, Point, Point, Point]
     number: number
     depth: number
-    side: number
 }
-export const makeFigures = (angle: number): (sq: Polygon) => [Polygon, Polygon] => {
-    return (sq: Polygon): [Polygon, Polygon] => {
+export const makeFigures = (angle: number): (sq: Square) => [Square, Square] => {
+    return (sq: Square): [Square, Square] => {
         let tp3: Point
         {
             const p = sq.points
@@ -46,11 +37,10 @@ export const makeFigures = (angle: number): (sq: Polygon) => [Polygon, Polygon] 
         let sp4 = {x: p[1].x + (p[1].x - p[2].x) * ldv, y: p[1].y + (p[1].y - p[2].y) * ldv}
 
 
-        let leftSquare: Polygon = {
+        let leftSquare: Square = {
             points: [sp3, sp4, p[1], p[0]],
             number: sq.number * 2,
             depth: sq.depth,
-            a: sq.a - angle
         };
 
 
@@ -59,11 +49,10 @@ export const makeFigures = (angle: number): (sq: Polygon) => [Polygon, Polygon] 
         sp4 = {x: p[1].x + (p[1].x - p[0].x) * rdv, y: p[1].y + (p[1].y - p[0].y) * rdv}
         sp3 = {x: p[2].x + (p[1].x - p[0].x) * rdv, y: p[2].y + (p[1].y - p[0].y) * rdv}
 
-        const rightSquare: Polygon = {
+        const rightSquare: Square = {
             points: [sp4, sp3, p[2], p[1]],
             number: sq.number * 2 + 1,
             depth: sq.depth,
-            a: sq.a + (Math.PI / 2 - angle)
         };
         return [rightSquare, leftSquare]
     }
@@ -73,36 +62,45 @@ export const squareByCoordinates = (x: number,
                                     y: number,
                                     size: number,
                                     number: number,
-                                    depth: number): Polygon => {
+                                    depth: number): Square => {
 
     const p1 = {x: x - size / 2, y: y - size / 2}
     const p2 = {x: x + size / 2, y: y - size / 2}
     const p3 = {x: x + size / 2, y: y + size / 2}
     const p4 = {x: x - size / 2, y: y + size / 2}
 
-    return {points: [p1, p2, p3, p4], number: number, depth: depth, a: 0}
+    return {points: [p1, p2, p3, p4], number: number, depth: depth}
 }
 
-export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, color: ColorFunction, width: number, heght: number) {
-    const factor = heght * heght / width
+export function drawTree(
+        A: number,
+        n: number,
+        ctx: CanvasRenderingContext2D,
+        color: ColorFunction,
+        width: number,
+        height: number
+    ) {
     const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(width/2, heght/2, 100, 1, n)
+    const firstSq = squareByCoordinates(width/2, height/2, 100, 1, n)
     let leafs: PolygonBlob = new PolygonBlob(n)
     leafs.add(firstSq)
     let nodes: PolygonBlob = new PolygonBlob(n)
-    ctx.reset()
-    ctx.lineWidth = 0.1
+
+    ctx.setTransform(1,0,0,1,0,0)
+    ctx.fillStyle = "#fff"
+    ctx.fillRect(0, 0, width, height)
     function drawLeafs(j: number) {
         const l = leafs.at(j)
         ctx.fillStyle = color(l.number, l.depth)
+        ctx.lineWidth = 10 * Math.pow(0.707106, Math.log2(l.number))
         ctx.beginPath()
+        ctx.moveTo(l.points[0].x, l.points[0].y)
         for (let i = 1; i < 4; i++) {
             ctx.lineTo(l.points[i].x, l.points[i].y)
         }
         ctx.lineTo(l.points[0].x, l.points[0].y)
         ctx.fill()
-
-        // ctx.resetTransform()
+        ctx.stroke()
     }
 
     for (let i = 0; i < n; i++) {
@@ -122,12 +120,5 @@ export function drawTree(A: number, n: number, ctx: CanvasRenderingContext2D, co
             leafs.add(sq2)
         }
         nodes.clear()
-    }
-}
-
-function center(p: [Point, Point, Point, Point]): Point {
-    return {
-        x: p.reduce((i, j) => i + j.x, 0) / 4,
-        y: p.reduce((i, j) => i + j.y, 0) / 4,
     }
 }
