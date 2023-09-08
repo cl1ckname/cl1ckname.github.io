@@ -2,6 +2,7 @@ import {TreeParams} from "@/components/tree/Tree";
 import {Slider} from "@/components/slider";
 import ColorPicker from "@/components/tree/ColorPicker";
 import {ColorCollection} from "@/logic/tree/colors";
+import Sin from "@/components/tree/Sin";
 
 interface TreeSettingsProps {
     tree: TreeParams,
@@ -37,9 +38,11 @@ export default function TreeSettings(props: TreeSettingsProps) {
                     onChange(treeCopy)
                 }}/>
             </fieldset>
-            <label>amplitude</label>
-            <Slider min={0} max={Math.PI * 100 / 2} value={treeCopy.amplitude * 100} onChange={e => {
-                treeCopy.amplitude = e / 100
+
+            <label> Wobbling</label>
+            <Sin w={treeCopy.frequency} a={treeCopy.amplitude} onChange={(w,a) => {
+                treeCopy.amplitude = a
+                treeCopy.frequency = w
                 onChange(treeCopy)
             }}/>
 

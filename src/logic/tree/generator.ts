@@ -1,4 +1,4 @@
-import {ColorFunction} from "@/logic/tree/colors";
+import {ColorCollection, ColorFunction} from "@/logic/tree/colors";
 import PolygonBlob from "@/logic/tree/polygonBlob";
 
 type Point = {
@@ -70,44 +70,52 @@ export const makeFigures = (angle: number, branchLong: number, alternation: bool
     }
 }
 
-export const squareByCoordinates = (x: number,
-                                    y: number,
-                                    size: number,
-                                    number: number,
-                                    depth: number,
-                                    branchLong: number): Square => {
-
+interface SquareProps {
+    x: number,
+    y: number,
+    size: number,
+    depth: number,
+    branchLong: number
+}
+export const squareByCoordinates = (props: SquareProps): Square => {
+    const {x, y, size, branchLong } = props
     const p1 = {x: x - size / 2, y: y - (size*branchLong) / 2}
     const p2 = {x: x + size / 2, y: y - (size*branchLong) / 2}
     const p3 = {x: x + size / 2, y: y + (size*branchLong) / 2}
     const p4 = {x: x - size / 2, y: y + (size*branchLong) / 2}
 
-    return {points: [p1, p2, p3, p4], number: number, depth: depth}
+    return {points: [p1, p2, p3, p4], number: 1, depth: props.depth}
 }
 
-export function drawTree(
-        A: number,
-        n: number,
-        ctx: CanvasRenderingContext2D,
-        color: ColorFunction,
-        width: number,
-        height: number,
-        branchLong: number,
-        alternation: boolean,
-        factor: number,
-        nauting: number,
-    ) {
-    width *= factor
-    height *= factor
-    const produce = makeFigures(A, branchLong, alternation, nauting)
-    const firstSq = squareByCoordinates(width/2, height/2, width/factor/10, 1, n, branchLong)
-    let leafs: PolygonBlob = new PolygonBlob(n)
-    leafs.add(firstSq)
-    let nodes: PolygonBlob = new PolygonBlob(n)
 
+interface DrawTreeProps {
+    angle: number,
+    n: number,
+    ctx: CanvasRenderingContext2D,
+    color: number,
+    w: number,
+    h: number,
+    branchLong: number,
+    alternation: boolean,
+    factor: number,
+    nauting: number
+}
+export function drawTree(props: DrawTreeProps) {
+    let {w, h, factor, ctx, branchLong} = props
+    w *= factor
+    h *= factor
+    const produce = makeFigures(props.angle, branchLong, props.alternation, props.nauting)
+    const firstSq = squareByCoordinates({
+        x: w/2, y: h/2, size: w/factor/10, depth: props.n, branchLong
+    })
+    let leafs: PolygonBlob = new PolygonBlob(props.n)
+    leafs.add(firstSq)
+    let nodes: PolygonBlob = new PolygonBlob(props.n)
+
+    const color = ColorCollection[props.color].func
     ctx.setTransform(1,0,0,1,0,0)
     ctx.fillStyle = "#fff"
-    ctx.fillRect(0, 0, width, height)
+    ctx.fillRect(0, 0, w, h)
     function drawLeafs(j: number) {
         const l = leafs.at(j)
         ctx.fillStyle = color(l.number, l.depth)
@@ -122,7 +130,7 @@ export function drawTree(
         ctx.stroke()
     }
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < props.n; i++) {
         for (let j = 0; j < leafs.last; j++) {
             drawLeafs(j);
         }

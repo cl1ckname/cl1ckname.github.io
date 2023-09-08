@@ -2,16 +2,12 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import {ColorFunction} from "@/logic/tree/colors";
 import {drawTree} from "@/logic/tree/generator";
 import ViewportCanvas from "@/components/viewportCanvas";
+import {TreeParams} from "@/components/tree/Tree";
 
-interface PanCanvasOpts {
+interface PanCanvasOpts{
     w: number
     h: number
-    angle: number
-    n: number
-    color: ColorFunction
-    branchLong: number
-    alternation: boolean
-    amplitude: number
+    treeParams: TreeParams
 }
 
 type Point = {
@@ -95,32 +91,30 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         if (!virtualCtx) {
             return
         }
-        if (ctx.canvas.width) {
-            drawTree(
-                props.angle,
-                props.n, virtualCtx,
-                props.color,
-                props.w,
-                props.h,
-                props.branchLong,
-                props.alternation,
-                FACTOR,
-                nauting
-            )
-            redraw()
+        if (!ctx.canvas.width) {
+            return;
         }
+        drawTree({
+            ...props.treeParams,
+            w: props.w,
+            h: props.h,
+            ctx: virtualCtx,
+            factor: FACTOR,
+            nauting: nauting,
+        })
+        redraw()
 
     }, [canvasRef, ctx, props, nauting, time]);
 
 
     useEffect(() => {
         const animate = () => {
-            setNauting(props.amplitude * Math.sin(time))
-            setTime(prev => prev + 0.01)
+            setNauting(props.treeParams.amplitude * Math.sin(time))
+            setTime(prev => prev + props.treeParams.frequency)
         }
         let timeId = requestAnimationFrame(animate)
         return () => cancelAnimationFrame(timeId)
-    }, [time]);
+    }, [time, nauting]);
 
     return <div className={"tree"}>
         <ViewportCanvas

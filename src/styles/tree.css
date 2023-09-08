@@ -1,3 +1,7 @@
+fieldset {
+    margin-bottom: 1em;
+}
+
 .tree {
     min-height: 500px;
     width: 100%;
@@ -14,4 +18,13 @@
 
 .color-picker option {
     font-size: 0.8em;
+}
+
+.sin {
+
+}
+
+.sin input {
+    width: 4em;
+    background-color: rgb(235, 235,235);
 }

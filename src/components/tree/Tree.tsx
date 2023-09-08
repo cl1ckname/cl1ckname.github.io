@@ -2,7 +2,6 @@ import {FullfillContrainer} from "@/components/FullfillContainer";
 import TreeCanvas from "@/components/tree/TreeCanvas";
 import {useState} from "react";
 import TreeSettings from "@/components/tree/TreeSettings";
-import {ColorCollection} from "@/logic/tree/colors";
 import "@/styles/tree.css"
 
 
@@ -13,6 +12,7 @@ export interface TreeParams {
     branchLong: number
     alternation: boolean
     amplitude: number
+    frequency: number
 }
 
 export default function Tree() {
@@ -23,7 +23,8 @@ export default function Tree() {
         color: 0,
         branchLong: 1,
         alternation: false,
-        amplitude: 0
+        amplitude: 0,
+        frequency: 0.01
     })
 
 
@@ -37,12 +38,7 @@ export default function Tree() {
                 return <TreeCanvas
                     w={wh[0]}
                     h={wh[1]}
-                    angle={settings.angle}
-                    n={settings.n}
-                    color={ColorCollection[settings.color].func}
-                    branchLong={settings.branchLong}
-                    alternation={settings.alternation}
-                    amplitude={settings.amplitude}
+                    treeParams={settings}
                 />
             }}
         </FullfillContrainer>
