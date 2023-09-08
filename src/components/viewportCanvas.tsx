@@ -55,14 +55,12 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
 
 
     function onMouseDragStart(event: MouseEvent<HTMLCanvasElement>) {
-        event.preventDefault()
         event.stopPropagation()
         setIsDrag(true);
         setPointStart(getMouseEventPoint(event));
     }
 
     function onTouchDragStart(event: TouchEvent) {
-        event.preventDefault()
         event.stopPropagation()
         if (event.touches.length === 1) {
             setIsDrag(true);
@@ -79,26 +77,22 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
     }
 
     function onDragEnd(event: any) {
-        event.preventDefault()
         event.stopPropagation()
         setIsDrag(false);
     }
 
     function onTouchEnd(event: TouchEvent) {
-        event.preventDefault()
         event.stopPropagation()
         setIsDrag(false);
         setIsPan(false)
     }
 
     function onMouseDrag(event: MouseEvent<HTMLCanvasElement>) {
-        event.preventDefault()
         event.stopPropagation()
         onDrug(getMouseEventPoint(event))
     }
 
     function onTouchDrag(event: TouchEvent<HTMLCanvasElement>) {
-        event.preventDefault()
         event.stopPropagation()
         if (event.touches.length === 1)
             onDrug(getTouchEventPoint(event))
@@ -127,10 +121,17 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
     }
 
     function onScroll(event: WheelEvent) {
-        event.preventDefault()
+
         event.stopPropagation()
         const scale = event.deltaY / window.innerHeight;
         props.onScroll(scale)
+
+        // const c = {
+        //     x: -props.width * scale * scale,
+        //     y: -props.height * scale * scale
+        // }
+        // props.onDrag(c)
+
     }
 
     return <canvas

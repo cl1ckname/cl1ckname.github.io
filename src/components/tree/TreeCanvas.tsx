@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {ColorFunction} from "@/logic/tree/colors";
 import {drawTree} from "@/logic/tree/generator";
 import ViewportCanvas from "@/components/viewportCanvas";
@@ -18,6 +18,7 @@ type Point = {
     y: number;
 };
 const ORIGIN = Object.freeze({x: 0, y: 0});
+const FACTOR = 4
 
 function diffPoints(p1: Point, p2: Point) {
     return {x: p1.x - p2.x, y: p1.y - p2.y};
@@ -33,7 +34,8 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
     const [ctx, setCtx] = useState<CanvasRenderingContext2D>()
-
+    const [nauting, setNauting] = useState(Math.PI / 6)
+    const [time, setTime] = useState(0)
     function redraw() {
         if (!ctx) {
             return;
@@ -48,11 +50,16 @@ export default function TreeCanvas(props: PanCanvasOpts) {
             return
         }
         // ctx.reset()
-        ctx.setTransform(1,0,0,1,0,0)
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.fillStyle = "#fff"
         ctx.fillRect(0, 0, props.w, props.h)
-        ctx.scale(scale, scale)
-        ctx.drawImage(ctx2.canvas, offset.x, offset.y)
+        ctx.setTransform(scale, 0, 0, scale,
+            offset.x + (-props.w / 2) * (FACTOR - 1),
+            offset.y + (-props.h / 2) * (FACTOR - 1)
+        )
+        ctx.drawImage(ctx2.canvas, 0, 0)
+        ctx.fillStyle = "#000"
+        ctx.fillRect(0,0, 50, 50)
     }
 
     useEffect(() => {
@@ -60,11 +67,11 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     }, [virtualRef.current, ctx, offset, scale]);
 
     function onPan(delta: number) {
-        setScale(prev => prev + delta)
+        setScale(prev => prev + delta / FACTOR)
     }
 
     function onDrag(delta: Point) {
-        const scaledDelta = mulPoint(delta, 1/scale)
+        const scaledDelta = mulPoint(delta, 1 / scale)
         setOffset(diffPoints(offset, scaledDelta))
     }
 
@@ -87,13 +94,32 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         if (!virtualCtx) {
             return
         }
-        console.log(props)
         if (ctx.canvas.width) {
-            drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h, props.branchLong, props.alternation)
+            drawTree(
+                props.angle,
+                props.n, virtualCtx,
+                props.color,
+                props.w,
+                props.h,
+                props.branchLong,
+                props.alternation,
+                FACTOR,
+                nauting
+            )
             redraw()
         }
 
-    }, [canvasRef, ctx, props]);
+    }, [canvasRef, ctx, props, nauting, time]);
+
+
+    useEffect(() => {
+        const animate = () => {
+            setNauting(Math.PI / 6 * Math.sin(time))
+            setTime(prev => prev + 0.01)
+        }
+        let timeId = requestAnimationFrame(animate)
+        return () => cancelAnimationFrame(timeId)
+    }, [time]);
 
     return <div className={"tree"}>
         <ViewportCanvas
@@ -107,8 +133,8 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         />
         <canvas style={{display: "none"}}
                 ref={virtualRef}
-                width={props.w}
-                height={props.h}
+                width={props.w * FACTOR}
+                height={props.h * FACTOR}
         />
     </div>
 }

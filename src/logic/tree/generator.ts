@@ -19,7 +19,7 @@ export type Square = {
     number: number
     depth: number
 }
-export const makeFigures = (angle: number, branchLong: number, alternation: boolean): (sq: Square) => [Square, Square] => {
+export const makeFigures = (angle: number, branchLong: number, alternation: boolean, nauting: number): (sq: Square) => [Square, Square] => {
     return (sq: Square): [Square, Square] => {
         if (alternation) {
             angle = Math.PI / 2 - angle
@@ -41,6 +41,8 @@ export const makeFigures = (angle: number, branchLong: number, alternation: bool
         let sp3 = {x: p[0].x + (p[1].x - p[2].x) * ldv, y: p[0].y + (p[1].y - p[2].y) * ldv}
         let sp4 = {x: p[1].x + (p[1].x - p[2].x) * ldv, y: p[1].y + (p[1].y - p[2].y) * ldv}
 
+        sp3 = rotate(p[0], sp3, nauting)
+        sp4 = rotate(p[1], sp4, nauting)
 
         let leftSquare: Square = {
             points: [sp3, sp4, p[1], p[0]],
@@ -55,6 +57,9 @@ export const makeFigures = (angle: number, branchLong: number, alternation: bool
         )) * branchLong
         sp4 = {x: p[1].x + (p[1].x - p[0].x) * rdv, y: p[1].y + (p[1].y - p[0].y) * rdv}
         sp3 = {x: p[2].x + (p[1].x - p[0].x) * rdv, y: p[2].y + (p[1].y - p[0].y) * rdv}
+
+        sp3 = rotate(p[2], sp3, nauting)
+        sp4 = rotate(p[1], sp4, nauting)
 
         const rightSquare: Square = {
             points: [sp4, sp3, p[2], p[1]],
@@ -89,9 +94,13 @@ export function drawTree(
         height: number,
         branchLong: number,
         alternation: boolean,
+        factor: number,
+        nauting: number
     ) {
-    const produce = makeFigures(A, branchLong, alternation)
-    const firstSq = squareByCoordinates(width/2, height/2, 100, 1, n, branchLong)
+    width *= factor
+    height *= factor
+    const produce = makeFigures(A, branchLong, alternation, nauting)
+    const firstSq = squareByCoordinates(width/2, height/2, width/factor/10, 1, n, branchLong)
     let leafs: PolygonBlob = new PolygonBlob(n)
     leafs.add(firstSq)
     let nodes: PolygonBlob = new PolygonBlob(n)
