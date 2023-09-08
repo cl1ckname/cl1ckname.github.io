@@ -11,6 +11,7 @@ export interface TreeParams {
     angle: number
     color: number
     branchLong: number
+    alternation: boolean
 }
 
 export default function Tree() {
@@ -19,7 +20,8 @@ export default function Tree() {
         angle: Math.PI / 4,
         n: 2,
         color: 0,
-        branchLong: 1
+        branchLong: 1,
+        alternation: false
     })
 
 
@@ -35,8 +37,9 @@ export default function Tree() {
                     h={wh[1]}
                     angle={settings.angle}
                     n={settings.n}
-                   color={ColorCollection[settings.color].func}
+                    color={ColorCollection[settings.color].func}
                     branchLong={settings.branchLong}
+                    alternation={settings.alternation}
                 />
             }}
         </FullfillContrainer>

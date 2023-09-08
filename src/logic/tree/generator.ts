@@ -19,8 +19,11 @@ export type Square = {
     number: number
     depth: number
 }
-export const makeFigures = (angle: number, branchLong: number): (sq: Square) => [Square, Square] => {
+export const makeFigures = (angle: number, branchLong: number, alternation: boolean): (sq: Square) => [Square, Square] => {
     return (sq: Square): [Square, Square] => {
+        if (alternation) {
+            angle = Math.PI / 2 - angle
+        }
         let tp3: Point
         {
             const p = sq.points
@@ -84,9 +87,10 @@ export function drawTree(
         color: ColorFunction,
         width: number,
         height: number,
-        branchLong: number
+        branchLong: number,
+        alternation: boolean,
     ) {
-    const produce = makeFigures(A, branchLong)
+    const produce = makeFigures(A, branchLong, alternation)
     const firstSq = squareByCoordinates(width/2, height/2, 100, 1, n, branchLong)
     let leafs: PolygonBlob = new PolygonBlob(n)
     leafs.add(firstSq)

@@ -7,6 +7,7 @@ interface TreeSettingsProps {
     tree: TreeParams,
     onChange: (params: TreeParams) => void
 }
+
 export default function TreeSettings(props: TreeSettingsProps) {
     const {onChange, tree} = props
     const treeCopy = Object.assign({}, tree)
@@ -28,6 +29,15 @@ export default function TreeSettings(props: TreeSettingsProps) {
                 treeCopy.branchLong = a / 100
                 onChange(treeCopy)
             }}/>
+            <label>Alternation</label>
+            <fieldset>
+                <label>Use alternation</label>
+                <input type={"checkbox"} checked={treeCopy.alternation} onChange={b => {
+                    treeCopy.alternation = !treeCopy.alternation
+                    onChange(treeCopy)
+                }}/>
+            </fieldset>
+
             <label>Color</label>
             <ColorPicker value={treeCopy.color} collection={ColorCollection} onChange={e => {
                 treeCopy.color = e
