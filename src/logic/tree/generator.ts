@@ -19,7 +19,7 @@ export type Square = {
     number: number
     depth: number
 }
-export const makeFigures = (angle: number): (sq: Square) => [Square, Square] => {
+export const makeFigures = (angle: number, branchLong: number): (sq: Square) => [Square, Square] => {
     return (sq: Square): [Square, Square] => {
         let tp3: Point
         {
@@ -32,7 +32,9 @@ export const makeFigures = (angle: number): (sq: Square) => [Square, Square] => 
         const p = [sq.points[0], tp3, sq.points[1]]
 
         let size = Math.pow(p[0].x - p[1].x, 2) + Math.pow(p[0].y - p[1].y, 2)
-        const ldv = Math.sqrt(size / (Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2)))
+        const ldv = Math.sqrt(size / (
+            Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2))
+        ) * branchLong
         let sp3 = {x: p[0].x + (p[1].x - p[2].x) * ldv, y: p[0].y + (p[1].y - p[2].y) * ldv}
         let sp4 = {x: p[1].x + (p[1].x - p[2].x) * ldv, y: p[1].y + (p[1].y - p[2].y) * ldv}
 
@@ -45,7 +47,9 @@ export const makeFigures = (angle: number): (sq: Square) => [Square, Square] => 
 
 
         size = Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2)
-        const rdv = Math.sqrt(size / (Math.pow(p[1].x - p[0].x, 2) + Math.pow(p[1].y - p[0].y, 2)))
+        const rdv = Math.sqrt(size / (
+            Math.pow(p[1].x - p[0].x, 2) + Math.pow(p[1].y - p[0].y, 2)
+        )) * branchLong
         sp4 = {x: p[1].x + (p[1].x - p[0].x) * rdv, y: p[1].y + (p[1].y - p[0].y) * rdv}
         sp3 = {x: p[2].x + (p[1].x - p[0].x) * rdv, y: p[2].y + (p[1].y - p[0].y) * rdv}
 
@@ -62,12 +66,13 @@ export const squareByCoordinates = (x: number,
                                     y: number,
                                     size: number,
                                     number: number,
-                                    depth: number): Square => {
+                                    depth: number,
+                                    branchLong: number): Square => {
 
-    const p1 = {x: x - size / 2, y: y - size / 2}
-    const p2 = {x: x + size / 2, y: y - size / 2}
-    const p3 = {x: x + size / 2, y: y + size / 2}
-    const p4 = {x: x - size / 2, y: y + size / 2}
+    const p1 = {x: x - size / 2, y: y - (size*branchLong) / 2}
+    const p2 = {x: x + size / 2, y: y - (size*branchLong) / 2}
+    const p3 = {x: x + size / 2, y: y + (size*branchLong) / 2}
+    const p4 = {x: x - size / 2, y: y + (size*branchLong) / 2}
 
     return {points: [p1, p2, p3, p4], number: number, depth: depth}
 }
@@ -78,10 +83,11 @@ export function drawTree(
         ctx: CanvasRenderingContext2D,
         color: ColorFunction,
         width: number,
-        height: number
+        height: number,
+        branchLong: number
     ) {
-    const produce = makeFigures(A)
-    const firstSq = squareByCoordinates(width/2, height/2, 100, 1, n)
+    const produce = makeFigures(A, branchLong)
+    const firstSq = squareByCoordinates(width/2, height/2, 100, 1, n, branchLong)
     let leafs: PolygonBlob = new PolygonBlob(n)
     leafs.add(firstSq)
     let nodes: PolygonBlob = new PolygonBlob(n)

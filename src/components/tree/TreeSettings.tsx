@@ -23,6 +23,11 @@ export default function TreeSettings(props: TreeSettingsProps) {
                 treeCopy.angle = Math.PI / 2 / 90 * a
                 onChange(treeCopy)
             }}/>
+            <label>Branch long</label>
+            <Slider min={50} max={400} value={treeCopy.branchLong * 100} onChange={a => {
+                treeCopy.branchLong = a / 100
+                onChange(treeCopy)
+            }}/>
             <label>Color</label>
             <ColorPicker value={treeCopy.color} collection={ColorCollection} onChange={e => {
                 treeCopy.color = e

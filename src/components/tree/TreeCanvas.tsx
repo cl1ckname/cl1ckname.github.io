@@ -9,6 +9,7 @@ interface PanCanvasOpts {
     angle: number
     n: number
     color: ColorFunction
+    branchLong: number
 }
 
 type Point = {
@@ -87,7 +88,7 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         }
 
         if (ctx.canvas.width) {
-            drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h)
+            drawTree(props.angle, props.n, virtualCtx, props.color, props.w, props.h, props.branchLong)
             redraw()
         }
 

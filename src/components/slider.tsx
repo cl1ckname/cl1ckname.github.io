@@ -40,12 +40,5 @@ export function Slider(props: SliderProps) {
             title={props.value.toString()}
             style={{zIndex: 5}}
         />
-        {/*<div className="slider">*/}
-        {/*    <div className="slider__track"/>*/}
-        {/*    <div ref={range}*/}
-        {/*         className={"slider__range " + (props.disabled ? "slider__range_disabled" : "slider__range_enabled")}/>*/}
-        {/*    <div className="slider__left-value">{props.min}</div>*/}
-        {/*    <div className="slider__right-value">{props.max}</div>*/}
-        {/*</div>*/}
     </div>
 }
