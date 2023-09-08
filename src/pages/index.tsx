@@ -2,18 +2,27 @@ import "../styles/wiki.css"
 import "../styles/homepage.css"
 import FlipText from "@/components/homepage/flipText";
 import Head from "next/head";
+import {NextApiRequest} from "next"
 import {Bungee_Spice, VT323} from "next/font/google"
+import Postscript from "@/components/homepage/postscript";
 
 const bungee = Bungee_Spice({subsets: ['latin'], weight: "400"})
 const vt323 = VT323({subsets: ['latin'], weight: "400"})
-export default function MainPage() {
+
+export async function getServerSideProps(props: { req: NextApiRequest }) {
+    const forwarded = (props.req.headers["x-forwarded-for"] || " anon ") as string
+    const ip = forwarded ? forwarded.split(/, /)[0] : props.req.connection.remoteAddress
+    return {
+        props: {
+            ip,
+        },
+    }
+}
+
+export default function MainPage(props: { ip: any }) {
     return <>
         <Head>
             <title>Clickname's garden</title>
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com"/>
-            <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap" rel="stylesheet"/>
-            <link rel="stylesheet" href="https://unpkg.com/xp.css"/>
         </Head>
         <div>
             <div id="mw-page-base" className="noprint"></div>
@@ -77,7 +86,6 @@ export default function MainPage() {
                             </div>
                         </div>
                     </div>
-                    <div id="contentSub2"></div>
                     <div id="mw-content-text" className="mw-body-content mw-content-ltr" lang="ru" dir="ltr">
                         <div className="mw-parser-output">
                             <table className="infobox infobox-064c6ca8d70d5243" data-name="Персона">
@@ -90,9 +98,13 @@ export default function MainPage() {
                                 <tr>
                                     <td colSpan={2} className="infobox-image">
                            <span typeof="mw:File/Frameless"><a
-                               href="/me_and_ducks.jpeg" className="mw-file-description"><img
-                               src="/me_and_ducks.jpeg" decoding="async" width="274" height="397"
-                               className="mw-file-element" data-file-width="480" data-file-height="696"/></a></span>
+                               href="/me_and_ducks.jpeg" className="mw-file-description"><img alt="me and ducks"
+                                                                                              src="/me_and_ducks.jpeg"
+                                                                                              decoding="async"
+                                                                                              width="274" height="397"
+                                                                                              className="mw-file-element"
+                                                                                              data-file-width="480"
+                                                                                              data-file-height="696"/></a></span>
                                         <span data-wikidata-qualifier-id="P2096" className="media-caption"
                                               style={{display: "block"}}>who fell in love is gay</span>
                                     </td>
@@ -152,6 +164,7 @@ export default function MainPage() {
 
                             <figure typeof="mw:File/Thumb">
                                 <img src="/cv.png" decoding="async" width="260"
+                                     alt="computer vision experiments"
                                      height="174" className="mw-file-element"/>
                                 <figcaption>Me while computer vision experiments
                                     (v̨͔͖̪̟͊̓o͙̻̞̩̩̠̺̽͘ͅi̟̤̥͎͈̥̪͋͗͘d̷͍̭̙̲͚̫͇̘͛ͩͩ̓e̙̭͓̼͕ͩ̐́ͅd̜̯͍̩̝͎͑̋̿̀͘ͅ)
@@ -165,7 +178,8 @@ export default function MainPage() {
                                 the only person in Russia who got out of the wheel of Samsara. Found a metanarrative,
                                 but
                                 does not
-                                show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf.
+                                show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf. Hello
+                                dear {props.ip}
                                 <img className="gif-emoji" src="/bulbasaur.gif" alt="lazy bulbasaur"/>
                             </p>
                             <div id="toc" className="toc" role="navigation" aria-labelledby="mw-toc-heading"><input
@@ -180,24 +194,24 @@ export default function MainPage() {
                                 <ul>
                                     <li className="toclevel-1 tocsection-1"><a href="#Общие_сведения"><span
                                         className="tocnumber">1</span>
-                                        <span className="toctext">Why I create this page</span></a></li>
+                                        <span className="toctext">Why did I create this page</span></a></li>
                                     <li className="toclevel-1 tocsection-2"><a href="#Награды"><span
                                         className="tocnumber">2</span> <span
                                         className="toctext">CS interests</span></a></li>
-                                    <li className="toclevel-1 tocsection-3"><a href="#Произведения"><span
+                                    <li className="toclevel-1 tocsection-3"><a href="#Fun-content-here"><span
                                         className="tocnumber">3</span>
                                         <span className="toctext">Fun content here</span></a>
                                         <ul>
                                             <li className="toclevel-2 tocsection-4"><a
-                                                href="#Physarum"><span
+                                                href="/Physarum"><span
                                                 className="tocnumber">3.1</span> <span
                                                 className="toctext">Physarum</span></a></li>
                                             <li className="toclevel-2 tocsection-4"><a
-                                                href="#Pythagorean tree"><span
+                                                href="/tree"><span
                                                 className="tocnumber">3.1</span> <span
                                                 className="toctext">Pythagorean tree</span></a></li>
                                             <li className="toclevel-2 tocsection-4"><a
-                                                href="#Newton_pool"><span
+                                                href="/pool"><span
                                                 className="tocnumber">3.1</span> <span
                                                 className="toctext">Newton's pool</span></a></li>
                                         </ul>
@@ -207,12 +221,12 @@ export default function MainPage() {
                                         className="toctext">P.S.</span></a></li>
                                     <li className="toclevel-1 tocsection-6"><a href="#Литература"><span
                                         className="tocnumber">5</span> <span
-                                        className="toctext">Sources</span></a></li>
+                                        className="toctext">My tech stack</span></a></li>
                                 </ul>
                             </div>
 
                             <h2><span
-                                className="mw-headline" id="Общие_сведения">Why I create this page🤔</span><span
+                                className="mw-headline" id="Общие_сведения">Why did I create this page🤔</span><span
                                 className="mw-editsection"><span
                                 className="mw-editsection-bracket">[</span><a
 
@@ -291,7 +305,8 @@ export default function MainPage() {
                                 love it🥰. I prefer to develop in two languages at the same time - GoLang and NodeJS,
                                 because I want to. Go is good for parallel and productive programs, system programming.
                                 You
-                                can write fast and fun on the node, you can write the WEB. By themselves, these
+                                can write fast and fun on the Node, you can <a href="https://imgur.com/a/T1KPzI0">write
+                                    the WEB</a>. By themselves, these
                                 languages
                                 are very strange, but this is rather a plus.
                             </p>
@@ -361,9 +376,10 @@ export default function MainPage() {
                                 nothing
                                 in
                                 common at all.
-                            </p>
+                            </p>https://www.gimp.org/
                             <p>
-                                I am also very impressed <img src={"/impression.gif"} className="gif-emoji"/> and
+                                I am also very impressed <img alt="Midoria lmao" src="/impression.gif"
+                                                              className="gif-emoji"/> and
                                 fascinated by everything related to data storage.
                                 Archivers,
                                 data structures, file systems. Walking in the forest of binary trees is very
@@ -372,7 +388,7 @@ export default function MainPage() {
                                 Boas</a> tree and the <a href="https://en.wikipedia.org/wiki/AVL_tree">AVL</a> tree.
                                 This is something that seems
                                 very
-                                important to me, but I didn’t have enough time to study it in detail (yet).
+                                important to me, but I didn't have enough time to study it in detail (yet).
                             </p>
                             <div style={{
                                 float: "right",
@@ -385,7 +401,7 @@ export default function MainPage() {
                                 <div className={"window"} style={{display: "block"}}>
                                     <div className={"title-bar"}>
                                         <div className="title-bar-text">
-                                            Text
+                                            Paint 4D
                                         </div>
                                         <div className="title-bar-controls">
                                             <button aria-label="Minimize"></button>
@@ -405,7 +421,7 @@ export default function MainPage() {
                                 </div>
                             </div>
                             <h2><span
-                                className="mw-headline" id="Произведения">Fun content here</span><span
+                                className="mw-headline" id="Fun-content-here">Fun content here</span><span
                                 className="mw-editsection"><span
                                 className="mw-editsection-bracket">[</span><a
 
@@ -416,7 +432,61 @@ export default function MainPage() {
                                 title="Редактировать раздел «Произведения»">править код</a><span
                                 className="mw-editsection-bracket">]</span></span>
                             </h2>
+                            <h3>
+                                <span className="mw-headline" id="Physarum">Physarum</span>
+                            </h3>
                             <p>
+                                Have you noticed that people of technical professions are very fond of animals? You can
+                                argue that everyone loves animals, but here love is of a completely different kind. When
+                                a mascot is selected for some technology, it is in 90% of cases an animal. So we have
+                                a&nbsp;
+                                <a href="https://www.networkworld.com/article/2942838/docker-the-container-company-with-a-whale-of-a-logo-adopted-a-real-whale.html">whale🐋</a> in&nbsp;
+                                a <a href="https://www.docker.com/">Docker</a>, an <a
+                                href="https://docs.php.earth/php/community/elephpant/">elePHPant🐘</a> in a <a
+                                href="https://www.php.net/">PHP</a>, a <a
+                                href="https://kernel.org"> Linux</a> <a
+                                href="https://en.wikipedia.org/wiki/Tux_(mascot)">Tux-penguin🐧</a>, <a
+                                href="https://rustacean.net/">a crab🦀</a> in <a
+                                href="https://www.rust-lang.org/">Rust</a>, a <a
+                                href="https://en.opensuse.org/openSUSE:Artwork_brand">chameleon🦎</a>
+                                in an <a href="https://en.opensuse.org/">OpenSuse</a>, a <a
+                                href="https://www.gnu.org/graphics/agnuhead.html">GNU🦌</a> in <a
+                                href="https://www.gnu.org/">GNU</a>, a <a
+                                href="https://go.dev/blog/gopher">beaver-gopher🦫</a> in a <a
+                                href="https://go.dev">Golang</a>, <a
+                                href="https://www.freelogodesign.org/blog/2019/06/14/the-story-behind-the-mozilla-firefox-logo">a
+                                red panda🦊</a> in a <a href="https://www.mozilla.org/ru/firefox/">Firefox</a>, a&nbsp;
+                                <a href="http://logoshistory.blogspot.com/2010/09/mysql-logo-history.html">dolphin🐬</a>
+                                in a <a href="https://www.mysql.com/">MySQL</a>, another <a
+                                href="https://learnsql.com/blog/the-history-of-slonik-the-postgresql-elephant-logo/">elephant🐘</a> in <a
+                                href="https://www.postgresql.org/">PostgresSQL</a>, a&nbsp;
+                                <a href="http://gimpchat.com/viewtopic.php?f=4&t=10265">wolf🐺</a> in a <a
+                                href="https://www.gimp.org/">Gimp</a>...
+                            </p>
+                            <p>
+                                But these are all mammals, moreover, vertebrates. <span className="spoiler">(khm, actually vertebrates are a
+                                broader concept than mammals)</span>. How about something really spineless? I want to introduce
+                                you a <a href="/physarum">Physarum</a>. First of all, it's a slime. Secondly, he knows how to find
+                                the shortest paths on the graph.
+                                <span className="horror-text">And what about you? How much time do you waste walking
+                                    on sidewalks and bypassing the arches of lampposts?</span>
+                                But more importantly, inspired
+                                by small eukaryotes, you can write a beautiful agent-based visualization that has
+                                nothing
+                                in common with its progenitor.
+                            </p>
+                            <h3>
+                                <span className="mw-headline" id="Pythagorean-tree">Pythagorean tree</span>
+                            </h3>
+                            <p>
+                                Do you like fractals? I'm sure that yes, or you just don't know about them. There are
+                                many interesting facts related to fractals like "but you knew yes, like what, like if
+                                you fold the antenna into a fractal, yes it will catch better, yes." It can be cool, it
+                                can be useful, but it is extremely distracting from what is really important. Fractals
+                                are beautiful. God didn't give us a template-based brain to quickly distinguish faces or
+                                notice patterns. Seriously, are you ready to get up, get dressed, go to the store, buy
+                                cigarettes and stand smoking for five minutes, but don't you want to go pop up the&nbsp;
+                                <a href="/tree">Pythagorean tree</a>🌳? <span className="void-text">Repent</span>.
                             </p>
                             <h2><span
                                 className="mw-headline" id="Примечания">P.S.</span><span
@@ -429,24 +499,11 @@ export default function MainPage() {
 
                                 title="Редактировать раздел «Примечания»">править код</a><span
                                 className="mw-editsection-bracket">]</span></span></h2>
+                            <Postscript/>
                             <div className="reflist columns" style={{listStyleType: "decimal"}}>
                                 <div className="mw-references-wrap">
                                     <ol className="references">
-                                        <li id="cite_note-_4e7b44e1f9621f38-1"><span className="mw-cite-backlink"><a
-                                            href="#cite_ref-_4e7b44e1f9621f38_1-0" aria-label="Обратно к тексту"
-                                            title="Обратно к тексту">↑</a></span> <span className="reference-text"><span
-                                            className="wikidata_cite citetype_Q8513" data-entity-id="Q2886420"><a
-                                            rel="nofollow"
-                                            className="external text"
-                                            href="https://www.leonore.archives-nationales.culture.gouv.fr/ui/notice/231232">base Léonore</a>&nbsp;
-                                            <span
-                                                className="ref-info" style={{cursor: "help"}}
-                                                title="на французском языке">(фр.)</span><span
-                                                className="wef_low_priority_links"> — <a
-                                                href="https://fr.wikipedia.org/wiki/Minist%C3%A8re_de_la_Culture_(France)"
-                                                className="extiw"
-                                                title="fr:Ministère de la Culture (France)">ministère de la Culture</a>.</span></span></span>
-                                        </li>
+                                        {/*    TODO something fan */}
                                     </ol>
                                 </div>
                             </div>
@@ -475,7 +532,7 @@ export default function MainPage() {
                                     className="internal mw-magiclink-isbn">ISBN 978-5-907144-10-1</a></li>
                                 <li>Python <a
                                     className="internal mw-magiclink-isbn">ISBN 9785496030687</a></li>
-                                <li>SQL (prefere PostgreSql) <a className="internal mw-magiclink-isbn">ISBN
+                                <li>SQL (prefer PostgresSql) <a className="internal mw-magiclink-isbn">ISBN
                                     978-1800567498
                                 </a></li>
                                 <li>Docker</li>
@@ -483,8 +540,7 @@ export default function MainPage() {
                                 <li>AWS</li>
                             </ul>
                         </div>
-                        <div className="printfooter" data-nosnippet="">Источник — <a dir="ltr"
-                                                                                     href="https://ru.wikipedia.org/w/index.php?title=Леру,_Шарль_(композитор)&amp;oldid=116880073">https://ru.wikipedia.org/w/index.php?title=Леру,_Шарль_(композитор)&amp;oldid=116880073</a>
+                        <div className="printfooter" data-nosnippet="">Источник —
                         </div>
                     </div>
                     <div id="catlinks" className="catlinks" data-mw="interface">
@@ -509,23 +565,6 @@ export default function MainPage() {
                                 <li><a title="Категория:Композиторы Японии">Композиторы Японии</a></li>
                                 <li><a title="Категория:Композиторы XIX века">Композиторы XIX века</a></li>
                                 <li><a title="Категория:Композиторы XX века">Композиторы XX века</a></li>
-                            </ul>
-                        </div>
-                        <div id="mw-hidden-catlinks" className="mw-hidden-catlinks mw-hidden-cats-hidden">Скрытые
-                            категории:
-                            <ul>
-                                <li><a title="Категория:Википедия:Статьи с источниками из Викиданных">Википедия:Статьи с
-                                    источниками
-                                    из Викиданных</a></li>
-                                <li><a title="Категория:Википедия:Страницы с неоднозначными геоцепочками">Википедия:Страницы
-                                    с
-                                    неоднозначными геоцепочками</a></li>
-                                <li><a title="Категория:Википедия:Карточки без параметров">Википедия:Карточки без
-                                    параметров</a>
-                                </li>
-                                <li><a title="Категория:Страницы, использующие волшебные ссылки ISBN">Страницы,
-                                    использующие
-                                    волшебные ссылки ISBN</a></li>
                             </ul>
                         </div>
                     </div>
@@ -559,12 +598,6 @@ export default function MainPage() {
                                     href="/tree"
                                     title="old but good"><span>Pythagorean tree</span></a>
                                 </li>
-                                {/*<li id="n-randompage" className="mw-list-item"><a*/}
-                                {/*    title="Посмотреть случайно выбранную страницу [alt-shift-x]" accessKey="x"><span>Случайная статья</span></a>*/}
-                                {/*</li>*/}
-                                {/*<li id="n-currentevents" className="mw-list-item"><a*/}
-                                {/*    title="Статьи о текущих событиях в мире"><span>Текущие события</span></a>*/}
-                                {/*</li>*/}
                                 <li id="n-sitesupport" className="mw-list-item"><a
                                     href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_ru.wikipedia.org&amp;uselang=ru"
                                     title="do it"><span>Donate to wikipedia</span></a></li>
@@ -587,14 +620,17 @@ export default function MainPage() {
                                     href="https://t.me/clickname"
                                     title="Prefered way to connect me"><span>Telegram</span></a>
                                 </li>
-                                <li id="n-introduction" className="mw-list-item"><a
+                                <li className="mw-list-item"><a
                                     href="https://vk.com/clickname"
                                 ><span>Vk.ru</span></a></li>
-                                <li id="n-portal" className="mw-list-item"><a
+                                <li className="mw-list-item"><a
+                                    href="mailto://ivan.vasilev.cn@gmail.com"
+                                ><span>Mail to me</span></a></li>
+                                <li className="mw-list-item"><a
                                     href="https://github.com/cl1ckname"
                                     title="My favorite social network"><span>Github</span></a>
                                 </li>
-                                <li id="n-forum" className="mw-list-item"><a
+                                <li className="mw-list-item"><a
                                     href="https://twitter.com/Cl1ckName"
                                     title="Or X.com??"><span>Twitter</span></a>
                                 </li>
@@ -602,12 +638,6 @@ export default function MainPage() {
                                     href="https://shikimori.me/Ivan+Vasilev"
                                     title="russian <My anime list>"
                                     accessKey="r"><span>Shikimori</span></a></li>
-                                {/*<li id="n-newpages" className="mw-list-item"><a*/}
-                                {/*    title="Список недавно созданных страниц"><span>Новые страницы</span></a>*/}
-                                {/*</li>*/}
-                                {/*<li id="n-help" className="mw-list-item"><a*/}
-                                {/*    title="Место расположения Справки"><span>Справка</span></a>*/}
-                                {/*</li>*/}
                             </ul>
 
                         </div>
@@ -616,7 +646,7 @@ export default function MainPage() {
                     <nav id="p-tb" className="vector-menu mw-portlet mw-portlet-tb vector-menu-portal portal"
                          aria-labelledby="p-tb-label" role="navigation">
                         <h3 id="p-tb-label" className="vector-menu-heading ">
-                            <span className="vector-menu-heading-label">Инструменты</span>
+                            <span className="vector-menu-heading-label">See also</span>
                         </h3>
                         <div className="vector-menu-content">
 
@@ -658,15 +688,14 @@ export default function MainPage() {
                         <div className="vector-menu-content">
 
                             <ul className="vector-menu-content-list">
-                                <li className="wb-otherproject-link wb-otherproject-commons mw-list-item"><a
-                                    href="https://commons.wikimedia.org/wiki/Category:Charles_Edouard_Gabriel_Leroux"
-                                    hrefLang="en"><span>Викисклад</span></a></li>
+                                <li className="mw-list-item"><a
+                                    href="https://easstacademy.org/"
+                                    hrefLang="en"><span>EASST academy</span></a></li>
                                 <li id="t-wikibase"
-                                    className="mw-list-item wb-otherproject-link wb-otherproject-wikidata"
+                                    className="mw-list-item"
                                     style={{display: "list-item"}}><a
-                                    href="https://www.wikidata.org/wiki/Special:EntityPage/Q4244916"
-                                    title="Ссылка на связанный элемент репозитория данных [alt-shift-g]"
-                                    accessKey="g"><span>Элемент Викиданных</span></a></li>
+                                    href="https://dltc.spbu.ru/dcms"
+                                    accessKey="g"><span>DCMS</span></a></li>
                             </ul>
 
                         </div>
@@ -674,8 +703,7 @@ export default function MainPage() {
 
 
                     <nav id="p-lang" className="vector-menu mw-portlet mw-portlet-lang vector-menu-portal portal"
-                         aria-labelledby="p-lang-label" role="navigation">
-                        <button className="uls-settings-trigger" title="Установки языка"></button>
+                         aria-labelledby="p-lang-label" role="navigation">                  <button className="uls-settings-trigger" title="Установки языка"></button>
                         <h3 id="p-lang-label" className="vector-menu-heading ">
                             <span className="vector-menu-heading-label">Speak with me in</span>
                         </h3>
@@ -703,7 +731,7 @@ export default function MainPage() {
 
             <footer id="footer" className="mw-footer" role="contentinfo">
                 <ul id="footer-info">
-                    <li id="footer-info-lastmod"> This page was last edited on September 3, 2023, at 12:40.</li>
+                    <li id="footer-info-lastmod"> This page was last edited on September 8, 2023, at 22:55.</li>
                     <li id="footer-info-copyright">please do not try to sue me for licking the appearance and all the
                         CSS
                         tables
