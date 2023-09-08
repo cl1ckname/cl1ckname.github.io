@@ -12,6 +12,7 @@ export interface TreeParams {
     color: number
     branchLong: number
     alternation: boolean
+    amplitude: number
 }
 
 export default function Tree() {
@@ -21,7 +22,8 @@ export default function Tree() {
         n: 2,
         color: 0,
         branchLong: 1,
-        alternation: false
+        alternation: false,
+        amplitude: 0
     })
 
 
@@ -40,6 +42,7 @@ export default function Tree() {
                     color={ColorCollection[settings.color].func}
                     branchLong={settings.branchLong}
                     alternation={settings.alternation}
+                    amplitude={settings.amplitude}
                 />
             }}
         </FullfillContrainer>

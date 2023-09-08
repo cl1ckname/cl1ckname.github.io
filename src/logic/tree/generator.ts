@@ -95,7 +95,7 @@ export function drawTree(
         branchLong: number,
         alternation: boolean,
         factor: number,
-        nauting: number
+        nauting: number,
     ) {
     width *= factor
     height *= factor

@@ -10,7 +10,8 @@ interface PanCanvasOpts {
     n: number
     color: ColorFunction
     branchLong: number
-    alternation: boolean;
+    alternation: boolean
+    amplitude: number
 }
 
 type Point = {
@@ -114,7 +115,7 @@ export default function TreeCanvas(props: PanCanvasOpts) {
 
     useEffect(() => {
         const animate = () => {
-            setNauting(Math.PI / 6 * Math.sin(time))
+            setNauting(props.amplitude * Math.sin(time))
             setTime(prev => prev + 0.01)
         }
         let timeId = requestAnimationFrame(animate)

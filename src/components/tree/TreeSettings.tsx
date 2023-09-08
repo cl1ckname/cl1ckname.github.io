@@ -37,6 +37,11 @@ export default function TreeSettings(props: TreeSettingsProps) {
                     onChange(treeCopy)
                 }}/>
             </fieldset>
+            <label>amplitude</label>
+            <Slider min={0} max={Math.PI * 100 / 2} value={treeCopy.amplitude * 100} onChange={e => {
+                treeCopy.amplitude = e / 100
+                onChange(treeCopy)
+            }}/>
 
             <label>Color</label>
             <ColorPicker value={treeCopy.color} collection={ColorCollection} onChange={e => {
