@@ -66,28 +66,3 @@
     height: 5em;
     border: none;
 }
-
-.description {
-    overflow-y: scroll;
-    max-height: 100vh;
-    height: fit-content;
-    text-align: justify;
-    background-color: #ddd;
-}
-
-.description h1, h2, h3, h4, h5 {
-    text-align: center;
-}
-
-.description p, ol, ul {
-    background-color: #ccc;
-}
-
-.description dt {
-    font-size: 1.2rem;
-}
-
-.description dd {
-    font-size: 1.1rem;
-    background-color: #bbb;
-}

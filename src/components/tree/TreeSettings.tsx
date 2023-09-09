@@ -1,7 +1,6 @@
 import {TreeParams} from "@/components/tree/Tree";
 import {Slider} from "@/components/slider";
 import ColorPicker from "@/components/tree/ColorPicker";
-import {ColorCollection} from "@/logic/tree/colors";
 import Sin from "@/components/tree/Sin";
 
 interface TreeSettingsProps {
@@ -47,7 +46,7 @@ export default function TreeSettings(props: TreeSettingsProps) {
             }}/>
 
             <label>Color</label>
-            <ColorPicker value={treeCopy.color} collection={ColorCollection} onChange={e => {
+            <ColorPicker value={treeCopy.color} onChange={e => {
                 treeCopy.color = e
                 onChange(treeCopy)
             }}/>

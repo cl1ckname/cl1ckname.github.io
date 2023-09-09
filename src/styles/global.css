@@ -47,3 +47,58 @@ body {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #9fe5e1;
 }
+
+.description {
+    overflow-y: scroll;
+    max-height: 100vh;
+    height: fit-content;
+    text-align: justify;
+    background-color: #ddd;
+    font-size: 1.1em;
+}
+
+.description h1, .description h2, .description h3, .description h4, .description h5 {
+    text-align: center;
+}
+
+.description p,.description ol, .description ul {
+    background-color: #ccc;
+}
+
+.description p {
+    text-indent: 2em;
+}
+
+.description dt {
+    font-size: 1.2rem;
+}
+
+.description dd {
+    font-size: 1.1rem;
+    background-color: #bbb;
+}
+
+.description figure {
+    border: solid 1px black;
+    background-color: #d9d9d9;
+}
+
+.description figcaption {
+    font-size: 0.9em;
+    font-family: monospace;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.description code {
+    background-color: #ced4da;
+    text-decoration: underline;
+}
+
+.description mark {
+    background-color: #eee;
+}
+
+.description a {
+    color: black;
+}

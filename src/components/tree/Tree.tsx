@@ -3,6 +3,8 @@ import TreeCanvas from "@/components/tree/TreeCanvas";
 import {useState} from "react";
 import TreeSettings from "@/components/tree/TreeSettings";
 import "@/styles/tree.css"
+import ContentSwitch from "@/components/ContentSwitch";
+import TreeDescription from "@/components/tree/TreeDescription";
 
 
 export interface TreeParams {
@@ -26,7 +28,7 @@ export default function Tree() {
         amplitude: 0,
         frequency: 0.01
     })
-
+    const [description, setDescription] = useState(false)
 
     return <div className="App">
         <div className="options-menu thin-scroll">
@@ -34,13 +36,15 @@ export default function Tree() {
             <TreeSettings tree={settings} onChange={setSettings}/>
         </div>
         <FullfillContrainer>
-            {(wh) => {
-                return <TreeCanvas
+            {(wh) => <>
+                <ContentSwitch onChange={setDescription} description={description}/>
+                {description ? <TreeDescription/> : <TreeCanvas
                     w={wh[0]}
                     h={wh[1]}
                     treeParams={settings}
-                />
-            }}
+                />}
+                </>
+            }
         </FullfillContrainer>
 
     </div>

@@ -42,37 +42,28 @@ const GenerateTripleGradient = (color1: number, color2: number, color3: number) 
     }
 }
 
-export const violetGrow = (number: number, _: number) => {
+const violetGrow = (number: number, _: number) => {
     return "#" + Math.floor(0x552266 + 0x020000 * number + 0x000011 * number).toString(16)
 }
 
-export const Gradient = (number: number, depth: number) => {
+
+const Gradient = (number: number, depth: number) => {
     const step = 1 / depth
     let value = step * number
     return rgb2hex(value, value, value)
 }
 
-export const Flare = (number: number, depth: number) => {
-    const stage = number / depth
-    return rgb2hex(
-        Math.floor((0xf1 * (1 - stage) + 0xf5 * stage) / 255),
-        Math.floor((0x27 * (1 - stage) + 0xaf * stage) / 255),
-        Math.floor((0x11 * (1 - stage) + 0x19 * stage) / 255),
-    )
-}
-
-export const CloudDischarge = (number: number, depth: number) => {
+const CloudDischarge = (number: number, depth: number) => {
     const stage = number / depth
     return "#" + (Math.floor(0xababfb * (stage) + 0xa7e083 * stage)).toString(16)
 }
 
-export const NoSignal = (number: number, depth: number) => {
+const NoSignal = (number: number, depth: number) => {
     const stage = number / depth
     return "#" + Math.floor(0xababfb * (number) + 0xa7e083 * stage).toString(16)
 }
 
-
-export const ColorCollection: ColorCollectionElement[] = [
+const ColorCollection: ColorCollectionElement[] = [
     {func: violetGrow, name: 'VioletGrow'},
     {func: Gradient, name: 'Gradient'},
     {func: generateGradient(0xf12711, 0xf5af19), name: 'Flare'},
@@ -82,8 +73,16 @@ export const ColorCollection: ColorCollectionElement[] = [
     {func: generateGradient(0x00c3ff, 0xffff1c), name: 'Brady Brady Fun Fun'},
     {func: generateGradient(0x200122, 0x6f0000), name: 'Love, liberty and dusk'},
     {func: generateGradient(0x000000, 0x0f9b0f), name: 'Terminal Meridian'},
+    {func: generateGradient(0xfceabb, 0xf8b500), name: "Sun on the Horizon"},
+    {func: generateGradient(0x2C3E50, 0x4CA1AF), name: "Deep Sea Space"},
+    {func: generateGradient(0x9796f0, 0xfbc7d4), name: "Anamnisar"},
     {func: CloudDischarge, name: 'Discharge in the clouds'},
     {func: NoSignal, name: 'No signal'},
     {func: GenerateTripleGradient(0xaa4b6b, 0x6b6b83, 0x3b8d99), name: 'Mariane'},
     {func: GenerateTripleGradient(0x8A2387, 0xE94057, 0xf27121), name: 'Wiretap'},
+    {func: GenerateTripleGradient(0x12c2e9, 0xc471ed, 0xf64f59), name: "JShine"},
+    {func: GenerateTripleGradient(0x40E0D0, 0xFF8C00, 0xf64f59), name: "Wedding Day Bluez"},
+    {func: GenerateTripleGradient(0xA770EF, 0xCF8BF3, 0xf64f59), name: "Radar"}
 ]
+
+export default ColorCollection

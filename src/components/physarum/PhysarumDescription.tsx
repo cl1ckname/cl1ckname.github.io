@@ -1,4 +1,4 @@
-export default function Description() {
+export default function PhysarumDescription() {
     return <div className="description thin-scroll">
         <h1>Physarum.md</h1>
         <p>

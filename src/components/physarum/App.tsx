@@ -9,8 +9,8 @@ import {makeGradient, opposite} from "@/logic/physarum/color";
 import {GradientForm} from "./GradientForm";
 import {uniform} from "@/utils/random";
 import {FullfillContrainer} from "../FullfillContainer";
-import ContentSwitch from "@/components/physarum/ContentSwitch";
-import Description from "@/components/physarum/Description";
+import ContentSwitch from "@/components/ContentSwitch";
+import PhysarumDescription from "@/components/physarum/PhysarumDescription";
 
 interface Settings {
     population: PopulationProps
@@ -104,7 +104,7 @@ export default function App() {
             <FullfillContrainer>
                 {(wh) => <>
                     <ContentSwitch onChange={switchContent} description={settings.description}/>
-                    {settings.description ? <Description/> :  <Physarum
+                    {settings.description ? <PhysarumDescription/> :  <Physarum
                         w={wh[0]}
                         h={wh[1]}
                         populationProps={settings.population}
