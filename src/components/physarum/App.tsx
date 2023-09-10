@@ -11,8 +11,10 @@ import {uniform} from "@/utils/random";
 import {FullfillContrainer} from "../FullfillContainer";
 import ContentSwitch from "@/components/ContentSwitch";
 import PhysarumDescription from "@/components/physarum/PhysarumDescription";
+import Layout from "@/components/Layout";
+import PhysarumSettings from "@/components/physarum/PhysarumSettings";
 
-interface Settings {
+export interface Settings {
     population: PopulationProps
     agentConfig: Config
     color: Uint8Array
@@ -20,8 +22,6 @@ interface Settings {
 }
 
 export default function App() {
-    const from = uniform(0, 1 << 24)
-    const to = opposite(from)
     const [settings, setSettings] = useState<Settings>({
         agentConfig: {
             Speed: 1,
@@ -45,20 +45,23 @@ export default function App() {
             pheroByStep: 75,
             decreaseValue: 0.5,
         },
-        color: makeGradient(from, to),
+        color: makeGradient(0x0, 0xffffff),
         description: false
     })
     useEffect(() => {
-        setAgent(randomConfig())
-    }, []);
-    const setPopulationProps = (p: PopulationProps) => {
+        const from = uniform(0, 1 << 24)
+        const to = opposite(from)
         setSettings({
-            agentConfig: settings.agentConfig,
-            population: p,
-            color: settings.color,
-            description: settings.description
+            agentConfig: randomConfig(),
+            color: makeGradient(from, to),
+            description: false,
+            population: {
+                numberAgents: 20000,
+                pheroByStep: 75,
+                decreaseValue: 0.5,
+            },
         })
-    }
+    }, []);
 
     const setAgent = (c: Config) => {
         setSettings({
@@ -69,50 +72,12 @@ export default function App() {
         })
     }
 
-    const setColor = (c: Uint8Array) => {
-        setSettings({
-            agentConfig: settings.agentConfig,
-            population: settings.population,
-            color: c,
-            description: settings.description
-        })
-    }
-
-    const switchContent = () => {
-        setSettings({
-            agentConfig: settings.agentConfig,
-            population: settings.population,
-            color: settings.color,
-            description: !settings.description
-        })
-    }
-
-    return (
-        <div className="App">
-            <div className="options-menu thin-scroll">
-                <h2>Population settings</h2>
-                <PopulationSettings populationProps={settings.population} onChange={setPopulationProps}/>
-                <GradientForm from={from} to={to} onChange={setColor}/>
-
-                <h2>Agent settings</h2>
-                {/*<input type="checkbox" checked={animate} onChange={() => setAnimate(!animate)}/>*/}
-                <AgentSettings
-                    agentConfig={settings.agentConfig}
-                    onChange={setAgent}
-                />
-            </div>
-            <FullfillContrainer>
-                {(wh) => <>
-                    <ContentSwitch onChange={switchContent} description={settings.description}/>
-                    {settings.description ? <PhysarumDescription/> :  <Physarum
-                        w={wh[0]}
-                        h={wh[1]}
-                        populationProps={settings.population}
-                        agentConfig={settings.agentConfig}
-                        color={settings.color}
-                    />}
-                </>}
-            </FullfillContrainer>
-        </div>
-    );
+    return <Layout
+        title={"Physarum"}
+        settings={<PhysarumSettings settings={settings} onChange={setSettings}/>}
+        app={<FullfillContrainer>
+            {wh => <Physarum w={wh[0]} h={wh[1]} settings={settings}/>}
+        </FullfillContrainer>}
+        description={<PhysarumDescription/>}
+        />
 }

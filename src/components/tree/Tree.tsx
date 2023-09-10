@@ -5,6 +5,7 @@ import TreeSettings from "@/components/tree/TreeSettings";
 import "@/styles/tree.css"
 import ContentSwitch from "@/components/ContentSwitch";
 import TreeDescription from "@/components/tree/TreeDescription";
+import Layout from "@/components/Layout";
 
 
 export interface TreeParams {
@@ -28,24 +29,14 @@ export default function Tree() {
         amplitude: 0,
         frequency: 0.01
     })
-    const [description, setDescription] = useState(false)
 
-    return <div className="App">
-        <div className="options-menu thin-scroll">
-            <h1>Tree</h1>
-            <TreeSettings tree={settings} onChange={setSettings}/>
-        </div>
-        <FullfillContrainer>
-            {(wh) => <>
-                <ContentSwitch onChange={setDescription} description={description}/>
-                {description ? <TreeDescription/> : <TreeCanvas
-                    w={wh[0]}
-                    h={wh[1]}
-                    treeParams={settings}
-                />}
-                </>
-            }
-        </FullfillContrainer>
-
-    </div>
+    return <Layout title="Tree"
+                   settings={<TreeSettings tree={settings} onChange={setSettings}/>}
+                   app={
+                       <FullfillContrainer>
+                           {wh => <TreeCanvas w={wh[0]} h={wh[1]} treeParams={settings}/>}
+                       </FullfillContrainer>
+                   }
+                   description={<TreeDescription/>}
+    />
 }

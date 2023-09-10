@@ -14,7 +14,7 @@ export interface PopulationProps {
 export interface CupProps {
     w: number
     h: number
-    populationProps: PopulationProps
+    population: PopulationProps
     agentConfig: Config
     ctx: CanvasRenderingContext2D
     color: Uint8Array
@@ -39,7 +39,7 @@ export class Cup {
         this.drawer = new Drawer(props.ctx)
 
         this.agents = []
-        for (let i = 0; i <= props.populationProps.numberAgents; i++) {
+        for (let i = 0; i <= props.population.numberAgents; i++) {
             this.agents.push(new Agent(
                 uniform(0, props.w - 1),
                 uniform(0, props.h - 1),
@@ -76,7 +76,7 @@ export class Cup {
         a.x = a.x + dX
         a.y = a.y + dY
         let value = this.field.at(a.x, a.y)
-        this.field.set(a.x, a.y, value + this.props.populationProps.pheroByStep)
+        this.field.set(a.x, a.y, value + this.props.population.pheroByStep)
     }
 
     private calculatePheromone(a: Agent): [number, number] {
@@ -94,7 +94,7 @@ export class Cup {
     }
 
     private decreasePheromone() {
-        this.field.sub(this.props.populationProps.decreaseValue)
+        this.field.sub(this.props.population.decreaseValue)
     }
 
 

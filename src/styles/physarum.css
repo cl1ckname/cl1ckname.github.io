@@ -32,37 +32,7 @@
 }
 
 @media (max-width: 984px) {
-    body{
-        overflow-y: visible;
-    }
-    .App {
-        overflow-y: scroll;
-        flex-direction: column;
-        -webkit-overflow-scrolling: touch;
-    }
-    .options-menu {
-        order: 1;
-        overflow-y: visible;
-        max-height: fit-content;
-    }
     .physarum {
         order: 0;
     }
-}
-
-.fullfill {
-    width: 100%;
-    position: relative;
-}
-
-.content-switch {
-    position: fixed;
-    bottom: 1em;
-    right: 1em;
-    background-size: contain;
-    background-image: url("../../public/scroll.png");
-    background-color: transparent;
-    width: 5em;
-    height: 5em;
-    border: none;
 }

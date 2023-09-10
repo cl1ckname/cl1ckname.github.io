@@ -1,13 +1,12 @@
 import React, {useEffect, useRef} from "react";
 import {Cup, PopulationProps} from "@/logic/physarum/cup";
 import {Config} from "@/logic/physarum/config";
+import {Settings} from "@/components/physarum/App";
 
 export interface PhysarumProps {
     w: number
     h: number
-    color: Uint8Array
-    populationProps: PopulationProps
-    agentConfig: Config
+    settings: Settings
 }
 export function Physarum(props: PhysarumProps) {
     let then = 0
@@ -24,7 +23,9 @@ export function Physarum(props: PhysarumProps) {
             ctx.canvas.width = props.w
             ctx.canvas.height = props.h
             cup = new Cup({
-                ...props,
+                ...props.settings,
+                w: props.w,
+                h: props.h,
                 ctx: ctx
             })
             cup.Update = cup.Update.bind(cup)

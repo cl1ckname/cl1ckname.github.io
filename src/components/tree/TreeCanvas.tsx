@@ -1,5 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
-import {ColorFunction} from "@/logic/tree/colors";
+import {useEffect, useRef, useState} from "react";
 import {drawTree} from "@/logic/tree/generator";
 import ViewportCanvas from "@/components/viewportCanvas";
 import {TreeParams} from "@/components/tree/Tree";
@@ -37,8 +36,14 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         if (!ctx) {
             return;
         }
-        if (!virtualRef.current) {
+        if (!ctx.canvas.width) {
             return;
+        }
+        if (!virtualRef.current) {
+            return
+        }
+        if (!virtualRef.current.width) {
+            return
         }
         const ctx2 = virtualRef.current.getContext("2d", {
             willReadFrequently: true
