@@ -6,11 +6,6 @@ export interface ColorCollectionElement {
 }
 
 type HEX = string
-
-function rgb2hex(r: number, g: number, b: number): HEX {
-    return "#" + hexChannel(r) + hexChannel(g) + hexChannel(b)
-}
-
 function hexChannel(c: number): string {
     const h = c.toString(16)
     return (h.length == 1) ? "0" + h : h
@@ -52,7 +47,7 @@ const violetGrow = (number: number, _: number) => {
 
 const Gradient = (number: number, depth: number) => {
     const step = 1 / depth
-    let value = step * number
+    let value = Math.floor(step * number * 255)
     return `rgb(${value}, ${value}, ${value})`
 }
 

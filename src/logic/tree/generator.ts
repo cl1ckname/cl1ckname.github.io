@@ -138,7 +138,6 @@ export function drawTree(props: DrawTreeProps) {
             const l2cpy = leafs.at(j)
             nodes.add(l2cpy)
         }
-        // console.log(leafs)
         leafs.clear()
 
         for (let j = 0; j < nodes.last; j++) {

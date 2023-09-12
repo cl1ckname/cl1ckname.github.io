@@ -1,6 +1,7 @@
-import {useEffect, useRef} from "react";
-import {PoolFragShader, PoolVertShader, SolidColor} from "@/logic/pool/Shader";
+import {useEffect, useRef, useState} from "react";
+import {PoolFragShader, PoolVertShader} from "@/logic/pool/Shader";
 import {PoolParams} from "@/components/pool/Pool";
+import ViewportCanvas from "@/components/viewportCanvas";
 
 
 interface PoolCanvasProps {
@@ -8,9 +9,20 @@ interface PoolCanvasProps {
     w: number,
     h: number
 }
+
+interface PoolUniforms extends PoolParams{
+    x: number,
+    y: number,
+    resolution: [number, number],
+    scale: number,
+}
 export default function PoolCanvas(props: PoolCanvasProps) {
     const settings = props.settings
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const [scale, setScale] = useState(1)
+    const [pos, setPos] = useState({x: 0, y: 0})
+    const [gl, setGl] = useState<WebGLRenderingContext>()
+    const [program, setProgram] = useState<WebGLProgram>()
 
     useEffect(() => {
         if (props.w == 0) {
@@ -25,21 +37,55 @@ export default function PoolCanvas(props: PoolCanvasProps) {
         if (!gl) {
             return;
         }
+        setGl(gl)
 
-        drawPool(gl, settings)
+        const program = prepareProgram(gl, {
+            ...settings,
+            scale,
+            x: pos.x,
+            y: pos.y,
+            resolution: [props.w, props.h]
+        })
+        if (!program) {
+            return;
+        }
+        setProgram(program)
+    }, [canvasRef.current, gl]);
 
-    }, [canvasRef.current, props]);
-    return <canvas ref={canvasRef} width={700} height={700} style={{minHeight: "500px"}}/>
+    useEffect(() => {
+        if (!gl || !program) {
+            return
+        }
+        putSettingsUniforms(gl, program, {
+            ...settings,
+            scale,
+            x: pos.x,
+            y: pos.y,
+            resolution: [props.w, props.h]
+        })
+        gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
+    }, [gl, program, scale, pos, props]);
+
+    function onPan(value: number) {
+        setScale(prev => prev + value)
+    }
+
+    function onDrag(delta: {x: number, y: number}) {
+        const escale = Math.exp(scale) * 2
+        setPos({x: pos.x + delta.x * escale, y: pos.y + delta.y * escale})
+    }
+
+    return <ViewportCanvas ref={canvasRef} onPan={onPan} onScroll={onPan} onDrag={onDrag} width={props.w} height={props.h}/>
 }
 
-function drawPool(gl: WebGLRenderingContext, settings: PoolParams) {
+function prepareProgram(gl: WebGLRenderingContext, settings: PoolUniforms): WebGLProgram | null {
     gl.clearColor(0.2, 0.55, 0.35, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)
-    if (!vertexShader) return
+    if (!vertexShader) return null
     const fragmentShader=  gl.createShader(gl.FRAGMENT_SHADER)
-    if (!fragmentShader) return;
+    if (!fragmentShader) return null;
 
     gl.shaderSource(vertexShader, PoolVertShader)
     gl.shaderSource(fragmentShader, PoolFragShader)
@@ -48,27 +94,27 @@ function drawPool(gl: WebGLRenderingContext, settings: PoolParams) {
     if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 
         console.error("vert error ", gl.getShaderInfoLog(vertexShader))
-        return
+        return null
     }
     gl.compileShader(fragmentShader)
     if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
         console.error("frag error", gl.getShaderInfoLog(fragmentShader))
-        return
+        return null
     }
     const program = gl.createProgram()
-    if (!program) return;
+    if (!program) return null;
     gl.attachShader(program, vertexShader)
     gl.attachShader(program, fragmentShader)
     gl.linkProgram(program)
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         console.error("link error " + gl.getProgramInfoLog(program))
-        return;
+        return null;
     }
     gl.validateProgram(program)
     if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
         console.error("validate err ", gl.getProgramInfoLog(program))
-        return;
+        return null;
     }
 
     const triangleVertices = [
@@ -94,13 +140,11 @@ function drawPool(gl: WebGLRenderingContext, settings: PoolParams) {
     gl.enableVertexAttribArray(positionAttributeLocation)
     gl.useProgram(program)
 
-    putSettingsUniforms(gl, program, settings)
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
-
+    return program
 }
 
 
-function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, settings: PoolParams) {
+function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, settings: PoolUniforms) {
     const xId = gl.getUniformLocation(program, "xx")
     if (!xId) {
         console.error("xx not found")

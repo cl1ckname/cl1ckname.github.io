@@ -6,11 +6,7 @@ import {useState} from "react";
 import {RGB} from "@/logic/pool/RGB";
 
 export interface PoolParams {
-    x: number,
-    y: number,
-    resolution: [number, number],
     n: number,
-    scale: number,
     roots: number[],
     colors: RGB[],
     max_its: number,
@@ -18,11 +14,7 @@ export interface PoolParams {
 export default function Pool() {
     const defaultParams: PoolParams = {
         n: 3,
-        x: 0,
-        y: 0,
         max_its: 150,
-        scale: 1,
-        resolution: [700, 700],
         colors: [
             [255, 0, 0],
             [0, 255, 0],
