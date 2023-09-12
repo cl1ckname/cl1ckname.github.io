@@ -25,7 +25,7 @@ uniform float scale;
 uniform float roots[12];
 uniform float xx;
 uniform float yy;
-uniform int colors[12];
+uniform vec3 colors[12];
 uniform int max_its;
 
 const int MAX_ITS = 300;
@@ -57,13 +57,6 @@ float cdist(vec2 x, vec2 y) {
 	return length((x-y));
 }
 
-vec3 hex2rgb(int h) {
-	float rIntValue = mod(float(h / 256 / 256), 256.) / 255.;
-	float gIntValue = mod(float(h / 256      ), 256.) / 255.;
-	float bIntValue = mod(float(h            ), 256.) / 255.;
-	return vec3(rIntValue, gIntValue, bIntValue);
-}
-
 void main( void ) {
 
 float escale = exp(scale);
@@ -72,14 +65,11 @@ pos.x = pos.x - escale + xx;
 pos.y = pos.y - escale - yy;
 pos.x = pos.x*(resol.x / resol.y);
 
-vec3 color = vec3(1.0);
-
 vec2 zi = pos;
 for (int i = 0; i < MAX_ITS; i++) {
 	if (i == max_its) {break;}
 	zi = zi - cdiv(cpow(zi, n) - vec2(1), float(n) * cpow(zi, n-1));
 }
-color = vec3(length(zi));
 
 int mi = 0;
 float md =  cdist(transform(roots[0]), zi);
@@ -94,15 +84,7 @@ for (int i = 0; i < MAX_ITS; i++) {
 		mi = i;
 	}
 }
-
-// color = vec3(float(mi) / float(n));
-for (int i = 0; i < 12; i++) {
-	if (i == mi) {
-		color = hex2rgb(colors[i]);
-		break;
-	}
-}
-
+vec3 color = vec3(1.0);
 for (int i = 0; i < MAX_ITS; i++) {
 	if (i == n) { break; }
 	vec2 point = transform(roots[i]);
@@ -111,15 +93,12 @@ for (int i = 0; i < MAX_ITS; i++) {
 		color = vec3(1., 0., 0.);
 	}
 }
-
-if (colors[0] != 0) {
-    gl_FragColor = vec4(color, 1);
-} else {
-    if (roots[0] == 1.) {
-        gl_FragColor = vec4(0.5, 0.5, 0.5, 1.0);
-    } else {
-        gl_FragColor = vec4(0.1, 0.5, 0.7, 1);
+for (int i = 0; i < 12; i++) {
+    if (i == mi) {
+        color = colors[i];
+        break;
     }
 }
+gl_FragColor = vec4(color / 255., 1);
 }
 `;

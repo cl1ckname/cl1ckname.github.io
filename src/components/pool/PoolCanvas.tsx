@@ -1,10 +1,10 @@
 import {useEffect, useRef} from "react";
 import {PoolFragShader, PoolVertShader, SolidColor} from "@/logic/pool/Shader";
-import {PoolSettings} from "@/components/pool/Pool";
+import {PoolParams} from "@/components/pool/Pool";
 
 
 interface PoolCanvasProps {
-    settings: PoolSettings
+    settings: PoolParams
     w: number,
     h: number
 }
@@ -13,21 +13,26 @@ export default function PoolCanvas(props: PoolCanvasProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
+        if (props.w == 0) {
+            return;
+        }
         if (!canvasRef.current) {
             return
         }
+        canvasRef.current.width = props.w
+        canvasRef.current.height = props.h
         const gl = canvasRef.current.getContext("webgl")
         if (!gl) {
             return;
         }
 
-        qq(gl, settings)
+        drawPool(gl, settings)
 
-    }, [canvasRef.current]);
-    return <canvas ref={canvasRef} width={props.w} height={props.h} style={{minHeight: "500px"}}/>
+    }, [canvasRef.current, props]);
+    return <canvas ref={canvasRef} width={700} height={700} style={{minHeight: "500px"}}/>
 }
 
-function qq(gl: WebGLRenderingContext, settings: PoolSettings) {
+function drawPool(gl: WebGLRenderingContext, settings: PoolParams) {
     gl.clearColor(0.2, 0.55, 0.35, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -95,7 +100,7 @@ function qq(gl: WebGLRenderingContext, settings: PoolSettings) {
 }
 
 
-function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, settings: PoolSettings) {
+function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, settings: PoolParams) {
     const xId = gl.getUniformLocation(program, "xx")
     if (!xId) {
         console.error("xx not found")
@@ -149,6 +154,6 @@ function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, s
         console.error("colors not found")
         return;
     }
-    gl.uniform1iv(colorsId, settings.colors)
-    console.log("thx", gl.getProgramInfoLog(program))
+    const flatColors = settings.colors.reduce((a, b) => a.concat(b), [] as number[])
+    gl.uniform3fv(colorsId, flatColors)
 }

@@ -43,24 +43,33 @@ const GenerateTripleGradient = (color1: number, color2: number, color3: number) 
 }
 
 const violetGrow = (number: number, _: number) => {
-    return "#" + Math.floor(0x552266 + 0x020000 * number + 0x000011 * number).toString(16)
+    const r = Math.floor(0x66 + 0x11 * number) % 256
+    const g = Math.floor(0x22)
+    const b = Math.floor(0x55 + 0x2 * number) % 256
+    return `rgb(${r}, ${g}, ${b})`
 }
 
 
 const Gradient = (number: number, depth: number) => {
     const step = 1 / depth
     let value = step * number
-    return rgb2hex(value, value, value)
+    return `rgb(${value}, ${value}, ${value})`
 }
 
 const CloudDischarge = (number: number, depth: number) => {
     const stage = number / depth
-    return "#" + (Math.floor(0xababfb * (stage) + 0xa7e083 * stage)).toString(16)
+    const r = Math.floor(0xab * stage + 0xa7 * stage) % 256
+    const g = Math.floor(0xab * stage + 0xe0 * stage) % 256
+    const b = Math.floor(0xfb * stage + 0x83 * stage) % 256
+    return `rgb(${r}, ${g}, ${b})`
 }
 
 const NoSignal = (number: number, depth: number) => {
     const stage = number / depth
-    return "#" + Math.floor(0xababfb * (number) + 0xa7e083 * stage).toString(16)
+    const r = Math.floor(0xab * number + 0xa7 * stage) % 256
+    const g = Math.floor(0xab * number + 0xe0 * stage) % 256
+    const b = Math.floor(0xfb * number + 0x83 * stage) % 256
+    return `rgb(${r}, ${g}, ${b})`
 }
 
 const ColorCollection: ColorCollectionElement[] = [

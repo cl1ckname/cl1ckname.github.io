@@ -1,4 +1,4 @@
-import ColorCollection from "@/logic/tree/ColorCollection";
+import ColorCollection from "@/logic/ColorCollection";
 import PolygonBlob from "@/logic/tree/polygonBlob";
 
 type Point = {

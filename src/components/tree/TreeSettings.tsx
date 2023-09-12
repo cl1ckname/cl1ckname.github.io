@@ -1,6 +1,6 @@
 import {TreeParams} from "@/components/tree/Tree";
 import {Slider} from "@/components/slider";
-import ColorPicker from "@/components/tree/ColorPicker";
+import ColorPicker from "@/components/ColorPicker";
 import Sin from "@/components/tree/Sin";
 
 interface TreeSettingsProps {

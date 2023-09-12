@@ -1,4 +1,4 @@
-import ColorCollection from "@/logic/tree/ColorCollection";
+import ColorCollection from "@/logic/ColorCollection";
 
 interface ColorPickerProps {
     value: number
