@@ -49,7 +49,7 @@ export default function PhysarumSettings(props: PhysarumSettingsProps) {
         })
     }
 
-    return <form>
+    return <fieldset>
             <h2>Population settings</h2>
             <PopulationSettings populationProps={props.settings.population} onChange={setPopulationProps}/>
             <GradientForm from={0x0} to={0xffffff} onChange={setColor}/>
@@ -60,5 +60,5 @@ export default function PhysarumSettings(props: PhysarumSettingsProps) {
                 agentConfig={settings.agentConfig}
                 onChange={setAgent}
             />
-        </form>
+        </fieldset>
 }
