@@ -18,6 +18,7 @@ uniform float roots[12];
 uniform vec2 position;
 uniform vec3 colors[12];
 uniform int max_its;
+uniform vec2 point_a;
 
 const int MAX_ITS = 300;
 
@@ -57,7 +58,8 @@ vec2 pos = ((gl_FragCoord.xy + position / escale) / resol.xy + vec2(-0.5)) * esc
 vec2 zi = pos;
 for (int i = 0; i < MAX_ITS; i++) {
 	if (i == max_its) {break;}
-	zi = zi - cdiv(cpow(zi, n) - vec2(1), float(n) * cpow(zi, n-1));
+	zi = zi - cmul(cdiv(cpow(zi, n) - vec2(100., 0.), float(n) * cpow(zi, n-1)), point_a);
+	// zi = zi - cmul(cdiv(sin(zi) - vec2(1., 0.), cos(zi)), point_a);
 }
 
 int mi = 0;
@@ -74,14 +76,6 @@ for (int i = 0; i < MAX_ITS; i++) {
 	}
 }
 vec3 color = vec3(1.0);
-for (int i = 0; i < MAX_ITS; i++) {
-	if (i == n) { break; }
-	vec2 point = transform(roots[i]);
-
-	if (cdist(pos, point) < 0.01) {
-		color = vec3(1., 0., 0.);
-	}
-}
 for (int i = 0; i < 12; i++) {
     if (i == mi) {
         color = colors[i];

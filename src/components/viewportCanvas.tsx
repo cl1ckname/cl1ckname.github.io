@@ -61,6 +61,7 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
     }
 
     function onTouchDragStart(event: TouchEvent) {
+        event.preventDefault()
         event.stopPropagation()
         if (event.touches.length === 1) {
             setIsDrag(true);
@@ -93,6 +94,7 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
     }
 
     function onTouchDrag(event: TouchEvent<HTMLCanvasElement>) {
+        event.preventDefault()
         event.stopPropagation()
         if (event.touches.length === 1)
             onDrug(getTouchEventPoint(event))
@@ -116,7 +118,7 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
             const delta1  = pointDist(panStart1, panStart2)
             const delta2  = pointDist(pointEnd1, pointEnd2)
             const delta = delta1 - delta2
-            props.onPan(delta)
+            props.onPan(delta / window.innerWidth)
         }
     }
 

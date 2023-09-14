@@ -158,6 +158,13 @@ function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, s
     }
     gl.uniform1i(nId, settings.n)
 
+    const aId = gl.getUniformLocation(program, "point_a")
+    if (!aId) {
+        console.error("a not found")
+        return;
+    }
+    gl.uniform2f(aId, settings.rea, settings.ima)
+
     const resolutionId = gl.getUniformLocation(program, "resol")
     if (!resolutionId) {
         console.error("resolution not found")

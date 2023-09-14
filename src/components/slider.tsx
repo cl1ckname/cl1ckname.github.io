@@ -7,11 +7,11 @@ export interface SliderProps {
     value: number,
     onChange?: (value: number) => void
     disabled?: boolean
+    step?: number,
 }
 
 export function Slider(props: SliderProps) {
     const range = useRef<HTMLInputElement>(null);
-
 
     const getPercent = useCallback(
         (value: number) => Math.round(((value - props.min) / (props.max - props.min)) * 100),
@@ -39,6 +39,7 @@ export function Slider(props: SliderProps) {
             className="thumb"
             title={props.value.toString()}
             style={{zIndex: 5}}
+            step={props.step || 1}
         />
     </div>
 }
