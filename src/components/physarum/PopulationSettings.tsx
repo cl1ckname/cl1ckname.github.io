@@ -1,4 +1,4 @@
-import {PopulationProps} from "../agent/cup";
+import {PopulationProps} from "@/logic/physarum/cup";
 import {Slider} from "../slider";
 
 export interface PopulationSettingsProps {
