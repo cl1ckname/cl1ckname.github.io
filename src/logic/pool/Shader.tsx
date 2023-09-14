@@ -1,11 +1,3 @@
-export const SolidColor = `
-precision mediump float;
-
-void main() {
-gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}
-`
-
 export const PoolVertShader = `
 precision mediump float;
 
@@ -23,8 +15,7 @@ uniform vec2 resol;
 uniform int n;
 uniform float scale;
 uniform float roots[12];
-uniform float xx;
-uniform float yy;
+uniform vec2 position;
 uniform vec3 colors[12];
 uniform int max_its;
 
@@ -59,11 +50,9 @@ float cdist(vec2 x, vec2 y) {
 
 void main( void ) {
 
-float escale = exp(scale);
-vec2 pos = ( gl_FragCoord.xy / resol.xy) * escale * 2.0;
-pos.x = pos.x - escale + xx;
-pos.y = pos.y - escale - yy;
-pos.x = pos.x*(resol.x / resol.y);
+float escale = exp(scale - 1.);
+vec2 pos = ((gl_FragCoord.xy + position / escale) / resol.xy + vec2(-0.5)) * escale;
+
 
 vec2 zi = pos;
 for (int i = 0; i < MAX_ITS; i++) {
@@ -99,6 +88,13 @@ for (int i = 0; i < 12; i++) {
         break;
     }
 }
+
+// if (pos.x < 0.1 && pos.x > -0.1 && pos.y < 0.1 && pos.y > -0.1) {
+//     gl_FragColor = vec4(vec3(1.,0.,0.), 1);
+// } else {
 gl_FragColor = vec4(color / 255., 1);
+// }
+// if (colors[0].x == 0.) {gl_FragColor = vec4(0.2, 0.4, 0.6, 1);}
+
 }
 `;

@@ -11,8 +11,7 @@ interface PoolCanvasProps {
 }
 
 interface PoolUniforms extends PoolParams{
-    x: number,
-    y: number,
+    pos: [number, number],
     resolution: [number, number],
     scale: number,
 }
@@ -42,8 +41,7 @@ export default function PoolCanvas(props: PoolCanvasProps) {
         const program = prepareProgram(gl, {
             ...settings,
             scale,
-            x: pos.x,
-            y: pos.y,
+            pos: [pos.x, pos.y],
             resolution: [props.w, props.h]
         })
         if (!program) {
@@ -59,10 +57,10 @@ export default function PoolCanvas(props: PoolCanvasProps) {
         putSettingsUniforms(gl, program, {
             ...settings,
             scale,
-            x: pos.x,
-            y: pos.y,
+            pos: [pos.x, pos.y],
             resolution: [props.w, props.h]
         })
+        // console.log(pos)
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
     }, [gl, program, scale, pos, props]);
 
@@ -71,8 +69,8 @@ export default function PoolCanvas(props: PoolCanvasProps) {
     }
 
     function onDrag(delta: {x: number, y: number}) {
-        const escale = Math.exp(scale) * 2
-        setPos({x: pos.x + delta.x * escale, y: pos.y + delta.y * escale})
+        const escale = Math.exp(scale-1)
+        setPos({x: pos.x + delta.x * escale, y: pos.y - delta.y * escale})
     }
 
     return <ViewportCanvas ref={canvasRef} onPan={onPan} onScroll={onPan} onDrag={onDrag} width={props.w} height={props.h}/>
@@ -145,19 +143,13 @@ function prepareProgram(gl: WebGLRenderingContext, settings: PoolUniforms): WebG
 
 
 function putSettingsUniforms(gl: WebGLRenderingContext, program: WebGLProgram, settings: PoolUniforms) {
-    const xId = gl.getUniformLocation(program, "xx")
-    if (!xId) {
-        console.error("xx not found")
+    gl.useProgram(program)
+    const posId = gl.getUniformLocation(program, "position")
+    if (!posId) {
+        console.error("pos not found")
         return;
     }
-    gl.uniform1f(xId, settings.x)
-
-    const yId = gl.getUniformLocation(program, "yy")
-    if (!yId) {
-        console.error("yy not found")
-        return;
-    }
-    gl.uniform1f(yId, settings.y)
+    gl.uniform2f(posId, settings.pos[0], settings.pos[1])
 
     const nId = gl.getUniformLocation(program, "n")
     if (!nId) {
