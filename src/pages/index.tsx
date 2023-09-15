@@ -573,26 +573,35 @@ export default function MainPage(props: { ip: any }) {
                     </div>
                     <div id="catlinks" className="catlinks" data-mw="interface">
                         <div id="mw-normal-catlinks" className="mw-normal-catlinks"><a
-                            title="Служебная:Категории">Categories</a>:
+                            title="Служебная:Категории">Inspired by | thanks to</a>:
                             <ul>
-                                <li><a title="Really sussy, really nerd">Sussy nerds</a></li>
-                                <li><a title="Category:Teapot instructions">Teapot instructions</a></li>
-                                <li><a title="Category: Stone studio">"Stone" studio</a></li>
-                                <li><a href="https://en.wikipedia.org/wiki/Category_of_topological_spaces"
-                                       title="Category: Top">Top</a></li>
-                                <li><a title="Category:Alvin and the chipmunks">Alvin and the chipmunks</a></li>
-                                <li><a title="Категория:Кавалеры ордена Священного сокровища 4 класса">Emo culture</a>
+                                <li><a title="Great channel, awesome man"
+                                       href="https://www.youtube.com/c/foo52ru">foo52</a></li>
+                                <li><a
+                                    title="one of the first people who opened my eyes to the fact that programming isn't just about business stuff."
+                                    href="https://www.youtube.com/@vectozavr">Vectozavr</a>
                                 </li>
-                                <li><a title="Category: i really have a super nice straw hat">Toads in hats</a></li>
-                                <li>
-                                    <a
-                                        className="new" title="Категория:Военные дирижеры (страница отсутствует)">Военные
-                                        дирижеры</a>
+                                <li><a title="best sci-fi on russian youtube"
+                                       href="https://www.youtube.com/@OnigiriScience">Onigiri</a></li>
+                                <li><a title="Thanks for your graphics experements, i love gatari too"
+                                       href="https://www.youtube.com/@Acerola_t">Acerola</a></li>
+                                <li><a href="https://www.youtube.com/@SebastianLague/videos"
+                                       title='"Code adventure" is great, i feel same way'>Sebastian Lague</a></li>
+                                <li><a title="dude knows exactly what computers are for"
+                                       href="https://www.youtube.com/@PezzzasWork">Pezzza's Work</a></li>
+                                <li><a title="my guys" href="https://vk.com/stone_studio">"Stone" studio</a></li>
+                                <li><a title="thx for your videos and experements"
+                                       href="https://www.youtube.com/@StandaloneCoder/featured">Standalone coder</a>
                                 </li>
-                                <li><a title="Категория:Композиторы Франции">Композиторы Франции</a></li>
-                                <li><a title="Категория:Композиторы Японии">Композиторы Японии</a></li>
-                                <li><a title="Категория:Композиторы XIX века">Композиторы XIX века</a></li>
-                                <li><a title="Категория:Композиторы XX века">Композиторы XX века</a></li>
+                                <li><a title="Category: i really love toads"
+                                       href="https://www.youtube.com/watch?v=N85LzPVJzDQ">Toads in hats</a></li>
+                                <li><a title="The channel that pushed me to learn programming."
+                                       href="https://www.youtube.com/@eliteclubsessions">EliteClubSessions</a></li>
+                                <li><a title="thank you for your interest in shaders and shadertoy"
+                                       href="https://www.youtube.com/@InigoQuilez">Inigo Quilez</a></li>
+                                <li><a title="some of foo52's videos are translations of this dude's videos."
+                                       href="https://www.youtube.com/@wallcraft-video/videos">Simulife Hub</a></li>
+                                <li><a href="https://en.wikipedia.org/wiki/Manic_Pixie_Dream_Girl">one girl</a></li>
                             </ul>
                         </div>
                     </div>
@@ -764,7 +773,7 @@ export default function MainPage(props: { ip: any }) {
 
             <footer id="footer" className="mw-footer" role="contentinfo">
                 <ul id="footer-info">
-                    <li id="footer-info-lastmod"> This page was last edited on September 8, 2023, at 22:55.</li>
+                    <li id="footer-info-lastmod"> This page was last edited on September 16, 2023, at 00:03.</li>
                     <li id="footer-info-copyright">please do not try to sue me for licking the appearance and all the
                         CSS
                         tables
