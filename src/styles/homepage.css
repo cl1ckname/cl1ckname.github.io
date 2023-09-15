@@ -216,3 +216,23 @@ body {
         transform: skewX(0);
     }
 }
+
+.wave span {
+    display: inline-block;
+    animation: wave-text 1.5s ease-in-out infinite;
+    font-family: "__VT323_db36e2", sans-serif;
+    font-size: 1.3em;
+    /*text-shadow: 1px -1px 0px #000000;*/
+}
+
+@keyframes wave-text{
+    00%{
+        transform: translateY(0em);
+    }
+    60%{
+        transform: translateY(-0.6em);
+    }
+    100%{
+        transform: translateY(0em);
+    }
+}

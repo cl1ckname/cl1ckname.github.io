@@ -5,6 +5,7 @@ import Head from "next/head";
 import {NextApiRequest} from "next"
 import {Bungee_Spice, VT323} from "next/font/google"
 import Postscript from "@/components/homepage/postscript";
+import WaveText from "@/components/homepage/waveText";
 
 const bungee = Bungee_Spice({subsets: ['latin'], weight: "400"})
 const vt323 = VT323({subsets: ['latin'], weight: "400"})
@@ -203,7 +204,7 @@ export default function MainPage(props: { ip: any }) {
                                         <span className="toctext">Fun content here</span></a>
                                         <ul>
                                             <li className="toclevel-2 tocsection-4"><a
-                                                href="/Physarum"><span
+                                                href="/physarum"><span
                                                 className="tocnumber">3.1</span> <span
                                                 className="toctext">Physarum</span></a></li>
                                             <li className="toclevel-2 tocsection-4"><a
@@ -465,8 +466,10 @@ export default function MainPage(props: { ip: any }) {
                             </p>
                             <p>
                                 But these are all mammals, moreover, vertebrates. <span className="spoiler">(khm, actually vertebrates are a
-                                broader concept than mammals)</span>. How about something really spineless? I want to introduce
-                                you a <a href="/physarum">Physarum</a>. First of all, it's a slime. Secondly, he knows how to find
+                                broader concept than mammals)</span>. How about something really spineless? I want to
+                                introduce
+                                you a <a href="/physarum">Physarum</a>. First of all, it's a slime. Secondly, he knows
+                                how to find
                                 the shortest paths on the graph.
                                 <span className="horror-text">And what about you? How much time do you waste walking
                                     on sidewalks and bypassing the arches of lampposts?</span>
@@ -480,13 +483,38 @@ export default function MainPage(props: { ip: any }) {
                             </h3>
                             <p>
                                 Do you like fractals? I'm sure that yes, or you just don't know about them. There are
-                                many interesting facts related to fractals like "but you knew yes, like what, like if
-                                you fold the antenna into a fractal, yes it will catch better, yes." It can be cool, it
+                                many interesting facts related to fractals like "but you knew yeah, like what, like if
+                                you fold the antenna into a fractal, yeah it will catch better, yeah." It can be cool,
+                                it
                                 can be useful, but it is extremely distracting from what is really important. Fractals
                                 are beautiful. God didn't give us a template-based brain to quickly distinguish faces or
                                 notice patterns. Seriously, are you ready to get up, get dressed, go to the store, buy
                                 cigarettes and stand smoking for five minutes, but don't you want to go pop up the&nbsp;
                                 <a href="/tree">Pythagorean tree</a>🌳? <span className="void-text">Repent</span>.
+                            </p>
+                            <h3>Newton's pool</h3>
+                            <p>
+                                Geometric fractals are 😎😎L. They're simple, and in their simplicity they're beautiful.
+                                They were discovered (or invented🤔) a long time ago, because all you needed to build
+                                them
+                                was drawing tools. But there is something that became available to the human eye only
+                                thanks to <WaveText text={"modern computing technologies"}/>. We are talking about
+                                algebraic fractals<img alt="Hey, there's supposed to be a picture here, where is it?"
+                                                       src="https://emoji.discadia.com/emojis/d6f96e9d-7318-4fee-80ac-53f64227b644.GIF"
+                                                       className="gif-emoji"/>. They
+                                are mostly built on the complex plane. Complex numbers are quite a
+                                s<sub>t</sub><sup>r</sup><s>a</s><b>n</b><i>g</i>e thing,
+                                counterintuitive and therefore harboring <a
+                                href="https://cs8.pikabu.ru/post_img/2016/01/18/6/1453109508170640358.jpg">many
+                                surprises</a>. Out of many different algebraic
+                                fractals, I chose one that I found most interesting. First of all, it has a simple
+                                interpretation, so when you look at it, you see some rational things. Secondly it is
+                                neglected, there are only a few pictures on the internet and no explorers <img
+                                src="https://emoji.discadia.com/emojis/316bcf0d-e4ee-48ab-98af-0a8cbe0360e9.PNG"
+                                className="gif-emoji" alt="Hey, there's supposed to be a picture here, where is it?"/>.
+                                So I
+                                decided to make one myself. So everyone is encouraged to look, try and explore Newton's
+                                pools!
                             </p>
                             <h2><span
                                 className="mw-headline" id="Примечания">P.S.</span><span
@@ -598,6 +626,10 @@ export default function MainPage(props: { ip: any }) {
                                     href="/tree"
                                     title="old but good"><span>Pythagorean tree</span></a>
                                 </li>
+                                <li id="n-featured" className="mw-list-item"><a
+                                    href="/pool"
+                                    title="uwu"><span>Newton pool</span></a>
+                                </li>
                                 <li id="n-sitesupport" className="mw-list-item"><a
                                     href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_ru.wikipedia.org&amp;uselang=ru"
                                     title="do it"><span>Donate to wikipedia</span></a></li>
@@ -703,7 +735,8 @@ export default function MainPage(props: { ip: any }) {
 
 
                     <nav id="p-lang" className="vector-menu mw-portlet mw-portlet-lang vector-menu-portal portal"
-                         aria-labelledby="p-lang-label" role="navigation">                  <button className="uls-settings-trigger" title="Установки языка"></button>
+                         aria-labelledby="p-lang-label" role="navigation">
+                        <button className="uls-settings-trigger" title="Установки языка"></button>
                         <h3 id="p-lang-label" className="vector-menu-heading ">
                             <span className="vector-menu-heading-label">Speak with me in</span>
                         </h3>
