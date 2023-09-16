@@ -1,7 +1,8 @@
 import ColorCollection from "@/logic/ColorCollection";
 import PolygonBlob from "@/logic/tree/polygonBlob";
-import {PoolFragShader, PoolVertShader} from "@/logic/pool/Shader";
 import {TreeFrag, TreeVert} from "@/logic/tree/shader";
+
+const HALFPI = Math.PI / 2
 
 type Point = {
     x: number
@@ -24,7 +25,7 @@ export type Square = {
 export const makeFigures = (angle: number, branchLong: number, alternation: boolean, nauting: number): (sq: Square) => [Square, Square] => {
     return (sq: Square): [Square, Square] => {
         if (alternation) {
-            angle = Math.PI / 2 - angle
+            angle = HALFPI - angle
         }
         let tp3: Point
         {
@@ -95,11 +96,8 @@ interface DrawTreeProps {
     n: number,
     ctx: WebGLRenderingContext,
     color: number,
-    w: number,
-    h: number,
     branchLong: number,
     alternation: boolean,
-    factor: number,
     nauting: number
 }
 
@@ -123,9 +121,7 @@ function prepareBuffers(gl: WebGLRenderingContext, program: WebGLProgram) {
 
 export function drawTree(props: DrawTreeProps) {
     const gl = props.ctx
-    let {w, h, factor, ctx, branchLong} = props
-    w *= factor
-    h *= factor
+    let branchLong = props.branchLong
     const produce = makeFigures(props.angle, branchLong, props.alternation, props.nauting)
     const firstSq = squareByCoordinates({
         x: 0, y: 0, size: 0.2, depth: props.n, branchLong
@@ -140,7 +136,7 @@ export function drawTree(props: DrawTreeProps) {
     prepareBuffers(gl, program);
 
     for (let i = 0; i < props.n; i++) {
-        drawSquares(props.ctx, program, leafs)
+        drawSquares(props.ctx, leafs)
         for (let j = 0; j < leafs.last; j++) {
             const l2cpy = leafs.at(j)
             nodes.add(l2cpy)
@@ -194,18 +190,11 @@ function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
     return program
 }
 
-function drawSquares(gl: WebGLRenderingContext, program: WebGLProgram, blob: PolygonBlob) {
-    const vaoPoints = [] as number[]
+function drawSquares(gl: WebGLRenderingContext, blob: PolygonBlob) {
+
+    gl.bufferData(gl.ARRAY_BUFFER, blob.vertexBuffer, gl.STATIC_DRAW)
+
     for (let i = 0; i < blob.last; i++) {
-        const sq = blob.at(i)
-        for (const p of sq.points) {
-            vaoPoints.push(p.x, p.y)
-        }
-    }
-
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vaoPoints), gl.STATIC_DRAW)
-
-    for (let i = 0; i < vaoPoints.length / 4; i++) {
         gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4)
     }
 

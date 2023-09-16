@@ -14,7 +14,6 @@ type Point = {
     y: number;
 };
 const ORIGIN = Object.freeze({x: 0, y: 0});
-const FACTOR = 4
 
 function diffPoints(p1: Point, p2: Point) {
     return {x: p1.x - p2.x, y: p1.y - p2.y};
@@ -56,7 +55,7 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     }, [canvasRef.current, gl, offset, scale]);
 
     function onPan(delta: number) {
-        setScale(prev => prev + delta / FACTOR)
+        setScale(prev => prev + delta)
     }
 
     function onDrag(delta: Point) {
@@ -80,10 +79,7 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
         drawTree({
             ...props.treeParams,
-            w: props.w,
-            h: props.h,
             ctx: gl,
-            factor: FACTOR,
             nauting: nauting,
         })
         // redraw()

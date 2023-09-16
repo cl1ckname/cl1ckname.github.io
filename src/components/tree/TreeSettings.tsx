@@ -15,7 +15,7 @@ export default function TreeSettings(props: TreeSettingsProps) {
     return <form>
         <fieldset>
             <label>Iterations</label>
-            <Slider min={0} max={18} value={treeCopy.n} onChange={(n) => {
+            <Slider min={0} max={22} value={treeCopy.n} onChange={(n) => {
                 treeCopy.n = n
                 onChange(treeCopy)
             }}/>

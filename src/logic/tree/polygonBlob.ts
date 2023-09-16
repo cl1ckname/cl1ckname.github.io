@@ -6,38 +6,40 @@ export default class PolygonBlob {
     len: number
     last: number
     buffer: Float32Array
+    vertexBuffer: Float32Array
     constructor(n: number) {
         this.last = 0
         this.n = n
         this.len = Math.pow(2, n-1)
-        this.buffer = new Float32Array(10 * this.len)
+        this.buffer = new Float32Array(2 * this.len)
+        this.vertexBuffer = new Float32Array(8 * this.len)
     }
     
     at(i: number): Square {
         if (i >= this.last) {
             throw "arrrgr"
         }
-        const offset = i * 10
+        const offset = i * 8
         return {
             points: [
-                {x: this.buffer[offset], y: this.buffer[offset+1]},
-                {x: this.buffer[offset+2], y: this.buffer[offset+3]},
-                {x: this.buffer[offset+4], y: this.buffer[offset+5]},
-                {x: this.buffer[offset+6], y: this.buffer[offset+7]},
+                {x: this.vertexBuffer[offset], y: this.vertexBuffer[offset+1]},
+                {x: this.vertexBuffer[offset+2], y: this.vertexBuffer[offset+3]},
+                {x: this.vertexBuffer[offset+4], y: this.vertexBuffer[offset+5]},
+                {x: this.vertexBuffer[offset+6], y: this.vertexBuffer[offset+7]},
             ],
-            number: this.buffer[offset+9],
+            number: this.buffer[i],
             depth: this.n
         }
     }
 
     add(p: Square) {
-        const offset = this.last * 10
+        const offset = this.last * 8
 
         for (let i = 0; i < 4; i++) {
-            this.buffer[offset + i*2] = p.points[i].x
-            this.buffer[offset + i*2+1] = p.points[i].y
+            this.vertexBuffer[offset + i*2] = p.points[i].x
+            this.vertexBuffer[offset + i*2+1] = -p.points[i].y
         }
-        this.buffer[offset+9] = p.number
+        this.buffer[this.last] = p.number
         this.last += 1
     }
 
