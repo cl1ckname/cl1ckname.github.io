@@ -26,47 +26,34 @@ function mulPoint(p1: Point, a: number) {
 
 export default function TreeCanvas(props: PanCanvasOpts) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const virtualRef = useRef<HTMLCanvasElement>(null)
     const [scale, setScale] = useState<number>(1);
     const [offset, setOffset] = useState<Point>(ORIGIN);
-    const [ctx, setCtx] = useState<CanvasRenderingContext2D>()
+    const [gl, setGl] = useState<WebGLRenderingContext>()
     const [nauting, setNauting] = useState(Math.PI / 6)
     const [time, setTime] = useState(0)
     function redraw() {
-        if (!ctx) {
+        if (!gl) {
             return;
         }
-        if (!ctx.canvas.width) {
-            return;
-        }
-        if (!virtualRef.current) {
-            return
-        }
-        if (!virtualRef.current.width) {
-            return
-        }
-        const ctx2 = virtualRef.current.getContext("2d", {
-            willReadFrequently: true
-        })
-        if (!ctx2) {
-            return
-        }
-        // ctx.reset()
-        ctx.setTransform(1, 0, 0, 1, 0, 0)
-        ctx.fillStyle = "#fff"
-        ctx.fillRect(0, 0, props.w, props.h)
-        ctx.setTransform(scale, 0, 0, scale,
-            offset.x + (-props.w / 2) * (FACTOR - 1),
-            offset.y + (-props.h / 2) * (FACTOR - 1)
-        )
-        ctx.drawImage(ctx2.canvas, 0, 0)
-        ctx.fillStyle = "#000"
-        ctx.fillRect(0,0, 50, 50)
+        gl.clearColor(0.4, 0.3, 0.7, 1.0)
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+
+        // gl.reset()
+        // gl.setTransform(1, 0, 0, 1, 0, 0)
+        // gl.fillStyle = "#fff"
+        // gl.fillRect(0, 0, props.w, props.h)
+        // gl.setTransform(scale, 0, 0, scale,
+        //     offset.x + (-props.w / 2) * (FACTOR - 1),
+        //     offset.y + (-props.h / 2) * (FACTOR - 1)
+        // )
+        // gl.drawImage(gl.canvas, 0, 0)
+        // gl.fillStyle = "#000"
+        // gl.fillRect(0,0, 50, 50)
     }
 
     useEffect(() => {
         redraw()
-    }, [virtualRef.current, ctx, offset, scale]);
+    }, [canvasRef.current, gl, offset, scale]);
 
     function onPan(delta: number) {
         setScale(prev => prev + delta / FACTOR)
@@ -81,35 +68,27 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         if (!canvasRef.current) {
             return
         }
-        const ctx = canvasRef.current.getContext("2d")
-        if (!ctx) {
+        const gl = canvasRef.current.getContext("webgl")
+        if (!gl) {
             return
         }
-        setCtx(ctx)
-
-        if (!virtualRef.current) {
-            return
-        }
-        const virtualCtx = virtualRef.current.getContext("2d", {
-            willReadFrequently: true
-        })
-        if (!virtualCtx) {
-            return
-        }
-        if (!ctx.canvas.width) {
+        setGl(gl)
+        if (!gl.canvas.width) {
             return;
         }
+        gl.clearColor(0.4, 0.3, 0.7, 1.0)
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
         drawTree({
             ...props.treeParams,
             w: props.w,
             h: props.h,
-            ctx: virtualCtx,
+            ctx: gl,
             factor: FACTOR,
             nauting: nauting,
         })
-        redraw()
+        // redraw()
 
-    }, [canvasRef, ctx, props, nauting, time]);
+    }, [canvasRef, gl, props]);
 
 
     useEffect(() => {
@@ -130,11 +109,6 @@ export default function TreeCanvas(props: PanCanvasOpts) {
             height={props.h}
             ref={canvasRef}
 
-        />
-        <canvas style={{display: "none"}}
-                ref={virtualRef}
-                width={props.w * FACTOR}
-                height={props.h * FACTOR}
         />
     </div>
 }

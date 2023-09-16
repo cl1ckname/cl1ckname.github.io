@@ -138,8 +138,10 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
 
     return <canvas
         ref={ref}
-        width={props.width}
-        height={props.height}
+        // width={props.width}
+        // height={props.height}
+        width={700}
+        height={700}
         onMouseDown={onMouseDragStart}
         onMouseMove={onMouseDrag}
         onMouseUp={onDragEnd}

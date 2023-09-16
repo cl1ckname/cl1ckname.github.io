@@ -25,7 +25,6 @@ export default class PolygonBlob {
                 {x: this.buffer[offset+4], y: this.buffer[offset+5]},
                 {x: this.buffer[offset+6], y: this.buffer[offset+7]},
             ],
-            a: this.buffer[offset+8],
             number: this.buffer[offset+9],
             depth: this.n
         }
@@ -38,7 +37,6 @@ export default class PolygonBlob {
             this.buffer[offset + i*2] = p.points[i].x
             this.buffer[offset + i*2+1] = p.points[i].y
         }
-        this.buffer[offset + 8] = p.a
         this.buffer[offset+9] = p.number
         this.last += 1
     }

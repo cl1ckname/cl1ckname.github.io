@@ -1,5 +1,7 @@
 import ColorCollection from "@/logic/ColorCollection";
 import PolygonBlob from "@/logic/tree/polygonBlob";
+import {PoolFragShader, PoolVertShader} from "@/logic/pool/Shader";
+import {TreeFrag, TreeVert} from "@/logic/tree/shader";
 
 type Point = {
     x: number
@@ -91,7 +93,7 @@ export const squareByCoordinates = (props: SquareProps): Square => {
 interface DrawTreeProps {
     angle: number,
     n: number,
-    ctx: CanvasRenderingContext2D,
+    ctx: WebGLRenderingContext,
     color: number,
     w: number,
     h: number,
@@ -100,40 +102,45 @@ interface DrawTreeProps {
     factor: number,
     nauting: number
 }
+
+function prepareBuffers(gl: WebGLRenderingContext, program: WebGLProgram) {
+    const triangleVertexBufferObject = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject)
+    const positionAttributeLocation = gl.getAttribLocation(program, "a_position")
+    if (positionAttributeLocation < 0) {
+        throw "invalid vertexAttribLocation"
+    }
+    gl.enableVertexAttribArray(positionAttributeLocation)
+    gl.vertexAttribPointer(
+        positionAttributeLocation,
+        2,
+        gl.FLOAT,
+        false,
+        2 * Float32Array.BYTES_PER_ELEMENT,
+        0
+    )
+}
+
 export function drawTree(props: DrawTreeProps) {
+    const gl = props.ctx
     let {w, h, factor, ctx, branchLong} = props
     w *= factor
     h *= factor
     const produce = makeFigures(props.angle, branchLong, props.alternation, props.nauting)
     const firstSq = squareByCoordinates({
-        x: w/2, y: h/2, size: w/factor/10, depth: props.n, branchLong
+        x: 0, y: 0, size: 0.2, depth: props.n, branchLong
     })
     let leafs: PolygonBlob = new PolygonBlob(props.n)
     leafs.add(firstSq)
     let nodes: PolygonBlob = new PolygonBlob(props.n)
 
     const color = ColorCollection[props.color].func
-    ctx.setTransform(1,0,0,1,0,0)
-    ctx.fillStyle = "#fff"
-    ctx.fillRect(0, 0, w, h)
-    function drawLeafs(j: number) {
-        const l = leafs.at(j)
-        ctx.fillStyle = color(l.number, l.depth)
-        ctx.lineWidth = 10 * Math.pow(0.707106, Math.log2(l.number))
-        ctx.beginPath()
-        ctx.moveTo(l.points[0].x, l.points[0].y)
-        for (let i = 1; i < 4; i++) {
-            ctx.lineTo(l.points[i].x, l.points[i].y)
-        }
-        ctx.lineTo(l.points[0].x, l.points[0].y)
-        ctx.fill()
-        ctx.stroke()
-    }
+    const program = prepareProgram(props.ctx)
+    if (!program) return
+    prepareBuffers(gl, program);
 
     for (let i = 0; i < props.n; i++) {
-        for (let j = 0; j < leafs.last; j++) {
-            drawLeafs(j);
-        }
+        drawSquares(props.ctx, program, leafs)
         for (let j = 0; j < leafs.last; j++) {
             const l2cpy = leafs.at(j)
             nodes.add(l2cpy)
@@ -147,4 +154,59 @@ export function drawTree(props: DrawTreeProps) {
         }
         nodes.clear()
     }
+}
+
+function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER)
+    if (!vertexShader) return null
+    const fragmentShader=  gl.createShader(gl.FRAGMENT_SHADER)
+    if (!fragmentShader) return null;
+
+    gl.shaderSource(vertexShader, TreeVert)
+    gl.shaderSource(fragmentShader, TreeFrag)
+    gl.compileShader(vertexShader)
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        console.error("vert error ", gl.getShaderInfoLog(vertexShader))
+        return null
+    }
+    gl.compileShader(fragmentShader)
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+        console.error("frag error", gl.getShaderInfoLog(fragmentShader))
+        return null
+    }
+    const program = gl.createProgram()
+    if (!program) return null;
+    gl.attachShader(program, vertexShader)
+    gl.attachShader(program, fragmentShader)
+    gl.linkProgram(program)
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error("link error " + gl.getProgramInfoLog(program))
+        return null;
+    }
+    gl.validateProgram(program)
+    if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+        console.error("validate err ", gl.getProgramInfoLog(program))
+        return null;
+    }
+    gl.useProgram(program)
+
+    return program
+}
+
+function drawSquares(gl: WebGLRenderingContext, program: WebGLProgram, blob: PolygonBlob) {
+    const vaoPoints = [] as number[]
+    for (let i = 0; i < blob.last; i++) {
+        const sq = blob.at(i)
+        for (const p of sq.points) {
+            vaoPoints.push(p.x, p.y)
+        }
+    }
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vaoPoints), gl.STATIC_DRAW)
+
+    for (let i = 0; i < vaoPoints.length / 4; i++) {
+        gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4)
+    }
+
 }
