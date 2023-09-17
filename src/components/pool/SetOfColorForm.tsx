@@ -19,7 +19,7 @@ export default function SetOfColorForm(props: SetOfColorFormProps) {
         const colors: RGB[] = []
         for (let i = 0; i < props.len; i++) {
             if (preset === undefined) return
-            colors.push(ParseRGB(ColorCollection[preset].func(i+2, colorsCopy.length+1)))
+            colors.push(ColorCollection[preset].func(i+2, colorsCopy.length+1))
         }
         setColorsCopy(colors)
         props.onChange(colors)

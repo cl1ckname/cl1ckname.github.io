@@ -123,25 +123,15 @@ const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef
     }
 
     function onScroll(event: WheelEvent) {
-
         event.stopPropagation()
         const scale = event.deltaY / window.innerHeight;
         props.onScroll(scale)
-
-        // const c = {
-        //     x: -props.width * scale * scale,
-        //     y: -props.height * scale * scale
-        // }
-        // props.onDrag(c)
-
     }
 
     return <canvas
         ref={ref}
-        // width={props.width}
-        // height={props.height}
-        width={700}
-        height={700}
+        width={props.width}
+        height={props.height}
         onMouseDown={onMouseDragStart}
         onMouseMove={onMouseDrag}
         onMouseUp={onDragEnd}

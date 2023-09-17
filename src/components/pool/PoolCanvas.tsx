@@ -38,12 +38,7 @@ export default function PoolCanvas(props: PoolCanvasProps) {
         }
         setGl(gl)
 
-        const program = prepareProgram(gl, {
-            ...settings,
-            scale,
-            pos: [pos.x, pos.y],
-            resolution: [props.w, props.h]
-        })
+        const program = prepareProgram(gl)
         if (!program) {
             return;
         }
@@ -60,7 +55,6 @@ export default function PoolCanvas(props: PoolCanvasProps) {
             pos: [pos.x, pos.y],
             resolution: [props.w, props.h]
         })
-        // console.log(pos)
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
     }, [gl, program, scale, pos, props]);
 
@@ -76,7 +70,7 @@ export default function PoolCanvas(props: PoolCanvasProps) {
     return <ViewportCanvas ref={canvasRef} onPan={onPan} onScroll={onPan} onDrag={onDrag} width={props.w} height={props.h}/>
 }
 
-function prepareProgram(gl: WebGLRenderingContext, settings: PoolUniforms): WebGLProgram | null {
+function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
     gl.clearColor(0.2, 0.55, 0.35, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

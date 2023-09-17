@@ -1,4 +1,4 @@
-export type ColorFunction = (number: number, depth: number) => HEX
+export type ColorFunction = (number: number, depth: number) => [number, number, number]
 
 export interface ColorCollectionElement {
     func: ColorFunction
@@ -23,7 +23,7 @@ const generateGradient = (color1: number, color2: number) => {
         const r = Math.floor((r1 * (1 - stage) + r2 * stage))
         const g = Math.floor((g1 * (1 - stage) + g2 * stage))
         const b = Math.floor((b1 * (1 - stage) + b2 * stage))
-        return `rgb(${r}, ${g}, ${b})`
+        return [r,g,b] as [number,number,number]
     }
 }
 
@@ -37,34 +37,34 @@ const GenerateTripleGradient = (color1: number, color2: number, color3: number) 
     }
 }
 
-const violetGrow = (number: number, _: number) => {
+const violetGrow = (number: number, _: number): [number,number,number] => {
     const r = Math.floor(0x66 + 0x11 * number) % 256
     const g = Math.floor(0x22)
     const b = Math.floor(0x55 + 0x2 * number) % 256
-    return `rgb(${r}, ${g}, ${b})`
+    return [r,g,b]
 }
 
 
-const Gradient = (number: number, depth: number) => {
+const Gradient = (number: number, depth: number): [number,number,number] => {
     const step = 1 / depth
     let value = Math.floor(step * number * 255)
-    return `rgb(${value}, ${value}, ${value})`
+    return [value,value,value]
 }
 
-const CloudDischarge = (number: number, depth: number) => {
+const CloudDischarge = (number: number, depth: number): [number,number,number] => {
     const stage = number / depth
     const r = Math.floor(0xab * stage + 0xa7 * stage) % 256
     const g = Math.floor(0xab * stage + 0xe0 * stage) % 256
     const b = Math.floor(0xfb * stage + 0x83 * stage) % 256
-    return `rgb(${r}, ${g}, ${b})`
+    return [r, g, b]
 }
 
-const NoSignal = (number: number, depth: number) => {
+const NoSignal = (number: number, depth: number): [number,number,number] => {
     const stage = number / depth
     const r = Math.floor(0xab * number + 0xa7 * stage) % 256
     const g = Math.floor(0xab * number + 0xe0 * stage) % 256
     const b = Math.floor(0xfb * number + 0x83 * stage) % 256
-    return `rgb(${r}, ${g}, ${b})`
+    return [r,g,b]
 }
 
 const ColorCollection: ColorCollectionElement[] = [

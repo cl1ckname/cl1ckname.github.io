@@ -28,7 +28,6 @@ export default class PolygonBlob {
                 {x: this.vertexBuffer[offset+6], y: this.vertexBuffer[offset+7]},
             ],
             number: this.buffer[i],
-            depth: this.n
         }
     }
 

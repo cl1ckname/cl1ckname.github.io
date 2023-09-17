@@ -27,7 +27,7 @@ export default function Tree() {
         branchLong: 1,
         alternation: false,
         amplitude: 0,
-        frequency: 0.01
+        frequency: 0.00
     })
 
     return <Layout title="Tree"

@@ -1,6 +1,7 @@
 import ColorCollection from "@/logic/ColorCollection";
 import PolygonBlob from "@/logic/tree/polygonBlob";
 import {TreeFrag, TreeVert} from "@/logic/tree/shader";
+import {HexToRGB, RGB} from "@/logic/pool/RGB";
 
 const HALFPI = Math.PI / 2
 
@@ -20,7 +21,6 @@ const rotate = (o: Point, p: Point, angle: number) => {
 export type Square = {
     points: [Point, Point, Point, Point]
     number: number
-    depth: number
 }
 export const makeFigures = (angle: number, branchLong: number, alternation: boolean, nauting: number): (sq: Square) => [Square, Square] => {
     return (sq: Square): [Square, Square] => {
@@ -50,7 +50,6 @@ export const makeFigures = (angle: number, branchLong: number, alternation: bool
         let leftSquare: Square = {
             points: [sp3, sp4, p[1], p[0]],
             number: sq.number * 2,
-            depth: sq.depth,
         };
 
 
@@ -67,7 +66,6 @@ export const makeFigures = (angle: number, branchLong: number, alternation: bool
         const rightSquare: Square = {
             points: [sp4, sp3, p[2], p[1]],
             number: sq.number * 2 + 1,
-            depth: sq.depth,
         };
         return [rightSquare, leftSquare]
     }
@@ -87,7 +85,7 @@ export const squareByCoordinates = (props: SquareProps): Square => {
     const p3 = {x: x + size / 2, y: y + (size*branchLong) / 2}
     const p4 = {x: x - size / 2, y: y + (size*branchLong) / 2}
 
-    return {points: [p1, p2, p3, p4], number: 1, depth: props.depth}
+    return {points: [p1, p2, p3, p4], number: 1}
 }
 
 
@@ -98,7 +96,9 @@ interface DrawTreeProps {
     color: number,
     branchLong: number,
     alternation: boolean,
-    nauting: number
+    nauting: number,
+    scale: number,
+    offset: Point
 }
 
 function prepareBuffers(gl: WebGLRenderingContext, program: WebGLProgram) {
@@ -124,7 +124,7 @@ export function drawTree(props: DrawTreeProps) {
     let branchLong = props.branchLong
     const produce = makeFigures(props.angle, branchLong, props.alternation, props.nauting)
     const firstSq = squareByCoordinates({
-        x: 0, y: 0, size: 0.2, depth: props.n, branchLong
+        x: 0, y: 0, size: 0.3, depth: props.n, branchLong
     })
     let leafs: PolygonBlob = new PolygonBlob(props.n)
     leafs.add(firstSq)
@@ -133,7 +133,20 @@ export function drawTree(props: DrawTreeProps) {
     const color = ColorCollection[props.color].func
     const program = prepareProgram(props.ctx)
     if (!program) return
+
     prepareBuffers(gl, program);
+    putVertexUniform(Math.exp(props.scale-1), props.offset, gl, program)
+
+    function drawSquares(gl: WebGLRenderingContext, blob: PolygonBlob) {
+        gl.bufferData(gl.ARRAY_BUFFER, blob.vertexBuffer, gl.STATIC_DRAW)
+
+        for (let i = 0; i < blob.last; i++) {
+            const c = color(blob.buffer[i], props.n)
+            putColor(gl, program as WebGLProgram, c)
+            gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4)
+        }
+
+    }
 
     for (let i = 0; i < props.n; i++) {
         drawSquares(props.ctx, leafs)
@@ -190,12 +203,21 @@ function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
     return program
 }
 
-function drawSquares(gl: WebGLRenderingContext, blob: PolygonBlob) {
-
-    gl.bufferData(gl.ARRAY_BUFFER, blob.vertexBuffer, gl.STATIC_DRAW)
-
-    for (let i = 0; i < blob.last; i++) {
-        gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4)
+function putColor(gl: WebGLRenderingContext, program: WebGLProgram, color: RGB) {
+    const colorLoc = gl.getUniformLocation(program, "color");
+    if (!colorLoc) return
+    gl.uniform3fv(colorLoc, new Float32Array(color.map(c => c / 255)))
+}
+function putVertexUniform(scale: number, offset: Point, gl: WebGLRenderingContext, program: WebGLProgram) {
+    const tLoc = gl.getUniformLocation(program, "u_transform")
+    if (!tLoc) {
+        console.error("unable to find transform matrix uniform")
+        return
     }
+    gl.uniformMatrix3fv(tLoc, false, new Float32Array([
+        scale,  0,      offset.x,
+        0,      scale,  offset.y,
+        0,      0,      0
+    ]))
 
 }

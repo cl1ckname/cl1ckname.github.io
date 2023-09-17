@@ -36,34 +36,34 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         }
         gl.clearColor(0.4, 0.3, 0.7, 1.0)
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-
-        // gl.reset()
-        // gl.setTransform(1, 0, 0, 1, 0, 0)
-        // gl.fillStyle = "#fff"
-        // gl.fillRect(0, 0, props.w, props.h)
-        // gl.setTransform(scale, 0, 0, scale,
-        //     offset.x + (-props.w / 2) * (FACTOR - 1),
-        //     offset.y + (-props.h / 2) * (FACTOR - 1)
-        // )
-        // gl.drawImage(gl.canvas, 0, 0)
-        // gl.fillStyle = "#000"
-        // gl.fillRect(0,0, 50, 50)
+        drawTree({
+            ...props.treeParams,
+            ctx: gl,
+            nauting: nauting,
+            scale,
+            offset
+        })
     }
 
     useEffect(() => {
         redraw()
-    }, [canvasRef.current, gl, offset, scale]);
+    }, [canvasRef.current, gl, offset, scale, time, nauting]);
 
     function onPan(delta: number) {
         setScale(prev => prev + delta)
     }
 
     function onDrag(delta: Point) {
-        const scaledDelta = mulPoint(delta, 1 / scale)
+        delta.x /= props.w
+        delta.y /= -props.h
+        const scaledDelta = mulPoint(delta, Math.exp(scale-1))
         setOffset(diffPoints(offset, scaledDelta))
     }
 
     useEffect(() => {
+        if (props.w == 0) {
+            return;
+        }
         if (!canvasRef.current) {
             return
         }
@@ -75,14 +75,8 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         if (!gl.canvas.width) {
             return;
         }
-        gl.clearColor(0.4, 0.3, 0.7, 1.0)
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-        drawTree({
-            ...props.treeParams,
-            ctx: gl,
-            nauting: nauting,
-        })
-        // redraw()
+
+        redraw()
 
     }, [canvasRef, gl, props]);
 
