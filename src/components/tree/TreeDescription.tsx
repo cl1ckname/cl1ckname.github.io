@@ -107,36 +107,8 @@ export default function TreeDescription() {
             since the profiler showed that most of the time was spent on rendering the tree. This is a real problem. I
             tried <i>several approaches</i> to drawing - SVG, drawing + applying the
             affine <code>setTransformationMatrix()</code>, using
-            rotation + <code>fillRect()</code> (works much faster than filling the path), but still drawing directly in
-            the displayed
-            space turned out to be the fastest and most correct approach. If not....
-        </p>
-        <p>
-            He would not have to re-draw every section of the path when trying to approach or move a tree. It's
-            unbearably long, and it's like it's completely useless. The picture stays the same, it just moves, can't you
-            just move the drawing as a picture on a canvas? This is where we enter the territory
-            of <code>getImageData()</code>,
-            <code>drawImage()</code> and <code>willReadFrequency</code>. You can unload all the pixels of the picture
-            from the canvas into
-            the <code>ImageData</code> object and then draw it again, applying scale and translate. The only problem is
-            that <code>putImageData()</code>
-            does not react to transformations, and <code>drawImage()</code> does not erase the old drawing. There
-            was <i>another problem</i> -
-            if the tree went beyond the canvas boundaries, it was simply erased, and when we moved it, we saw only a
-            stump of a tree.
-        </p>
-        <p>
-            Both of these problems are solved by adding a <b>second canvas</b>. And the size is several times larger
-            than the
-            original one. In this way, the larger canvas ensures that the tree drawing is not cropped and that the tree
-            can be redrawn from it without duplication and using transformations. It is not necessary to display the
-            second canvas at all! Moreover, it turns out that the Canvas API has a special
-            setting <code>willReadFrequency</code> that
-            optimizes the unloading of <code>ImageData</code> from the canvas. <mark>This approach allowed us not only
-            to
-            solve some
-            engineering problems, but also to increase the quality of the image by increasing the rendering
-            resolution</mark>.
+            rotation + <code>fillRect()</code> (works much faster than filling the path), but still drawing slow. The
+            final solution was to use WebGl since GPU power is perfect for this kind of task.
         </p>
         <h2>Settings</h2>
         <ol>
