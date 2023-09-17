@@ -5781,7 +5781,7 @@ figure[typeof~='mw:File/Thumb'] > figcaption:empty {
 }
 
 .mw-wiki-logo {
-    background-image: url("../../public/meicon128.png");
+    background-image: url("../../public/images/meicon128.png");
 }
 
 @media screen {

@@ -21,7 +21,7 @@ export default function Postscript() {
             </code>
             <p>
                 <a style={{color: "red"}}>はぁ そう です か, はぁ そう です か?</a><img className="gif-emoji"
-                                                                                        src="/kaguya.png"
+                                                                                        src="/images/kaguya.png"
                                                                                         alt="ha sodesuka?"/> fair enough,
                 but not too offensive.
                 But

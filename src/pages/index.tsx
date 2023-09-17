@@ -36,7 +36,7 @@ export default function MainPage(props: { ip: any }) {
                 <div className="mw-indicators">
                 </div>
                 <h1 id="firstHeading" className="firstHeading mw-first-heading"><span className="mw-page-title-main">Clickname (Ivan Vasilev)</span>
-                    <img src="/pepe_dance.gif" className="gif-emoji" alt="sad pepe"/>
+                    <img src="/images/pepe_dance.gif" className="gif-emoji" alt="sad pepe"/>
                 </h1>
                 <div id="bodyContent" className="vector-body"><span className="mw-editsection mw-content-ltr ve-hide"
                                                                     dir="ltr"
@@ -99,13 +99,13 @@ export default function MainPage(props: { ip: any }) {
                                 <tr>
                                     <td colSpan={2} className="infobox-image">
                            <span typeof="mw:File/Frameless"><a
-                               href="/me_and_ducks.jpeg" className="mw-file-description"><img alt="me and ducks"
-                                                                                              src="/me_and_ducks.jpeg"
-                                                                                              decoding="async"
-                                                                                              width="274" height="397"
-                                                                                              className="mw-file-element"
-                                                                                              data-file-width="480"
-                                                                                              data-file-height="696"/></a></span>
+                               href="/images/me_and_ducks.jpeg" className="mw-file-description"><img alt="me and ducks"
+                                                                                                     src="/images/me_and_ducks.jpeg"
+                                                                                                     decoding="async"
+                                                                                                     width="274" height="397"
+                                                                                                     className="mw-file-element"
+                                                                                                     data-file-width="480"
+                                                                                                     data-file-height="696"/></a></span>
                                         <span data-wikidata-qualifier-id="P2096" className="media-caption"
                                               style={{display: "block"}}>who fell in love is gay</span>
                                     </td>
@@ -162,7 +162,7 @@ export default function MainPage(props: { ip: any }) {
                             </table>
 
                             <figure typeof="mw:File/Thumb">
-                                <img src="/cv.png" decoding="async" width="260"
+                                <img src="/images/cv.png" decoding="async" width="260"
                                      alt="computer vision experiments"
                                      height="174" className="mw-file-element"/>
                                 <figcaption>Me while computer vision experiments
@@ -179,7 +179,7 @@ export default function MainPage(props: { ip: any }) {
                                 does not
                                 show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf. Hello
                                 dear {props.ip}
-                                <img className="gif-emoji" src="/bulbasaur.gif" alt="lazy bulbasaur"/>
+                                <img className="gif-emoji" src="/images/bulbasaur.gif" alt="lazy bulbasaur"/>
                             </p>
                             <div id="toc" className="toc" role="navigation" aria-labelledby="mw-toc-heading"><input
                                 type="checkbox"
@@ -333,9 +333,9 @@ export default function MainPage(props: { ip: any }) {
                                 title="Редактировать раздел «Гимн Имперской армии Японии»">править код</a><span
                                 className="mw-editsection-bracket">]</span></span></h3>
                             <figure className="mw-halign-left" typeof="mw:File/Thumb"><a
-                                href="/someone.png"
+                                href="/images/someone.png"
                                 className="mw-file-description"><img
-                                src="/someone.png"
+                                src="/images/someone.png"
                                 decoding="async" width="180" height="289" className="mw-file-element"
                                 data-file-width="750"
                                 data-file-height="1204"/></a>
@@ -377,7 +377,7 @@ export default function MainPage(props: { ip: any }) {
                                 common at all.
                             </p>https://www.gimp.org/
                             <p>
-                                I am also very impressed <img alt="Midoria lmao" src="/impression.gif"
+                                I am also very impressed <img alt="Midoria lmao" src="/images/impression.gif"
                                                               className="gif-emoji"/> and
                                 fascinated by everything related to data storage.
                                 Archivers,
@@ -409,7 +409,7 @@ export default function MainPage(props: { ip: any }) {
                                         </div>
                                     </div>
                                     <div className="window-body">
-                                        <img src="/gopher-dance.gif" alt="gopher-dance" width={192} height={192}/>
+                                        <img src="/images/gopher-dance.gif" alt="gopher-dance" width={192} height={192}/>
                                         <br/>
                                         <span>me when i... sorry,<br/> i lied, i never</span>
                                     </div>

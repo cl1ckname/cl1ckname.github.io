@@ -39,7 +39,7 @@ export default function TreeDescription() {
         </code>
         <h2>The method of drawing</h2>
         <figure style={{float: "right", display: "inline-block", marginTop: "0"}}>
-            <img src="/square-enumerate.png" alt="square vertices enumeration"/>
+            <img src="/images/square-enumerate.png" alt="square vertices enumeration"/>
             <figcaption>Square vertices enumeration (Fig. 2)</figcaption>
         </figure>
         <p>
@@ -52,7 +52,7 @@ export default function TreeDescription() {
             is to number the vertices in the correct order (Fig. 2).
         </p>
         <figure style={{float: "left", display: "inline-block", marginTop: "0"}}>
-            <img src="/square-enumerate-2.png" alt="square vertices enumeration" style={{width: "200px"}}/>
+            <img src="/images/square-enumerate-2.png" alt="square vertices enumeration" style={{width: "200px"}}/>
             <figcaption>Square vertices enumeration <br/>(Fig. 3)</figcaption>
         </figure>
         <p>

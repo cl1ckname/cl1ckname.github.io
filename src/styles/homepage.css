@@ -1,6 +1,6 @@
 @import url("https://unpkg.com/xp.css");
 body {
-    cursor: url("../../public/cursor.png"), auto;
+    cursor: url("../../public/images/cursor.png"), auto;
     width: 100vw;
 }
 
