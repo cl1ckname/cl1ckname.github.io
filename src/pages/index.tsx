@@ -149,9 +149,7 @@ export default function MainPage(props: { ip: any }) {
                                     <td className="plainlist">
                                     <span><span><a
                                         title="Композитор">Software engineer</a></span></span>, <span><span><a
-                                        title="Дирижёр">math student</a></span></span>, <span><span><a
-                                        className="mw-redirect"
-                                        title="Музыковед">digital artist</a></span></span>,
+                                        title="Дирижёр">math student</a></span></span>,
                                         <span><span><a title="Военнослужащий">toad enjoyer</a></span></span></td>
                                 </tr>
                                 <tr>
@@ -724,7 +722,7 @@ export default function MainPage(props: { ip: any }) {
                          className="vector-menu mw-portlet mw-portlet-wikibase-otherprojects vector-menu-portal portal"
                          aria-labelledby="p-wikibase-otherprojects-label" role="navigation">
                         <h3 id="p-wikibase-otherprojects-label" className="vector-menu-heading ">
-                            <span className="vector-menu-heading-label">В других проектах</span>
+                            <span className="vector-menu-heading-label">In other projects</span>
                         </h3>
                         <div className="vector-menu-content">
 
@@ -745,7 +743,6 @@ export default function MainPage(props: { ip: any }) {
 
                     <nav id="p-lang" className="vector-menu mw-portlet mw-portlet-lang vector-menu-portal portal"
                          aria-labelledby="p-lang-label" role="navigation">
-                        <button className="uls-settings-trigger" title="Установки языка"></button>
                         <h3 id="p-lang-label" className="vector-menu-heading ">
                             <span className="vector-menu-heading-label">Speak with me in</span>
                         </h3>
