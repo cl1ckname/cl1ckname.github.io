@@ -2,7 +2,6 @@ import "../styles/wiki.css"
 import "../styles/homepage.css"
 import FlipText from "@/components/homepage/flipText";
 import Head from "next/head";
-import {NextApiRequest} from "next"
 import {Bungee_Spice, VT323} from "next/font/google"
 import Postscript from "@/components/homepage/postscript";
 import WaveText from "@/components/homepage/waveText";
@@ -10,17 +9,7 @@ import WaveText from "@/components/homepage/waveText";
 const bungee = Bungee_Spice({subsets: ['latin'], weight: "400"})
 const vt323 = VT323({subsets: ['latin'], weight: "400"})
 
-export async function getServerSideProps(props: { req: NextApiRequest }) {
-    const forwarded = (props.req.headers["x-forwarded-for"] || " anon ") as string
-    const ip = forwarded ? forwarded.split(/, /)[0] : props.req.connection.remoteAddress
-    return {
-        props: {
-            ip,
-        },
-    }
-}
-
-export default function MainPage(props: { ip: any }) {
+export default function MainPage() {
     return <>
         <Head>
             <title>Clickname's garden</title>
@@ -187,7 +176,7 @@ export default function MainPage(props: { ip: any }) {
                                 but
                                 does not
                                 show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf. Hello
-                                dear {props.ip}
+                                dear anon
                                 <img className="gif-emoji" src="/images/bulbasaur.gif" alt="lazy bulbasaur"/>
                             </p>
                             <div id="toc" className="toc" role="navigation" aria-labelledby="mw-toc-heading"><input
@@ -200,13 +189,13 @@ export default function MainPage(props: { ip: any }) {
                                     className="toctogglespan"><label className="toctogglelabel"></label></span>
                                 </div>
                                 <ul>
-                                    <li className="toclevel-1 tocsection-1"><a href="#Общие_сведения"><span
+                                    <li className="toclevel-1 tocsection-1"><a><span
                                         className="tocnumber">1</span>
                                         <span className="toctext">Why did I create this page</span></a></li>
-                                    <li className="toclevel-1 tocsection-2"><a href="#Награды"><span
+                                    <li className="toclevel-1 tocsection-2"><a><span
                                         className="tocnumber">2</span> <span
                                         className="toctext">CS interests</span></a></li>
-                                    <li className="toclevel-1 tocsection-3"><a href="#Fun-content-here"><span
+                                    <li className="toclevel-1 tocsection-3"><a><span
                                         className="tocnumber">3</span>
                                         <span className="toctext">Fun content here</span></a>
                                         <ul>
@@ -224,10 +213,10 @@ export default function MainPage(props: { ip: any }) {
                                                 className="toctext">Newton's pool</span></a></li>
                                         </ul>
                                     </li>
-                                    <li className="toclevel-1 tocsection-5"><a href="#Примечания"><span
+                                    <li className="toclevel-1 tocsection-5"><a><span
                                         className="tocnumber">4</span> <span
                                         className="toctext">P.S.</span></a></li>
-                                    <li className="toclevel-1 tocsection-6"><a href="#Литература"><span
+                                    <li className="toclevel-1 tocsection-6"><a><span
                                         className="tocnumber">5</span> <span
                                         className="toctext">My tech stack</span></a></li>
                                 </ul>
@@ -338,6 +327,7 @@ export default function MainPage(props: { ip: any }) {
                             <figure className="mw-halign-left" typeof="mw:File/Thumb"><a
                                 href="/images/someone.png"
                                 className="mw-file-description"><img
+                                alt="it's me"
                                 src="/images/someone.png"
                                 decoding="async" width="180" height="289" className="mw-file-element"
                                 data-file-width="750"
