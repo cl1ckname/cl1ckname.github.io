@@ -102,12 +102,13 @@ export default function MainPage(props: { ip: any }) {
                                href="/images/me_and_ducks.jpeg" className="mw-file-description"><img alt="me and ducks"
                                                                                                      src="/images/me_and_ducks.jpeg"
                                                                                                      decoding="async"
-                                                                                                     width="274" height="397"
+                                                                                                     width="274"
+                                                                                                     height="397"
                                                                                                      className="mw-file-element"
                                                                                                      data-file-width="480"
                                                                                                      data-file-height="696"/></a></span>
                                         <span data-wikidata-qualifier-id="P2096" className="media-caption"
-                                              style={{display: "block"}}>who fell in love is gay</span>
+                                              style={{display: "block"}}>me and who? <br/>(there's a duck, but you can't see it)</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -115,7 +116,7 @@ export default function MainPage(props: { ip: any }) {
                                     <td className="plainlist">
                             <span className="nowrap"><a title="29 November">29 November</a> <a
                                 title="2002y">2002</a></span><br/>
-                                        <span><a title="Париж">Penza</a></span>
+                                        <span><a title="Penza">Penza</a></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -148,9 +149,14 @@ export default function MainPage(props: { ip: any }) {
                                     <th scope="row" className="plainlist">Occupation</th>
                                     <td className="plainlist">
                                     <span><span><a
-                                        title="Композитор">Software engineer</a></span></span>, <span><span><a
-                                        title="Дирижёр">math student</a></span></span>,
-                                        <span><span><a title="Военнослужащий">toad enjoyer</a></span></span></td>
+                                        href="https://www.rajnikantvscidjokes.in/wp-content/uploads/2015/12/trst-me-600x310.png">
+                                        Software engineer</a></span></span>,
+                                        <span><span><a
+                                            href="https://img.ifunny.co/images/305c06d271ad30e373074132fd083e43671f00b544fa6ba5d6d1a397104d26ed_1.jpg">
+                                            math student</a></span></span>,
+                                        <span><span><a
+                                            href="https://img.buzzfeed.com/buzzfeed-static/static/2017-03/13/6/asset/buzzfeed-prod-fastlane-03/sub-buzz-25012-1489401746-1.jpg">
+                                            toad enjoyer</a></span></span></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="plainlist">Alma matter</th>
@@ -172,9 +178,12 @@ export default function MainPage(props: { ip: any }) {
                             <p><b>Ivan Vasilev</b> (<a>ru.</a>&nbsp;<span lang="ru" style={{fontStyle: "italic"}}>Иван Васильев</span>;
                                 <a title="29 November"> 29 November</a> <a className="mw-redirect"
                                                                            title="2002">2002</a>, <a
-                                    title="Penza">Penza</a>) — <a title="pm pu">mathematician student </a>, a man of his
+                                    title="Penza">Penza</a>) — <a title="pm pu">mathematician student </a>, a <s>reduced
+                                    commands language</s> Golang developer, a man of his
                                 time,
-                                the only person in Russia who got out of the wheel of Samsara. Found a metanarrative,
+                                the only person in Russia who got out of the wheel of <a
+                                    href="https://i.pinimg.com/736x/bf/58/1f/bf581fff5caeda725b40248219bd6921.jpg">Samsara</a>.
+                                Found a metanarrative,
                                 but
                                 does not
                                 show or tell anyone about it. Alive SAT solver. Best esoteric bimbo gf. Hello
@@ -230,10 +239,10 @@ export default function MainPage(props: { ip: any }) {
                                 className="mw-editsection-bracket">[</span><a
 
                                 className="mw-editsection-visualeditor"
-                                title="Редактировать раздел «Общие сведения»">править</a><span
+                                title="hey you">i don't care</a><span
                                 className="mw-editsection-divider"> | </span><a
 
-                                title="Редактировать раздел «Общие сведения»">править код</a><span
+                                title="weak aura">who asked?</a><span
                                 className="mw-editsection-bracket">]</span></span></h2>
                             <p>Initially, I just had a site dedicated to fractals, I was <b>interested</b> in drawing
                                 them
@@ -278,11 +287,8 @@ export default function MainPage(props: { ip: any }) {
                                 className="mw-editsection"><span
                                 className="mw-editsection-bracket">[</span><a
 
-                                className="mw-editsection-visualeditor"
-                                title="Редактировать раздел «Произведения»">править</a><span
-                                className="mw-editsection-divider"> | </span><a
-
-                                title="Редактировать раздел «Произведения»">править код</a><span
+                                className="mw-editsection-visualeditor">cs is already interest</a><span
+                                className="mw-editsection-divider"> | </span><a>who are you bragging to?</a><span
                                 className="mw-editsection-bracket">]</span></span>
                             </h2>
                             <p>It has long been so customary that I am engaged in backend. Why? It just seems to me that
@@ -326,11 +332,8 @@ export default function MainPage(props: { ip: any }) {
                                 <span style={{color: "pink", textShadow: "0em -0.8em black"}}> funny</span></span><span
                                 className="mw-editsection"><span className="mw-editsection-bracket">[</span><a
 
-                                className="mw-editsection-visualeditor"
-                                title="Редактировать раздел «Гимн Имперской армии Японии»">править</a><span
-                                className="mw-editsection-divider"> | </span><a
-
-                                title="Редактировать раздел «Гимн Имперской армии Японии»">править код</a><span
+                                className="mw-editsection-visualeditor">pretty boring</a><span
+                                className="mw-editsection-divider"> | </span><a>nerd stuff</a><span
                                 className="mw-editsection-bracket">]</span></span></h3>
                             <figure className="mw-halign-left" typeof="mw:File/Thumb"><a
                                 href="/images/someone.png"
@@ -409,7 +412,8 @@ export default function MainPage(props: { ip: any }) {
                                         </div>
                                     </div>
                                     <div className="window-body">
-                                        <img src="/images/gopher-dance.gif" alt="gopher-dance" width={192} height={192}/>
+                                        <img src="/images/gopher-dance.gif" alt="gopher-dance" width={192}
+                                             height={192}/>
                                         <br/>
                                         <span>me when i... sorry,<br/> i lied, i never</span>
                                     </div>
@@ -424,11 +428,8 @@ export default function MainPage(props: { ip: any }) {
                                 className="mw-editsection"><span
                                 className="mw-editsection-bracket">[</span><a
 
-                                className="mw-editsection-visualeditor"
-                                title="Редактировать раздел «Произведения»">править</a><span
-                                className="mw-editsection-divider"> | </span><a
-
-                                title="Редактировать раздел «Произведения»">править код</a><span
+                                className="mw-editsection-visualeditor">cool and amazing</a><span
+                                className="mw-editsection-divider"> | </span><a>i'm gonna see every page</a><span
                                 className="mw-editsection-bracket">]</span></span>
                             </h2>
                             <h3>
@@ -520,10 +521,10 @@ export default function MainPage(props: { ip: any }) {
                                 className="mw-editsection-bracket">[</span><a
 
                                 className="mw-editsection-visualeditor"
-                                title="Редактировать раздел «Примечания»">править</a><span
+                                title="Редактировать раздел «Примечания»">nooo, you are leaving so fast?</a><span
                                 className="mw-editsection-divider"> | </span><a
 
-                                title="Редактировать раздел «Примечания»">править код</a><span
+                                title="Редактировать раздел «Примечания»">stay with us a little longer</a><span
                                 className="mw-editsection-bracket">]</span></span></h2>
                             <Postscript/>
                             <div className="reflist columns" style={{listStyleType: "decimal"}}>
@@ -690,29 +691,21 @@ export default function MainPage(props: { ip: any }) {
                         <div className="vector-menu-content">
 
                             <ul className="vector-menu-content-list">
-                                <li id="t-whatlinkshere" className="mw-list-item"><a
-                                    title="Список всех страниц, ссылающихся на данную [alt-shift-j]"
-                                    accessKey="j"><span>Ссылки сюда</span></a>
+                                <li className="mw-list-item"><a href="https://math.hws.edu/eck/js/mandelbrot/MB.html">
+                                    <span>Beauty Mandelbrot explorer</span></a>
                                 </li>
-                                <li id="t-recentchangeslinked" className="mw-list-item"><a rel="nofollow"
-                                                                                           title="Последние изменения в страницах, на которые ссылается эта страница [alt-shift-k]"
-                                                                                           accessKey="k"><span>Связанные правки</span></a>
+                                <li className="mw-list-item"><a
+                                    href="https://anvaka.github.io/fieldplay/?cx=0.0017000000000000348&cy=0&w=8.543199999999999&h=8.543199999999999&dt=0.01&fo=0.998&dp=0.009&cm=1">
+                                    <span>Vector fields viewer</span></a>
                                 </li>
-                                <li id="t-specialpages" className="mw-list-item"><a
-                                    title="Список служебных страниц [alt-shift-q]"
-                                    accessKey="q"><span>Служебные страницы</span></a>
+                                <li className="mw-list-item"><a href="https://tariqksoliman.github.io/Fractal-Inferno/">
+                                    <span>Fractal flame</span></a>
                                 </li>
-                                <li id="t-permalink" className="mw-list-item"><a
-                                    href="https://ru.wikipedia.org/w/index.php?title=%D0%9B%D0%B5%D1%80%D1%83,_%D0%A8%D0%B0%D1%80%D0%BB%D1%8C_(%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80)&amp;oldid=116880073"
-                                    title="Постоянная ссылка на эту версию страницы"><span>Постоянная ссылка</span></a>
+                                <li className="mw-list-item"><a href="https://azgaar.github.io/Fantasy-Map-Generator/">
+                                    <span>Fantasy map generator</span></a>
                                 </li>
-                                <li id="t-info" className="mw-list-item"><a
-
-                                    title="Подробнее об этой странице"><span>Сведения о&nbsp;странице</span></a></li>
-                                <li id="t-cite" className="mw-list-item"><a
-
-                                    title="Информация о том, как цитировать эту страницу"><span>Цитировать страницу</span></a>
-                                </li>
+                                <li className="mw-list-item"><a href="https://jaxry.github.io/wave-function-collapse/">
+                                    <span>Wave function collapse</span></a></li>
                             </ul>
 
                         </div>
