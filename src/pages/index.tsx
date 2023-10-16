@@ -39,10 +39,9 @@ export default function MainPage() {
                                                                     }}><span
                     className="mw-editsection-bracket">[</span><a
 
-                    className="mw-editsection-visualeditor" title="Править преамбулу">править</a><span
-                    className="mw-editsection-divider"> | </span><a
-
-                    title="Править преамбулу">править код</a><span className="mw-editsection-bracket">]</span></span>
+                    className="mw-editsection-visualeditor">hey you</a><span
+                    className="mw-editsection-divider"> | </span><a>what are you doing here?</a><span
+                    className="mw-editsection-bracket">]</span></span>
                     <div id="siteSub" className="noprint">Content from my head - free encyclopedia</div>
                     <div id="contentSub">
                         <div id="mw-content-subtitle">
@@ -50,29 +49,6 @@ export default function MainPage() {
                                 update
                                 this page,
                                 the information may not be up-to-date.
-                            </div>
-                            <div id="mw-fr-revisiontag"
-                                 className="flaggedrevs_short flaggedrevs_draft_notsynced plainlinks noprint">
-                                <div className="flaggedrevs_short_basic"><span title="Текущая версия"
-                                                                               className="flaggedrevs-icon oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement-icon oo-ui-icon-block oo-ui-iconElement oo-ui-labelElement-invisible oo-ui-iconWidget"></span><b><a
-                                    title="Википедия:Проверка статей/Пояснение для читателей">Текущая версия</a></b> [<a
-                                    className="external text">показать
-                                    стабильную версию</a>]
-                                    (<a className="external text">сравнить</a>)<span
-                                        id="mw-fr-revisiontoggle" title="показать/скрыть подробности"
-                                        className="fr-toggle-arrow oo-ui-widget oo-ui-widget-enabled oo-ui-indicatorElement-indicator oo-ui-indicator-down oo-ui-indicatorElement oo-ui-labelElement-invisible oo-ui-indicatorWidget"></span>
-                                </div>
-                                <div id="mw-fr-revisiondetails-wrapper" style={{position: "relative"}}>
-                                    <div id="mw-fr-revisiondetails" className="flaggedrevs_short_details"
-                                         style={{display: "none"}}>Текущая
-                                        версия страницы пока <a
-                                            title="Википедия:Проверка статей/Пояснение для читателей">не
-                                            проверялась</a> опытными участниками и может значительно отличаться от <a
-                                            className="external text">версии</a>,
-                                        проверенной 3 апреля 2018 года; проверки требуют <a className="external text">5
-                                            правок</a>.
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -239,7 +215,7 @@ export default function MainPage() {
                                 giving my friends the opportunity to do it <FlipText>interactively</FlipText>. However,
                                 it
                                 soon became clear that
-                                there are not so many interesting fractals, just drawing various L-systems is not so
+                                there are not so many amazing fractals, just drawing various L-systems is not so
                                 interesting. Subsequently, I somewhat rethought the concept of a personal page on the
                                 Internet and decided to make it really personal. Also, going off the topic of fractals
                                 gives
@@ -264,7 +240,9 @@ export default function MainPage() {
                                 of composition and decomposition, substitution and inversion of dependencies are
                                 applicable
                                 to everything.
-                                Sounds so so😒. What is even more depressing is that this site is not the answer to this
+                                Sounds so so😒. What is even more depressing <img src="/images/sad-pepe.gif"
+                                                                                 className="gif-emoji"/> is that this
+                                site is not the answer to this
                                 question. But this is something very close, as if with the exception of the technologies
                                 used (not a single docker container was affected during the development process). Most
                                 of
@@ -282,7 +260,7 @@ export default function MainPage() {
                             </h2>
                             <p>It has long been so customary that I am engaged in backend. Why? It just seems to me that
                                 the
-                                backend gives more interesting tasks, and the study of the backend itself is much more
+                                backend gives more various tasks, and the study of the backend itself is much more
                                 interesting. In addition, the backend gives more choice in terms of <select>
                                     <option>language</option>
                                     <option>platform</option>
@@ -353,7 +331,7 @@ export default function MainPage() {
                                 }}>Rooms with distorting mirrors and video effects on the first
                                 smartphones made me laugh and amused.</span> However, learning to look for more and more
                                 niche
-                                information, I began to stumble upon more and more interesting solutions. Computer
+                                information, I began to stumble upon more and more mindblowing solutions. Computer
                                 vision in
                                 the same bunch. Once upon a time, neural networks even seemed interesting to me in the
                                 context of image processing. Maybe they give visually pleasing pictures, but the way to
@@ -368,15 +346,15 @@ export default function MainPage() {
                                 nothing
                                 in
                                 common at all.
-                            </p>https://www.gimp.org/
+                            </p>
                             <p>
                                 I am also very impressed <img alt="Midoria lmao" src="/images/impression.gif"
                                                               className="gif-emoji"/> and
                                 fascinated by everything related to data storage.
                                 Archivers,
                                 data structures, file systems. Walking in the forest of binary trees is very
-                                interesting. My
-                                favorites are the <a href="https://en.wikipedia.org/wiki/Van_Emde_Boas_tree">Van Ende
+                                breathtaking. My
+                                favorites are the <a href="https://en.wikipedia.org/wiki/Van_Emde_Boas_tree">Van Emde
                                 Boas</a> tree and the <a href="https://en.wikipedia.org/wiki/AVL_tree">AVL</a> tree.
                                 This is something that seems
                                 very
@@ -483,7 +461,7 @@ export default function MainPage() {
                             </p>
                             <h3>Newton's pool</h3>
                             <p>
-                                Geometric fractals are 😎😎L. They're simple, and in their simplicity they're beautiful.
+                                Geometric fractals are C😎😎L. They're simple, and in their simplicity they're beautiful.
                                 They were discovered (or invented🤔) a long time ago, because all you needed to build
                                 them
                                 was drawing tools. But there is something that became available to the human eye only
@@ -598,8 +576,6 @@ export default function MainPage() {
             </div>
 
             <div id="mw-navigation">
-                <h2>Навигация</h2>
-
                 <div id="mw-panel" className="vector-legacy-sidebar">
                     <div id="p-logo" role="banner">
                         <a className="mw-wiki-logo" title="Перейти на заглавную страницу"></a>
@@ -608,9 +584,6 @@ export default function MainPage() {
                     <nav id="p-navigation"
                          className="vector-menu mw-portlet mw-portlet-navigation vector-menu-portal portal"
                          aria-labelledby="p-navigation-label" role="navigation">
-                        <h3 id="p-navigation-label" className="vector-menu-heading ">
-                            <span className="vector-menu-heading-label">Навигация</span>
-                        </h3>
                         <div className="vector-menu-content">
 
                             <ul className="vector-menu-content-list">
