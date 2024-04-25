@@ -144,7 +144,7 @@ export default function MainPage() {
                                 <a title="29 November"> 29 November</a> <a className="mw-redirect"
                                                                            title="2002">2002</a>, <a
                                     title="Penza">Penza</a>) — <a title="pm pu">mathematician student </a>, a <s>reduced
-                                    commands language</s> Golang developer, a man of his
+                                    commands language</s> Golang developer, crypto researcher, a man of his
                                 time,
                                 the only person in Russia who got out of the wheel of <a
                                     href="https://i.pinimg.com/736x/bf/58/1f/bf581fff5caeda725b40248219bd6921.jpg">Samsara</a>.
@@ -454,12 +454,22 @@ export default function MainPage() {
                                 you fold the antenna into a fractal, yeah it will catch better, yeah." It can be cool,
                                 it
                                 can be useful, but it is extremely distracting from what is really important. Fractals
-                                are beautiful. God didn't give us a template-based brain to quickly distinguish faces or
+                                are beautiful. God didn't give us a <a href="/images/pattern-seeking-brain.jpg">pattern-seeking brain</a> to quickly distinguish faces or
                                 notice patterns. Seriously, are you ready to get up, get dressed, go to the store, buy
                                 cigarettes and stand smoking for five minutes, but don't you want to go pop up the&nbsp;
                                 <a href="/tree">Pythagorean tree</a>🌳? <span className="void-text">Repent</span>.
                             </p>
                             <h3>Newton's pool</h3>
+                            <figure className="mw-halign-left" typeof="mw:File/Thumb"><a
+                                href="/images/pcg.gif"
+                                className="mw-file-description"><img
+                                alt="it's me"
+                                src="/images/pcg.gif"
+                                decoding="async" width="240" height="240" className="mw-file-element"
+                                data-file-width="750"
+                                data-file-height="1204"/></a>
+                                <figcaption>Newton pool looks yummy</figcaption>
+                            </figure>
                             <p>
                                 Geometric fractals are C😎😎L. They're simple, and in their simplicity they're beautiful.
                                 They were discovered (or invented🤔) a long time ago, because all you needed to build
@@ -481,7 +491,7 @@ export default function MainPage() {
                                 className="gif-emoji" alt="Hey, there's supposed to be a picture here, where is it?"/>.
                                 So I
                                 decided to make one myself. So everyone is encouraged to look, try and explore Newton's
-                                pools!
+                                pools! Moreover, this became <a href="https://github.com/cl1ckname/newton-pcg">my graduate diploma</a>.
                             </p>
                             <h2><span
                                 className="mw-headline" id="Примечания">P.S.</span><span
@@ -531,8 +541,10 @@ export default function MainPage() {
                                     978-1800567498
                                 </a></li>
                                 <li>Docker</li>
-                                <li>Blockchain</li>
                                 <li>AWS</li>
+                                <li>Bitcoin core</li>
+                                <li>Geth</li>
+                                <li>Web3</li>
                             </ul>
                         </div>
                         <div className="printfooter" data-nosnippet="">Источник —
@@ -566,9 +578,11 @@ export default function MainPage() {
                                        href="https://www.youtube.com/@eliteclubsessions">EliteClubSessions</a></li>
                                 <li><a title="thank you for your interest in shaders and shadertoy"
                                        href="https://www.youtube.com/@InigoQuilez">Inigo Quilez</a></li>
+                                <li><a title="make me insipred after long break; nice blog"
+                                       href="https://www.youtube.com/@Softology">Softology</a></li>
                                 <li><a title="some of foo52's videos are translations of this dude's videos."
                                        href="https://www.youtube.com/@wallcraft-video/videos">Simulife Hub</a></li>
-                                <li><a href="https://en.wikipedia.org/wiki/Manic_Pixie_Dream_Girl">one girl</a></li>
+                                <li><a href="https://www.instagram.com/not_salty_salt">my wife</a></li>
                             </ul>
                         </div>
                     </div>
@@ -641,6 +655,9 @@ export default function MainPage() {
                                     href="https://shikimori.me/Ivan+Vasilev"
                                     title="russian <My anime list>"
                                     accessKey="r"><span>Shikimori</span></a></li>
+                                <li><a href="https://leetcode.com/20002mc/">
+                                    <span>LeetCode</span>
+                                    </a></li>
                             </ul>
 
                         </div>
@@ -686,11 +703,13 @@ export default function MainPage() {
                                 <li className="mw-list-item"><a
                                     href="https://easstacademy.org/"
                                     hrefLang="en"><span>EASST academy</span></a></li>
-                                <li id="t-wikibase"
-                                    className="mw-list-item"
+                                <li className="mw-list-item"
                                     style={{display: "list-item"}}><a
                                     href="https://dltc.spbu.ru/dcms"
                                     accessKey="g"><span>DCMS</span></a></li>
+                                <li className="mw-list-item"><a href="https://shard.ru/about">
+                                    <span>Shard</span></a>
+                                    </li>
                             </ul>
 
                         </div>
@@ -726,7 +745,7 @@ export default function MainPage() {
 
             <footer id="footer" className="mw-footer" role="contentinfo">
                 <ul id="footer-info">
-                    <li id="footer-info-lastmod"> This page was last edited on September 16, 2023, at 00:03.</li>
+                    <li id="footer-info-lastmod"> This page was last edited on April 26, 2024, at 00:33.</li>
                     <li id="footer-info-copyright">please do not try to sue me for licking the appearance and all the
                         CSS
                         tables
