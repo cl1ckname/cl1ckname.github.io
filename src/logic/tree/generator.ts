@@ -78,12 +78,13 @@ interface SquareProps {
     depth: number,
     branchLong: number
 }
+
 export const squareByCoordinates = (props: SquareProps): Square => {
-    const {x, y, size, branchLong } = props
-    const p1 = {x: x - size / 2, y: y - (size*branchLong) / 2}
-    const p2 = {x: x + size / 2, y: y - (size*branchLong) / 2}
-    const p3 = {x: x + size / 2, y: y + (size*branchLong) / 2}
-    const p4 = {x: x - size / 2, y: y + (size*branchLong) / 2}
+    const {x, y, size, branchLong} = props
+    const p1 = {x: x - size / 2, y: y - (size * branchLong) / 2}
+    const p2 = {x: x + size / 2, y: y - (size * branchLong) / 2}
+    const p3 = {x: x + size / 2, y: y + (size * branchLong) / 2}
+    const p4 = {x: x - size / 2, y: y + (size * branchLong) / 2}
 
     return {points: [p1, p2, p3, p4], number: 1}
 }
@@ -99,6 +100,7 @@ interface DrawTreeProps {
     nauting: number,
     scale: number,
     offset: Point
+    resol: [number, number]
 }
 
 function prepareBuffers(gl: WebGLRenderingContext, program: WebGLProgram) {
@@ -135,7 +137,7 @@ export function drawTree(props: DrawTreeProps) {
     if (!program) return
 
     prepareBuffers(gl, program);
-    putVertexUniform(Math.exp(props.scale-1), props.offset, gl, program)
+    putVertexUniform(Math.exp(props.scale - 1), props.offset, props.resol, gl, program)
 
     function drawSquares(gl: WebGLRenderingContext, blob: PolygonBlob) {
         gl.bufferData(gl.ARRAY_BUFFER, blob.vertexBuffer, gl.STATIC_DRAW)
@@ -143,7 +145,7 @@ export function drawTree(props: DrawTreeProps) {
         for (let i = 0; i < blob.last; i++) {
             const c = color(blob.buffer[i], props.n)
             putColor(gl, program as WebGLProgram, c)
-            gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4)
+            gl.drawArrays(gl.TRIANGLE_FAN, i * 4, 4)
         }
 
     }
@@ -168,7 +170,7 @@ export function drawTree(props: DrawTreeProps) {
 function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)
     if (!vertexShader) return null
-    const fragmentShader=  gl.createShader(gl.FRAGMENT_SHADER)
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
     if (!fragmentShader) return null;
 
     gl.shaderSource(vertexShader, TreeVert)
@@ -208,16 +210,38 @@ function putColor(gl: WebGLRenderingContext, program: WebGLProgram, color: RGB) 
     if (!colorLoc) return
     gl.uniform3fv(colorLoc, new Float32Array(color.map(c => c / 255)))
 }
-function putVertexUniform(scale: number, offset: Point, gl: WebGLRenderingContext, program: WebGLProgram) {
+
+function putVertexUniform(scale: number, offset: Point, resol: [number, number], gl: WebGLRenderingContext, program: WebGLProgram) {
     const tLoc = gl.getUniformLocation(program, "u_transform")
     if (!tLoc) {
         console.error("unable to find transform matrix uniform")
         return
     }
     gl.uniformMatrix3fv(tLoc, false, new Float32Array([
-        scale,  0,      offset.x,
-        0,      scale,  offset.y,
-        0,      0,      0
+        scale, 0, 0,
+        0, scale, 0,
+        0, 0, 1
     ]))
+    // const scaleId =  gl.getUniformLocation(program, "scale")
+    // if (!scaleId) {
+    //     console.error("unable to find scale uniform")
+    //     return
+    // }
+    // console.log(scale)
+    // gl.uniform1f(scaleId, scale)
 
+    const positionId =  gl.getUniformLocation(program, "position")
+    if (!positionId) {
+        console.error("unable to find offset uniform")
+        return
+    }
+    gl.uniform2f(positionId, offset.x, offset.y)
+
+    const resolId =  gl.getUniformLocation(program, "resol")
+    if (!resolId) {
+        console.error("unable to find offset uniform")
+        return
+    }
+    console.log(resol)
+    gl.uniform2f(resolId, resol[0], resol[1])
 }

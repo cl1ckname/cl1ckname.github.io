@@ -41,7 +41,8 @@ export default function TreeCanvas(props: PanCanvasOpts) {
             ctx: gl,
             nauting: nauting,
             scale,
-            offset
+            offset,
+            resol: [props.w, props.h]
         })
     }
 
@@ -54,10 +55,13 @@ export default function TreeCanvas(props: PanCanvasOpts) {
     }
 
     function onDrag(delta: Point) {
-        delta.x /= props.w
-        delta.y /= -props.h
-        const scaledDelta = mulPoint(delta, Math.exp(scale-1))
-        setOffset(diffPoints(offset, scaledDelta))
+        // delta.x /= props.w
+        // delta.y /= -props.h
+        // const scaledDelta = mulPoint(delta, Math.exp(scale-1))
+        // setOffset(diffPoints(offset, scaledDelta))
+        const escale = 1 / Math.exp(scale-1)
+        // const escale = 1
+        setOffset({x: offset.x + delta.x * escale, y: offset.y - delta.y * escale})
     }
 
     useEffect(() => {
