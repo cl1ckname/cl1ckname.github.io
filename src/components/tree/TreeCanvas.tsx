@@ -45,9 +45,9 @@ export default function TreeCanvas(props: PanCanvasOpts) {
         })
     }
 
-    // useEffect(() => {
-    //     redraw()
-    // }, [canvasRef.current, gl, offset, scale, time, nauting]);
+    useEffect(() => {
+        redraw()
+    }, [canvasRef.current, gl, offset, scale, time, nauting]);
 
     function onPan(delta: number) {
         setScale(prev => prev + delta)
