@@ -39,5 +39,16 @@ export default function PoolSettings(props: PoolSettingsProps) {
             settingsCopy.ima = n
             props.onChange(settingsCopy)
         }}/>
+        <label>Re(c)</label>
+        <Slider min={0} max={5} value={settingsCopy.rec} step={0.05} onChange={n => {
+            settingsCopy.rec = n
+            props.onChange(settingsCopy)
+        }}/>
+
+        <label>Im(c)</label>
+        <Slider min={0} max={5} value={settingsCopy.imc} step={0.05} onChange={n => {
+            settingsCopy.imc = n
+            props.onChange(settingsCopy)
+        }}/>
     </form>
 }

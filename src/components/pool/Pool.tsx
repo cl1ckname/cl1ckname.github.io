@@ -13,6 +13,8 @@ export interface PoolParams {
     max_its: number,
     rea: number,
     ima: number,
+    rec: number,
+    imc: number,
 }
 export default function Pool() {
     const defaultParams: PoolParams = {
@@ -26,6 +28,8 @@ export default function Pool() {
         roots: [0,4*Math.PI / 3, 2*Math.PI /3,0,1,0,1,1,1,1,1,1],
         rea: 1,
         ima: 0,
+        rec: 0,
+        imc: 0,
     }
     const [params, setParams] = useState(defaultParams)
 
