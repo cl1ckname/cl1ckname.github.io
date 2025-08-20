@@ -380,7 +380,7 @@ export default function MainPage() {
                                         </div>
                                     </div>
                                     <div className="window-body">
-                                        <img src="/images/gopher-dance.gif" alt="gopher-dance" width={192}
+                                        <img src="/images/gopher-dance.webp" alt="chainsaw man dance gif" width={192}
                                              height={192}/>
                                         <br/>
                                         <span>me when i... sorry,<br/> i lied, i never</span>
@@ -461,10 +461,10 @@ export default function MainPage() {
                             </p>
                             <h3>Newton's pool</h3>
                             <figure className="mw-halign-left" typeof="mw:File/Thumb"><a
-                                href="/images/pcg.gif"
+                                href="/images/pcg.webp"
                                 className="mw-file-description"><img
-                                alt="it's me"
-                                src="/images/pcg.gif"
+                                alt="newton pool center rotation"
+                                src="/images/pcg.webp"
                                 decoding="async" width="240" height="240" className="mw-file-element"
                                 data-file-width="750"
                                 data-file-height="1204"/></a>
@@ -477,7 +477,7 @@ export default function MainPage() {
                                 was drawing tools. But there is something that became available to the human eye only
                                 thanks to <WaveText text={"modern computing technologies"}/>. We are talking about
                                 algebraic fractals<img alt="Hey, there's supposed to be a picture here, where is it?"
-                                                       src="https://emoji.discadia.com/emojis/d6f96e9d-7318-4fee-80ac-53f64227b644.GIF"
+                                                       src="/images/hypnosis.gif"
                                                        className="gif-emoji"/>. They
                                 are mostly built on the complex plane. Complex numbers are quite a
                                 s<sub>t</sub><sup>r</sup><s>a</s><b>n</b><i>g</i>e thing,
@@ -512,40 +512,6 @@ export default function MainPage() {
                                     </ol>
                                 </div>
                             </div>
-                            <h2><span
-                                className="mw-headline" id="Литература">My tech stack</span><span
-                                className="mw-editsection"><span
-                                className="mw-editsection-bracket">[</span><a
-
-                                className="mw-editsection-visualeditor"
-                                title="good choice">advise me something</a><span
-                                className="mw-editsection-divider"> | </span><a
-
-                                title="bad choice">your skills is trash</a><span
-                                className="mw-editsection-bracket">]</span></span></h2>
-                            <ul>
-                                <li>Golang <a
-                                    className="internal mw-magiclink-isbn">ISBN 9781492077213</a>
-                                </li>
-                                <li>NodeJs + Typescript <a
-                                    className="internal mw-magiclink-isbn">ISBN 9781800562523</a>
-                                </li>
-                                <li>Git <a
-                                    className="internal mw-magiclink-isbn">ISBN
-                                    9781430218333</a></li>
-                                <li>Linux administration<a
-                                    className="internal mw-magiclink-isbn">ISBN 978-5-907144-10-1</a></li>
-                                <li>Python <a
-                                    className="internal mw-magiclink-isbn">ISBN 9785496030687</a></li>
-                                <li>SQL (prefer PostgresSql) <a className="internal mw-magiclink-isbn">ISBN
-                                    978-1800567498
-                                </a></li>
-                                <li>Docker</li>
-                                <li>AWS</li>
-                                <li>Bitcoin core</li>
-                                <li>Geth</li>
-                                <li>Web3</li>
-                            </ul>
                         </div>
                         <div className="printfooter" data-nosnippet="">Источник —
                         </div>
@@ -582,7 +548,6 @@ export default function MainPage() {
                                        href="https://www.youtube.com/@Softology">Softology</a></li>
                                 <li><a title="some of foo52's videos are translations of this dude's videos."
                                        href="https://www.youtube.com/@wallcraft-video/videos">Simulife Hub</a></li>
-                                <li><a href="https://www.instagram.com/not_salty_salt">my wife</a></li>
                             </ul>
                         </div>
                     </div>
@@ -592,7 +557,7 @@ export default function MainPage() {
             <div id="mw-navigation">
                 <div id="mw-panel" className="vector-legacy-sidebar">
                     <div id="p-logo" role="banner">
-                        <a className="mw-wiki-logo" title="Перейти на заглавную страницу"></a>
+                        <a className="mw-wiki-logo" title="Это мой почти настоящий портрет"></a>
                     </div>
 
                     <nav id="p-navigation"
@@ -669,13 +634,12 @@ export default function MainPage() {
                             <span className="vector-menu-heading-label">See also</span>
                         </h3>
                         <div className="vector-menu-content">
-
                             <ul className="vector-menu-content-list">
                                 <li className="mw-list-item"><a href="https://math.hws.edu/eck/js/mandelbrot/MB.html">
                                     <span>Beauty Mandelbrot explorer</span></a>
                                 </li>
                                 <li className="mw-list-item"><a
-                                    href="https://anvaka.github.io/fieldplay/?cx=0.0017000000000000348&cy=0&w=8.543199999999999&h=8.543199999999999&dt=0.01&fo=0.998&dp=0.009&cm=1">
+                                    href="https://anvaka.github.io/fieldplay/">
                                     <span>Vector fields viewer</span></a>
                                 </li>
                                 <li className="mw-list-item"><a href="https://tariqksoliman.github.io/Fractal-Inferno/">
@@ -700,6 +664,12 @@ export default function MainPage() {
                         <div className="vector-menu-content">
 
                             <ul className="vector-menu-content-list">
+								<li className="mw-list-item"><a
+									href="https://plsr.ru/"
+									hrefLang="ru"><span>Pulsar</span></a></li>
+								<li className="mw-list-item"><a
+									href="https://sigma-school.su/"
+									hrefLang="ru"><span>SIGMA school</span></a></li>
                                 <li className="mw-list-item"><a
                                     href="https://easstacademy.org/"
                                     hrefLang="en"><span>EASST academy</span></a></li>
@@ -708,7 +678,7 @@ export default function MainPage() {
                                     href="https://dltc.spbu.ru/dcms"
                                     accessKey="g"><span>DCMS</span></a></li>
                                 <li className="mw-list-item"><a href="https://shard.ru/about">
-                                    <span>Shard</span></a>
+                                    <span>SHARD</span></a>
                                     </li>
                             </ul>
 
@@ -745,7 +715,7 @@ export default function MainPage() {
 
             <footer id="footer" className="mw-footer" role="contentinfo">
                 <ul id="footer-info">
-                    <li id="footer-info-lastmod"> This page was last edited on April 26, 2024, at 00:33.</li>
+                    <li id="footer-info-lastmod"> This page was last edited on August 21, 2025, at 01:21.</li>
                     <li id="footer-info-copyright">please do not try to sue me for licking the appearance and all the
                         CSS
                         tables
