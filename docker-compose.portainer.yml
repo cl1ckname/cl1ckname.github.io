@@ -1,0 +1,19 @@
+services:
+  website:
+    image: registery.toadonload.ru/garden:latest
+    ports:
+      - "8080:80"
+    container_name: cl1ckname-website-prod
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - website-network
+
+networks:
+  website-network:
+    driver: bridge

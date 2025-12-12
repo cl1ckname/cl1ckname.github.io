@@ -7,13 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-	"export": "next export"
+    "export": "next export",
+    "docker:build": "docker build -t registery.toadonload.ru/garden:latest .",
+    "docker:push": "docker push registery.toadonload.ru/garden:latest",
+    "docker:deploy": "npm run docker:build && npm run docker:push",
+    "docker:local": "docker compose up --build",
+    "docker:local:down": "docker compose down"
   },
   "dependencies": {
+    "@next/font": "^14.2.15",
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "next": "13.4.19",
+    "next": "^14.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.2.2"
