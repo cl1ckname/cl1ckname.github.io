@@ -224,7 +224,6 @@ export default function MainPage() {
 										</tr>
 									</tbody>
 								</table>
-
 								<figure typeof="mw:File/Thumb">
 									<img
 										src="/images/cv.png"
@@ -346,7 +345,6 @@ export default function MainPage() {
 										</li>
 									</ul>
 								</div>
-
 								<h2>
 									<span className="mw-headline" id="Общие_сведения">
 										Why did I create this page🤔
@@ -783,22 +781,20 @@ export default function MainPage() {
 										Shadxel
 									</span>
 								</h3>
-
+								<figure typeof="mw:File/Thumb">
+									<img
+										src="/images/noncence.jpg"
+										decoding="async"
+										width="260"
+										alt="computer vision experiments"
+										height="174"
+										className="mw-file-element"
+									/>
+									<figcaption>
+										🔴 Live <span className="voxel-text">voxel</span> reaction.
+									</figcaption>
+								</figure>
 								<p>
-									<figure typeof="mw:File/Thumb">
-										<img
-											src="/images/noncence.jpg"
-											decoding="async"
-											width="260"
-											alt="computer vision experiments"
-											height="174"
-											className="mw-file-element"
-										/>
-										<figcaption>
-											🔴 Live <span className="voxel-text">voxel</span>{" "}
-											reaction.
-										</figcaption>
-									</figure>
 									The duality of data and behavior has always seemed to me to be
 									a fundamental principle of all computer technologies. We can
 									observe this everywhere—in how opcodes are transformed into
@@ -828,16 +824,66 @@ export default function MainPage() {
 								<p>
 									I love determinism. I would even call it purity in a
 									functional sense. Indeed, why should the result be different
-									if I perform the same action? I also love speed. Speed is the
-									purest drug. And I really need to be fast, because I am in
-									many places. For example, in /home/clickname/projects/cdf
-									/home/clickname/projects/shadxel and many others. Actually,
-									there are already a bunch of different tools for jumping
-									around in the terminal. But they're all not deterministic
-									enough. I need an extremely accurate tool. So I made it for
-									myself. It's like bookmarks — I just left markers in all the
-									right places, and now I only need to press 5 keys (cdf s{" "}
-									<kbd>enter</kbd>) to get where I need to be.
+									if I perform the same action? I also love speed.{" "}
+									<span className="speed-blur-text">
+										Music and speed is the purest drugs
+									</span>
+									. And I really need to be fast, because I am in many places.
+									For example, in <br />
+								</p>
+								<div
+									style={{
+										// float: "right",
+										color: "black",
+										fontSize: "80%",
+										fontFamily: "monospace",
+										fontWeight: "bold",
+										clear: "both",
+									}}
+								>
+									<div
+										className={"window"}
+										style={{
+											display: "inline-block",
+											background: "black",
+										}}
+									>
+										<div className={"title-bar"}>
+											<div className="title-bar-text">HyperTerminal</div>
+											<div className="title-bar-controls">
+												<button aria-label="Minimize"></button>
+												<button aria-label="Maximize"></button>
+												<button aria-label="Close"></button>
+											</div>
+										</div>
+										<div
+											className="window-body"
+											style={{
+												fontSize: "1.1em",
+												color: "green",
+											}}
+										>
+											{">"} cd /home/clickname/projects/shadxel
+											<br />
+											{">"} cd /home/clickname/projects/toadonload
+											<br />
+											{">"} cd /home/clickname/projects/ai-futa-gf-simulator
+											<br />
+											{">"} cd /home/clickname/.config/nvim
+											<br />
+											{"> "}
+											<span className="terminal-caret"></span>
+										</div>
+									</div>
+								</div>
+								<p>
+									and many others. Actually, there are already a bunch of
+									different tools for jumping around in the terminal. But
+									they're all not deterministic enough. I need an extremely
+									accurate tool. So I made it for myself. It's like bookmarks —
+									I just left markers in all the right places, and now I only
+									need to press 5 keys (<code>cdf s</code> <kbd>enter</kbd>) to
+									get where I need to be.
 								</p>
 								<h2>
 									<span className="mw-headline" id="Примечания">
@@ -1229,7 +1275,7 @@ export default function MainPage() {
 					<ul id="footer-info">
 						<li id="footer-info-lastmod">
 							{" "}
-							This page was last edited on August 21, 2025, at 01:21.
+							This page was last edited on December 17, 2025, at 00:24.
 						</li>
 						<li id="footer-info-copyright">
 							please do not try to sue me for licking the appearance and all the
