@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function ColorConverter() {
 	const [hexInput, setHexInput] = useState("#ff0000");
@@ -8,6 +8,10 @@ export function ColorConverter() {
 	const [hexValid, setHexValid] = useState(true);
 	const [rgbValid, setRgbValid] = useState(true);
 	const [hsvValid, setHsvValid] = useState(true);
+
+	useEffect(() => {
+		handleHexChange(generateColor());
+	}, []);
 
 	const handleHexChange = (value: string) => {
 		setHexInput(value);
@@ -161,4 +165,9 @@ function isValidRgb(value: string) {
 function isValidHsv(value: string) {
 	const parts = value.split(",").map((p) => parseFloat(p.trim()));
 	return parts.length <= 3 && parts.every((p) => !isNaN(p));
+}
+
+function generateColor() {
+	const n = Math.floor(Math.random() * 0xffffff);
+	return `#${n.toString(16).padStart(6, "0")}`;
 }
