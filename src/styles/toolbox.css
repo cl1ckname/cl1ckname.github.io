@@ -1,0 +1,269 @@
+.converters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+@media (max-width: 768px) {
+  .converters {
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    margin-bottom: 1em;
+  }
+
+  .converters > fieldset {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+.unit-converter {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.unit-converter-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+  width: 24em;
+}
+
+.unit-converter-field button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.unit-converter-field button:hover {
+  background-color: #e0e0e0;
+}
+
+.unit-converter-field input {
+  margin: 0 8px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 22em;
+  box-sizing: border-box;
+}
+
+.unit-converter-field label {
+  margin-left: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.encoding-converter {
+  display: inline-flex;
+  gap: 1em;
+  padding: 1em;
+}
+
+.encoding-converter-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.encoding-converter-controls {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.encoding-converter textarea {
+  resize: vertical;
+  min-height: 8em;
+  max-height: 20em;
+  overflow: auto;
+  font-family: monospace;
+}
+
+.encoding-converter textarea[aria-invalid="true"] {
+  border-color: red;
+}
+
+.number-base-converter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.number-base-converter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.number-base-converter-controls {
+  display: flex;
+  gap: 0.5em;
+}
+
+.number-base-converter input {
+  font-family: monospace;
+  width: 24em;
+}
+
+.number-base-converter input[aria-invalid="true"] {
+  border-color: red;
+}
+
+.image-format-converter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.image-format-converter-controls {
+  display: flex;
+  gap: 0.5em;
+}
+
+.image-format-converter-preview-container {
+  width: 24em;
+  height: 16em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-format-converter-preview-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.image-format-converter-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.ecdsa-converter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.ecdsa-converter-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.ecdsa-converter input {
+  font-family: monospace;
+  width: 32em;
+}
+
+.ecdsa-converter-error {
+  color: red;
+}
+
+.priv-to-pub {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.priv-to-pub-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.priv-to-pub input {
+  font-family: monospace;
+  width: 24em;
+}
+
+.priv-to-pub-error {
+  color: red;
+}
+
+.unix-converter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.unix-converter-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.unix-converter input {
+  font-family: monospace;
+  width: 20em;
+}
+
+.random-generator {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.random-generator-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.random-generator input {
+  font-family: monospace;
+  width: 24em;
+}
+
+.color-converter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.color-converter-row-wrapper {
+  display: flex;
+  gap: 1em;
+}
+
+.color-converter-preview {
+  width: 8em;
+  height: 8em;
+  border: 1px solid #ccc;
+}
+
+.color-converter-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.color-converter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.color-converter-row label {
+  width: 50px;
+}
+
+.color-converter-row input {
+  font-family: monospace;
+  width: 12em;
+}
+
+.color-converter-row input.invalid {
+  border-color: red;
+}
