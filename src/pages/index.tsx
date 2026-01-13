@@ -321,6 +321,24 @@ export default function MainPage() {
 														<span className="toctext">Newton's pool</span>
 													</a>
 												</li>
+												<li className="toclevel-2 tocsection-4">
+													<a href="/toolbox">
+														<span className="tocnumber">4.1</span>{" "}
+														<span className="toctext">Toolbox</span>
+													</a>
+												</li>
+											</ul>
+											<a>
+												<span className="tocnumber">4</span>
+												<span className="toctext">Not so fun content here</span>
+											</a>
+											<ul>
+												<li className="toclevel-2 tocsection-4">
+													<a href="/toolbox">
+														<span className="tocnumber">4.1</span>{" "}
+														<span className="toctext">Toolbox</span>
+													</a>
+												</li>
 											</ul>
 										</li>
 										<li className="toclevel-1 tocsection-3">
@@ -763,6 +781,70 @@ export default function MainPage() {
 									.
 								</p>
 								<h2>
+									<span className="mw-headline" id="Not-so-fun-content-here">
+										Not so fun content here
+									</span>
+									<span className="mw-editsection">
+										<span className="mw-editsection-bracket">[</span>
+										<a className="mw-editsection-visualeditor">
+											nobody asked, but...
+										</a>
+										<span className="mw-editsection-divider"> | </span>
+										<a>you're my hero</a>
+										<span className="mw-editsection-bracket">]</span>
+									</span>
+								</h2>
+								<h3>
+									<span className="mw-headline" id="toolbox-header">
+										Toolbox
+									</span>
+								</h3>
+								<p>
+									The browser is a wonderful platform. On this (another one)
+									intermediate layer between hardware and software, we have
+									finally <span className="w-on-b">(almost)</span> achieved that
+									things <span className="w-on-b">(almost)</span> work{" "}
+									<span className="w-on-b">(almost)</span> the same regardless
+									of the device and OS. Write once and run everywhere! What's
+									more, we can get the programs we need right in the browser
+									without having to download and install them. Need something?
+									Open{" "}
+									<a href="https://pointerpointer.com./">
+										something-online.com
+									</a>{" "}
+									and use it! But the world would be too good if there weren't a
+									catch... When working with a computer, we need a lot of
+									different information. Moreover, this information can be
+									presented (encoded) in different ways. Of course, our main
+									helper here is online converters. Finally, you can convert a
+									decimal number to <code>0x</code>hexadecimal without any
+									hassle or clutter on your computer, using only your spine (and
+									not your brain). Or change the format of an image. But there
+									are many converters, and even more needs. So, after doing 10
+									Google searches and opening 10 tabs in your browser, you
+									converted what you wanted. What will happen tomorrow? More new
+									searches and a bunch of tabs. Not to mention that a bunch of
+									sites decide to play dumb and start the “conversion process”
+									of some number or other trifle with a{" "}
+									<span className="text-progress-inline">
+										<span className="text-progress-fill">
+											<span className="text-progress-text">progress bar</span>
+										</span>
+									</span>{" "}
+									and an offer to 💵buy a subscription💵 to speed things up. Do
+									you think I'm stupid?
+								</p>
+								<p>
+									I wasn't going to put up with it. I tracked which converters I
+									used during a week of work and collected them all on one page.
+									It may be small, it may be crooked, it may be ugly, but I am
+									sincere in this. About half of what I ended up with are
+									various calculators for working with elliptic curves and
+									blockchain cryptography. That's my job. Nevertheless, life has
+									become much easier — isn't that why we created computers?
+									Translated with DeepL.com (free version)
+								</p>
+								<h2>
 									<span className="mw-headline" id="Fun-content-here">
 										Other things I made
 									</span>
@@ -1066,6 +1148,11 @@ export default function MainPage() {
 									<li id="n-featured" className="mw-list-item">
 										<a href="/pool" title="uwu">
 											<span>Newton pool</span>
+										</a>
+									</li>
+									<li id="n-featured" className="mw-list-item">
+										<a href="/toolbox" title="uwu">
+											<span>Toolbox</span>
 										</a>
 									</li>
 									<li id="n-sitesupport" className="mw-list-item">

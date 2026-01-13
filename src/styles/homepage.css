@@ -313,3 +313,61 @@ body {
   animation: terminal-caret 1s infinite step-end;
   box-shadow: 0 0 5px #00ff00;
 }
+
+.text-progress-inline {
+  --progress-color: #4caf50;
+  --bg-color: transparent; /* Фон убираем */
+  --text-color: #333; /* Цвет текста */
+  --fill-text-color: #fff;
+  --duration: 5s;
+  --height: 1.2em;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--height);
+  line-height: var(--height);
+  border-radius: 3px;
+  padding: 0 6px;
+  overflow: hidden;
+  font-size: inherit;
+  font-family: inherit;
+  vertical-align: middle;
+  color: var(--text-color); /* Цвет текста снаружи */
+  width: 6em;
+}
+
+.text-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: var(--progress-color);
+  border-radius: 3px;
+  animation: fillWidth var(--duration) linear infinite;
+  overflow: hidden;
+  z-index: 2; /* Поверх текста */
+}
+
+.text-progress-text {
+  position: absolute;
+  left: 6px;
+  color: var(--fill-text-color);
+  white-space: nowrap;
+}
+
+@keyframes fillWidth {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.w-on-b {
+  color: white;
+  background: black;
+  font-weight: bold;
+}
