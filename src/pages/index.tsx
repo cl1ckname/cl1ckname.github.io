@@ -653,7 +653,7 @@ export default function MainPage() {
 									in a <a href="https://www.php.net/">PHP</a>, a{" "}
 									<a href="https://kernel.org"> Linux</a>{" "}
 									<a href="https://en.wikipedia.org/wiki/Tux_(mascot)">
-										Tuhttps://github.com/cl1cknahttps://github.com/cl1ckname/shadxell🐧
+										penguin🐧
 									</a>
 									, <a href="https://rustacean.net/">a crab🦀</a> in{" "}
 									<a href="https://www.rust-lang.org/">Rust</a>, a{" "}
