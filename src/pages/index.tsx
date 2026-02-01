@@ -94,19 +94,24 @@ export default function MainPage() {
 											<td colSpan={2} className="infobox-image">
 												<span typeof="mw:File/Frameless">
 													<a
-														href="/images/me_and_ducks.jpeg"
+														href="/images/me_and_ducks.webp"
 														className="mw-file-description"
 													>
-														<img
-															alt="me and ducks"
-															src="/images/me_and_ducks.jpeg"
-															decoding="async"
-															width="274"
-															height="397"
-															className="mw-file-element"
-															data-file-width="480"
-															data-file-height="696"
-														/>
+														<picture>
+															<source
+																type="image/webp"
+																srcSet="/images/me_and_ducks.webp"
+																media="(min-width: 2970)"
+															/>
+															<img
+																alt="me and ducks"
+																src="/images/me_and_ducks_small.webp"
+																decoding="async"
+																width="300em"
+																// height=""
+																className="mw-file-element"
+															/>
+														</picture>
 													</a>
 												</span>
 												<span
@@ -226,7 +231,7 @@ export default function MainPage() {
 								</table>
 								<figure typeof="mw:File/Thumb">
 									<img
-										src="/images/cv.png"
+										src="/images/cv.webp"
 										decoding="async"
 										width="260"
 										alt="computer vision experiments"
@@ -498,10 +503,13 @@ export default function MainPage() {
 									</span>
 								</h3>
 								<figure className="mw-halign-left" typeof="mw:File/Thumb">
-									<a href="/images/someone.png" className="mw-file-description">
+									<a
+										href="/images/someone.webp"
+										className="mw-file-description"
+									>
 										<img
 											alt="it's me"
-											src="/images/someone.png"
+											src="/images/someone.webp"
 											decoding="async"
 											width="180"
 											height="289"
@@ -600,12 +608,20 @@ export default function MainPage() {
 											</div>
 										</div>
 										<div className="window-body">
-											<img
-												src="/images/gopher-dance.webp"
-												alt="chainsaw man dance gif"
-												width={192}
-												height={192}
-											/>
+											<picture>
+												<source
+													type="image/avif"
+													srcSet="/images/gopher-dance.avif"
+													width={192}
+													height={192}
+												/>
+												<img
+													src="/images/gopher-dance.webp"
+													alt="chainsaw man dance gif"
+													width={192}
+													height={192}
+												/>
+											</picture>
 											<br />
 											<span>
 												me when i... sorry,
@@ -728,16 +744,25 @@ export default function MainPage() {
 								<h3>Newton's pool</h3>
 								<figure className="mw-halign-left" typeof="mw:File/Thumb">
 									<a href="/images/pcg.webp" className="mw-file-description">
-										<img
-											alt="newton pool center rotation"
-											src="/images/pcg.webp"
-											decoding="async"
-											width="240"
-											height="240"
-											className="mw-file-element"
-											data-file-width="750"
-											data-file-height="1204"
-										/>
+										<picture>
+											<source
+												width="240"
+												type="image/avif"
+												srcSet="/images/pcg360.avif"
+											/>
+											<source
+												width="240"
+												type="image/webp"
+												srcSet="/images/pcg360.webp"
+											/>
+											<img
+												alt="newton pool center rotation"
+												src="/images/pcg360.webp"
+												decoding="async"
+												loading="lazy"
+												className="mw-file-element"
+											/>
+										</picture>
 									</a>
 									<figcaption>Newton pool looks yummy</figcaption>
 								</figure>
@@ -751,7 +776,7 @@ export default function MainPage() {
 									talking about algebraic fractals
 									<img
 										alt="Hey, there's supposed to be a picture here, where is it?"
-										src="/images/hypnosis.gif"
+										src="/images/hypnosis.webp"
 										className="gif-emoji"
 									/>
 									. They are mostly built on the complex plane. Complex numbers
@@ -865,7 +890,7 @@ export default function MainPage() {
 								</h3>
 								<figure typeof="mw:File/Thumb">
 									<img
-										src="/images/noncence.jpg"
+										src="/images/noncence.webp"
 										decoding="async"
 										width="260"
 										alt="computer vision experiments"
