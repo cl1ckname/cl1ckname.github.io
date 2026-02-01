@@ -1362,7 +1362,7 @@ export default function MainPage() {
 					<ul id="footer-info">
 						<li id="footer-info-lastmod">
 							{" "}
-							This page was last edited on December 17, 2025, at 00:24.
+							This page was last edited on February 01, 2026, at 14:12.
 						</li>
 						<li id="footer-info-copyright">
 							please do not try to sue me for licking the appearance and all the
