@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ec as EC } from "elliptic";
-import { randomBytes } from "crypto";
 import { toHex, hexToBytes } from "ethereum-cryptography/utils.js";
 
 const secp = new EC("secp256k1");
@@ -69,4 +68,16 @@ function privToCompressedPub(privBytes: Uint8Array): string {
 	const key = secp.keyFromPrivate(privBytes);
 	const pub = Uint8Array.from(key.getPublic(true, "array"));
 	return toHex(pub);
+}
+
+export function randomBytes(size: number): Uint8Array {
+	const array = new Uint8Array(size);
+	if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+		crypto.getRandomValues(array);
+	} else {
+		for (let i = 0; i < size; i++) {
+			array[i] = Math.floor(Math.random() * 256);
+		}
+	}
+	return array;
 }
