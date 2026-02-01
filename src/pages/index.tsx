@@ -1,5 +1,5 @@
-import "../styles/wiki.css";
-import "../styles/homepage.css";
+import "@/styles/wiki.css";
+import "@/styles/homepage.css";
 import FlipText from "@/components/homepage/flipText";
 import Head from "next/head";
 import { Bungee_Spice, VT323 } from "next/font/google";
@@ -10,6 +10,20 @@ const bungee = Bungee_Spice({ subsets: ["latin"], weight: "400" });
 const vt323 = VT323({ subsets: ["latin"], weight: "400" });
 
 export default function MainPage() {
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "Person",
+		name: "Ivan Vasilev",
+		url: "https://toadonload.ru",
+		sameAs: [
+			"https://github.com/cl1ckname",
+			"https://linkedin.com/in/yourname",
+			"https://x.com/cl1ckname",
+			"https://t.me/clickname",
+			"https://vk.com/clickname",
+			"https://youtube.com/cl1ckname",
+		],
+	};
 	return (
 		<>
 			<Head>
@@ -30,6 +44,12 @@ export default function MainPage() {
 					content="https://toadonload.ru/images/meicon256.webp"
 				/>
 				<link rel="canonical" href="https://toadonload.ru" />
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+					}}
+				/>
 			</Head>
 			<div>
 				<div id="mw-page-base" className="noprint"></div>
@@ -118,11 +138,11 @@ export default function MainPage() {
 																media="(min-width: 2970)"
 															/>
 															<img
-																alt="me and ducks"
+																alt="ivan vasilev portain"
 																src="/images/me_and_ducks_small.webp"
 																decoding="async"
 																width="300em"
-																// height=""
+																fetchPriority="high"
 																className="mw-file-element"
 															/>
 														</picture>
@@ -430,9 +450,13 @@ export default function MainPage() {
 									well-known principles of composition and decomposition,
 									substitution and inversion of dependencies are applicable to
 									everything. Sounds so so😒. What is even more depressing{" "}
-									<img src="/images/sad-pepe.gif" className="gif-emoji" /> is
-									that this site is not the answer to this question. But this is
-									something very close, as if with the exception of the
+									<img
+										src="/images/sad-pepe.gif"
+										alt="sad pepe"
+										className="gif-emoji"
+									/>{" "}
+									is that this site is not the answer to this question. But this
+									is something very close, as if with the exception of the
 									technologies used (not a single docker container was affected
 									during the development process). Most of the projects here
 									require ⚡good optimization⚡ so that a weak laptop or phone
@@ -1366,6 +1390,7 @@ export default function MainPage() {
 											lang="ru"
 											hrefLang="ru"
 											className="interlanguage-link-target"
+											href="/images/iamrussian.jpg"
 										>
 											<span>Русский</span>
 										</a>
