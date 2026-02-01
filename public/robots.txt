@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Разрешаем индексацию важных JS/CSS (если нужно)
+Allow: /*.css$
+Allow: /*.js$
+
+# Карта сайта
+Sitemap: https://toadonload.ru/sitemap.xml
+
+# Для Yandex отдельно (опционально)
+User-agent: Yandex
+Allow: /
+Host: https://toadonload.ru

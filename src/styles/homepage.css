@@ -27,6 +27,20 @@ body {
   height: 1.3em;
 }
 
+.pepe-gif {
+}
+
+.pepe-gif::after {
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;
+  width: 32px; /* Размер гифки */
+  height: 32px;
+  background-image: url("/images/pepe_dance.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .void-text {
   background-color: black;
   color: red;

@@ -14,6 +14,22 @@ export default function MainPage() {
 		<>
 			<Head>
 				<title>Clickname's garden</title>
+				<meta
+					name="description"
+					content="Ivan Vasilev (clickname) — mathematician student, Golang developer, crypto researcher. Welcome to my persanal website dear anon!"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:url" content="https://toadonload.ru" />
+				<meta property="og:title" content="Ivan Vasilev (clickname)" />
+				<meta
+					property="og:description"
+					content="Ivan Vasilev personal webpage"
+				/>
+				<meta
+					property="og:image"
+					content="https://toadonload.ru/images/meicon256.webp"
+				/>
+				<link rel="canonical" href="https://toadonload.ru" />
 			</Head>
 			<div>
 				<div id="mw-page-base" className="noprint"></div>
@@ -28,13 +44,11 @@ export default function MainPage() {
 						<div id="centralNotice"></div>
 					</div>
 					<div className="mw-indicators"></div>
-					<h1 id="firstHeading" className="firstHeading mw-first-heading">
-						<span className="mw-page-title-main">Clickname (Ivan Vasilev)</span>
-						<img
-							src="/images/pepe_dance.gif"
-							className="gif-emoji"
-							alt="sad pepe"
-						/>
+					<h1
+						id="firstHeading"
+						className="firstHeading mw-first-heading pepe-gif"
+					>
+						Clickname (Ivan Vasilev)
 					</h1>
 					<div id="bodyContent" className="vector-body">
 						<span
@@ -867,7 +881,6 @@ export default function MainPage() {
 									various calculators for working with elliptic curves and
 									blockchain cryptography. That's my job. Nevertheless, life has
 									become much easier — isn't that why we created computers?
-									Translated with DeepL.com (free version)
 								</p>
 								<h2>
 									<span className="mw-headline" id="Fun-content-here">
@@ -1387,7 +1400,7 @@ export default function MainPage() {
 					<ul id="footer-info">
 						<li id="footer-info-lastmod">
 							{" "}
-							This page was last edited on February 01, 2026, at 14:12.
+							This page was last edited on February 02, 2026, at 01:15.
 						</li>
 						<li id="footer-info-copyright">
 							please do not try to sue me for licking the appearance and all the
