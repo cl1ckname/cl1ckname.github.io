@@ -308,13 +308,6 @@ export default function MainPage() {
 									role="navigation"
 									aria-labelledby="mw-toc-heading"
 								>
-									<input
-										type="checkbox"
-										role="button"
-										id="toctogglecheckbox"
-										className="toctogglecheckbox"
-										style={{ display: "none" }}
-									/>
 									<div className="toctitle" lang="en" dir="ltr">
 										<h2 id="mw-toc-heading">Contents</h2>
 										<span className="toctogglespan">
