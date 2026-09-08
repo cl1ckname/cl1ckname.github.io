@@ -1,145 +1,132 @@
 import {
-    useState,
+    useRef,
     MouseEvent,
     TouchEvent,
     WheelEvent,
     Touch,
     forwardRef,
-    ForwardedRef
+    ForwardedRef,
 } from "react";
+import {Point} from "@/logic/point";
 
-type Point = {
-    x: number
-    y: number
-}
-
-function pointSub(p1: Point, p2: Point) {
+function pointSub(p1: Point, p2: Point): Point {
     return {x: p1.x - p2.x, y: p1.y - p2.y}
 }
-function pointDist(p1: Point, p2: Point) {
-    return Math.sqrt( Math.pow(p1.x - p2.x,2) + Math.pow(p1.y - p2.y,2))
+
+function pointDist(p1: Point, p2: Point): number {
+    return Math.hypot(p1.x - p2.x, p1.y - p2.y)
 }
 
-function getMouseEventPoint(event: MouseEvent<HTMLCanvasElement>): Point {
-    return {
-        x: event.clientX,
-        y: event.clientY,
-    }
+function touchPoint(t: Touch): Point {
+    return {x: t.clientX, y: t.clientY}
 }
 
-function getTouchPoint(t: Touch): Point {
-    const { clientX: x, clientY: y } = t
-    return { x: x, y: y }
-}
-
-function getTouchEventPoint(event: TouchEvent): Point {
-    return getTouchPoint(event.touches[0]);
+// client coordinates -> position within the canvas element, in CSS pixels
+function canvasPoint(rect: DOMRect, clientX: number, clientY: number): Point {
+    return {x: clientX - rect.left, y: clientY - rect.top}
 }
 
 export interface ShaderViewportProps {
-    onPan: (value: number) => void
-    onScroll: (value: number) => void
+    onPan: (value: number, focus: Point) => void
+    onScroll: (value: number, focus: Point) => void
     onDrag: (value: Point) => void
     width: number
     height: number
 }
 
 const ViewportCanvas = forwardRef((props: ShaderViewportProps, ref: ForwardedRef<HTMLCanvasElement>) => {
+    // gesture state lives in refs: a pointer move must never trigger a re-render
+    const dragging = useRef(false)
+    const dragFrom = useRef<Point>({x: 0, y: 0})
+    const pinching = useRef(false)
+    const pinchSpread = useRef(0)
 
-    const [isDrag, setIsDrag] = useState(false);
-    let [pointStart, setPointStart] = useState<Point>({ x: 0, y: 0 });
-
-    const [isPan, setIsPan] = useState(false);
-    let [panStart1, setPanStart1] = useState<Point>({ x: 0, y: 0 });
-    let [panStart2, setPanStart2] = useState<Point>({ x: 0, y: 0 });
-
-
-    function onMouseDragStart(event: MouseEvent<HTMLCanvasElement>) {
+    function onMouseDown(event: MouseEvent<HTMLCanvasElement>) {
         event.stopPropagation()
-        setIsDrag(true);
-        setPointStart(getMouseEventPoint(event));
+        dragging.current = true
+        dragFrom.current = canvasPoint(event.currentTarget.getBoundingClientRect(), event.clientX, event.clientY)
     }
 
-    function onTouchDragStart(event: TouchEvent) {
+    function onMouseMove(event: MouseEvent<HTMLCanvasElement>) {
+        if (!dragging.current) {
+            return
+        }
+        event.stopPropagation()
+        const at = canvasPoint(event.currentTarget.getBoundingClientRect(), event.clientX, event.clientY)
+        props.onDrag(pointSub(dragFrom.current, at))
+        dragFrom.current = at
+    }
+
+    function endDrag(event: MouseEvent<HTMLCanvasElement>) {
+        event.stopPropagation()
+        dragging.current = false
+    }
+
+    function onTouchStart(event: TouchEvent<HTMLCanvasElement>) {
         event.preventDefault()
         event.stopPropagation()
+        const rect = event.currentTarget.getBoundingClientRect()
         if (event.touches.length === 1) {
-            setIsDrag(true);
-            setPointStart(getTouchEventPoint(event));
-        }
-        else if (event.touches.length === 2) {
-            setIsDrag(false)
-            const t1 = event.touches[0]
-            const t2 = event.touches[1]
-            setPanStart1(getTouchPoint(t1))
-            setPanStart2(getTouchPoint(t2))
-            setIsPan(true)
+            dragging.current = true
+            dragFrom.current = canvasPoint(rect, event.touches[0].clientX, event.touches[0].clientY)
+        } else if (event.touches.length === 2) {
+            dragging.current = false
+            pinching.current = true
+            pinchSpread.current = pointDist(touchPoint(event.touches[0]), touchPoint(event.touches[1]))
         }
     }
 
-    function onDragEnd(event: any) {
-        event.stopPropagation()
-        setIsDrag(false);
-    }
-
-    function onTouchEnd(event: TouchEvent) {
-        event.stopPropagation()
-        setIsDrag(false);
-        setIsPan(false)
-    }
-
-    function onMouseDrag(event: MouseEvent<HTMLCanvasElement>) {
-        event.stopPropagation()
-        onDrug(getMouseEventPoint(event))
-    }
-
-    function onTouchDrag(event: TouchEvent<HTMLCanvasElement>) {
+    function onTouchMove(event: TouchEvent<HTMLCanvasElement>) {
         event.preventDefault()
         event.stopPropagation()
-        if (event.touches.length === 1)
-            onDrug(getTouchEventPoint(event))
-        if (event.touches.length === 2) {
-            const t1 = event.touches[0]
-            const t2 = event.touches[1]
-            onPan(getTouchPoint(t1), getTouchPoint(t2))
+        const rect = event.currentTarget.getBoundingClientRect()
+
+        if (event.touches.length === 1 && dragging.current) {
+            const at = canvasPoint(rect, event.touches[0].clientX, event.touches[0].clientY)
+            props.onDrag(pointSub(dragFrom.current, at))
+            dragFrom.current = at
+            return
+        }
+
+        if (event.touches.length === 2 && pinching.current) {
+            const p1 = touchPoint(event.touches[0])
+            const p2 = touchPoint(event.touches[1])
+            const spread = pointDist(p1, p2)
+            const delta = (pinchSpread.current - spread) / window.innerWidth
+            pinchSpread.current = spread
+            const mid = canvasPoint(rect, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2)
+            props.onPan(delta, mid)
         }
     }
 
-    function onDrug(pointEnd: Point) {
-        if (isDrag) {
-            const delta = pointSub(pointStart, pointEnd)
-            props.onDrag(delta)
-            setPointStart(pointEnd);
-        }
-    }
-
-    function onPan(pointEnd1: Point, pointEnd2: Point) {
-        if (isPan) {
-            const delta1  = pointDist(panStart1, panStart2)
-            const delta2  = pointDist(pointEnd1, pointEnd2)
-            const delta = delta1 - delta2
-            props.onPan(delta / window.innerWidth)
-        }
-    }
-
-    function onScroll(event: WheelEvent) {
+    function onTouchEnd(event: TouchEvent<HTMLCanvasElement>) {
         event.stopPropagation()
-        const scale = event.deltaY / window.innerHeight;
-        props.onScroll(scale)
+        dragging.current = false
+        pinching.current = false
+    }
+
+    function onWheel(event: WheelEvent<HTMLCanvasElement>) {
+        event.stopPropagation()
+        const delta = event.deltaY / window.innerHeight
+        const focus = canvasPoint(event.currentTarget.getBoundingClientRect(), event.clientX, event.clientY)
+        props.onScroll(delta, focus)
     }
 
     return <canvas
         ref={ref}
         width={props.width}
         height={props.height}
-        onMouseDown={onMouseDragStart}
-        onMouseMove={onMouseDrag}
-        onMouseUp={onDragEnd}
-        onTouchStart={onTouchDragStart}
-        onTouchMove={onTouchDrag}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={endDrag}
+        onMouseLeave={endDrag}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
-        onWheel={onScroll}
+        onWheel={onWheel}
     />
-});
+})
+
+ViewportCanvas.displayName = "ViewportCanvas"
 
 export default ViewportCanvas

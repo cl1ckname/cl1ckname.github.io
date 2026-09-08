@@ -1,22 +1,34 @@
-import React, {createRef, useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 interface FullfillContainerProps {
     children: (wh: [number, number]) => React.ReactNode
 }
 
 export function FullfillContrainer(props: FullfillContainerProps) {
-    const ref = createRef<HTMLDivElement>()
-    const init: [number, number] = [0, 0]
-    const [wh, setWH] = useState(init)
-    useEffect(() => {
-        if (ref.current) {
-            const w = ref.current?.offsetWidth
-            const h = ref.current?.offsetHeight
-            setWH([w,h])
-        }
-    }, [ref.current]);
+    const ref = useRef<HTMLDivElement>(null)
+    const [wh, setWH] = useState<[number, number]>([0, 0])
 
+    useEffect(() => {
+        const el = ref.current
+        if (!el) {
+            return
+        }
+        const measure = () => {
+            const w = el.clientWidth
+            const h = el.clientHeight
+            setWH((prev) => (prev[0] === w && prev[1] === h ? prev : [w, h]))
+        }
+        measure()
+        const observer = new ResizeObserver(measure)
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+
+    // The children (a canvas sized to `wh`) are taken out of flow so their size
+    // can't feed back into `.fullfill` and start a resize loop.
     return <div ref={ref} className="fullfill">
-        {props.children(wh)}
+        <div style={{position: "absolute", inset: 0}}>
+            {props.children(wh)}
+        </div>
     </div>
 }

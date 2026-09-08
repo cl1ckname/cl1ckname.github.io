@@ -7,24 +7,33 @@ fieldset {
     width: 100%;
 }
 
-.color-picker {
-    font-size: 1.2em;
-    text-align: center;
-    width: 100%;
-    border: 0;
-    background-color: rgba(211, 211, 211, 0.69);
-    margin-top: 0.4em;
+.tree-gradient,
+.tree-background {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
 }
 
-.color-picker option {
-    font-size: 0.8em;
+.tree-gradient label,
+.tree-background label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
 }
 
-.sin {
-
+.tree-gradient input[type="color"],
+.tree-background input[type="color"] {
+    width: 2.6em;
+    height: 1.7em;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background: none;
+    cursor: pointer;
 }
 
 .sin input {
     width: 4em;
-    background-color: rgb(235, 235,235);
+    background-color: rgb(235, 235, 235);
 }

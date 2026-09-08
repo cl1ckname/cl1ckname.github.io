@@ -1,247 +1,206 @@
-import ColorCollection from "@/logic/ColorCollection";
-import PolygonBlob from "@/logic/tree/polygonBlob";
 import {TreeFrag, TreeVert} from "@/logic/tree/shader";
-import {HexToRGB, RGB} from "@/logic/pool/RGB";
+import {Point} from "@/logic/point";
 
 const HALFPI = Math.PI / 2
 
-type Point = {
-    x: number
-    y: number
-}
-
-const rotate = (o: Point, p: Point, angle: number) => {
-    const dx = p.x - o.x
-    const dy = p.y - o.y
-    const c = Math.cos(angle)
-    const s = Math.sin(angle)
-    return {x: c * dx - s * dy + o.x, y: s * dx + c * dy + o.y}
-}
-
-export type Square = {
-    points: [Point, Point, Point, Point]
-    number: number
-}
-export const makeFigures = (angle: number, branchLong: number, alternation: boolean, nauting: number): (sq: Square) => [Square, Square] => {
-    return (sq: Square): [Square, Square] => {
-        if (alternation) {
-            angle = HALFPI - angle
-        }
-        let tp3: Point
-        {
-            const p = sq.points
-            const o = {x: (p[0].x + p[1].x) / 2, y: (p[0].y + p[1].y) / 2}
-            const rotateAngle = 2 * angle
-            tp3 = rotate(o, p[0], rotateAngle)
-        }
-
-        const p = [sq.points[0], tp3, sq.points[1]]
-
-        let size = Math.pow(p[0].x - p[1].x, 2) + Math.pow(p[0].y - p[1].y, 2)
-        const ldv = Math.sqrt(size / (
-            Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2))
-        ) * branchLong
-        let sp3 = {x: p[0].x + (p[1].x - p[2].x) * ldv, y: p[0].y + (p[1].y - p[2].y) * ldv}
-        let sp4 = {x: p[1].x + (p[1].x - p[2].x) * ldv, y: p[1].y + (p[1].y - p[2].y) * ldv}
-
-        sp3 = rotate(p[0], sp3, nauting)
-        sp4 = rotate(p[1], sp4, nauting)
-
-        let leftSquare: Square = {
-            points: [sp3, sp4, p[1], p[0]],
-            number: sq.number * 2,
-        };
-
-
-        size = Math.pow(p[1].x - p[2].x, 2) + Math.pow(p[1].y - p[2].y, 2)
-        const rdv = Math.sqrt(size / (
-            Math.pow(p[1].x - p[0].x, 2) + Math.pow(p[1].y - p[0].y, 2)
-        )) * branchLong
-        sp4 = {x: p[1].x + (p[1].x - p[0].x) * rdv, y: p[1].y + (p[1].y - p[0].y) * rdv}
-        sp3 = {x: p[2].x + (p[1].x - p[0].x) * rdv, y: p[2].y + (p[1].y - p[0].y) * rdv}
-
-        sp3 = rotate(p[2], sp3, nauting)
-        sp4 = rotate(p[1], sp4, nauting)
-
-        const rightSquare: Square = {
-            points: [sp4, sp3, p[2], p[1]],
-            number: sq.number * 2 + 1,
-        };
-        return [rightSquare, leftSquare]
-    }
-}
-
-interface SquareProps {
-    x: number,
-    y: number,
-    size: number,
-    depth: number,
+export interface TreeRenderParams {
+    n: number
+    angle: number
+    colorRoot: string
+    colorTip: string
+    background: string
     branchLong: number
-}
-
-export const squareByCoordinates = (props: SquareProps): Square => {
-    const {x, y, size, branchLong} = props
-    const p1 = {x: x - size / 2, y: y - (size * branchLong) / 2}
-    const p2 = {x: x + size / 2, y: y - (size * branchLong) / 2}
-    const p3 = {x: x + size / 2, y: y + (size * branchLong) / 2}
-    const p4 = {x: x - size / 2, y: y + (size * branchLong) / 2}
-
-    return {points: [p1, p2, p3, p4], number: 1}
-}
-
-
-interface DrawTreeProps {
-    angle: number,
-    n: number,
-    ctx: WebGLRenderingContext,
-    color: number,
-    branchLong: number,
-    alternation: boolean,
-    nauting: number,
-    scale: number,
+    alternation: boolean
+    wobble: number
+    scale: number
     offset: Point
     resol: [number, number]
 }
 
-function prepareBuffers(gl: WebGLRenderingContext, program: WebGLProgram) {
-    const triangleVertexBufferObject = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject)
-    const positionAttributeLocation = gl.getAttribLocation(program, "a_position")
-    if (positionAttributeLocation < 0) {
-        throw "invalid vertexAttribLocation"
-    }
-    gl.enableVertexAttribArray(positionAttributeLocation)
-    gl.vertexAttribPointer(
-        positionAttributeLocation,
-        2,
-        gl.FLOAT,
-        false,
-        2 * Float32Array.BYTES_PER_ELEMENT,
-        0
-    )
+type RGB = [number, number, number]
+
+// "#rrggbb" -> [r, g, b] in 0..1; falls back to black on anything unexpected
+function hexToRgb(hex: string): RGB {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim())
+    if (!m) return [0, 0, 0]
+    const v = parseInt(m[1], 16)
+    return [(v >> 16 & 255) / 255, (v >> 8 & 255) / 255, (v & 255) / 255]
 }
 
-export function drawTree(props: DrawTreeProps) {
-    const gl = props.ctx
-    let branchLong = props.branchLong
-    const produce = makeFigures(props.angle, branchLong, props.alternation, props.nauting)
-    const firstSq = squareByCoordinates({
-        x: 0, y: 0, size: 0.3, depth: props.n, branchLong
-    })
-    let leafs: PolygonBlob = new PolygonBlob(props.n)
-    leafs.add(firstSq)
-    let nodes: PolygonBlob = new PolygonBlob(props.n)
-
-    const color = ColorCollection[props.color].func
-    const program = prepareProgram(props.ctx)
-    if (!program) return
-
-    prepareBuffers(gl, program);
-    putVertexUniform(Math.exp(props.scale - 1), props.offset, props.resol, gl, program)
-
-    function drawSquares(gl: WebGLRenderingContext, blob: PolygonBlob) {
-        gl.bufferData(gl.ARRAY_BUFFER, blob.vertexBuffer, gl.STATIC_DRAW)
-
-        for (let i = 0; i < blob.last; i++) {
-            const c = color(blob.buffer[i], props.n)
-            putColor(gl, program as WebGLProgram, c)
-            gl.drawArrays(gl.TRIANGLE_FAN, i * 4, 4)
+// caches the last parsed hex so a wobble frame doesn't re-parse an unchanged colour
+function hexMemo(): (hex: string) => RGB {
+    let last = "\0"
+    let rgb: RGB = [0, 0, 0]
+    return (hex) => {
+        if (hex !== last) {
+            last = hex
+            rgb = hexToRgb(hex)
         }
-
-    }
-
-    for (let i = 0; i < props.n; i++) {
-        drawSquares(props.ctx, leafs)
-        for (let j = 0; j < leafs.last; j++) {
-            const l2cpy = leafs.at(j)
-            nodes.add(l2cpy)
-        }
-        leafs.clear()
-
-        for (let j = 0; j < nodes.last; j++) {
-            const [sq1, sq2] = produce(nodes.at(j))
-            leafs.add(sq1)
-            leafs.add(sq2)
-        }
-        nodes.clear()
+        return rgb
     }
 }
 
-function prepareProgram(gl: WebGLRenderingContext): WebGLProgram | null {
-    const vertexShader = gl.createShader(gl.VERTEX_SHADER)
-    if (!vertexShader) return null
-    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-    if (!fragmentShader) return null;
+function compileShader(gl: WebGL2RenderingContext, type: number, src: string): WebGLShader {
+    const shader = gl.createShader(type)
+    if (!shader) throw new Error("unable to create shader")
+    gl.shaderSource(shader, src)
+    gl.compileShader(shader)
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        const log = gl.getShaderInfoLog(shader)
+        gl.deleteShader(shader)
+        throw new Error("shader compile error: " + log)
+    }
+    return shader
+}
 
-    gl.shaderSource(vertexShader, TreeVert)
-    gl.shaderSource(fragmentShader, TreeFrag)
-    gl.compileShader(vertexShader)
-    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-        console.error("vert error ", gl.getShaderInfoLog(vertexShader))
-        return null
-    }
-    gl.compileShader(fragmentShader)
-    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-        console.error("frag error", gl.getShaderInfoLog(fragmentShader))
-        return null
-    }
+function linkProgram(gl: WebGL2RenderingContext): WebGLProgram {
+    const vs = compileShader(gl, gl.VERTEX_SHADER, TreeVert)
+    const fs = compileShader(gl, gl.FRAGMENT_SHADER, TreeFrag)
     const program = gl.createProgram()
-    if (!program) return null;
-    gl.attachShader(program, vertexShader)
-    gl.attachShader(program, fragmentShader)
+    if (!program) throw new Error("unable to create program")
+    gl.attachShader(program, vs)
+    gl.attachShader(program, fs)
     gl.linkProgram(program)
-
+    // the shaders are baked into the program now
+    gl.deleteShader(vs)
+    gl.deleteShader(fs)
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error("link error " + gl.getProgramInfoLog(program))
-        return null;
+        const log = gl.getProgramInfoLog(program)
+        gl.deleteProgram(program)
+        throw new Error("program link error: " + log)
     }
-    gl.validateProgram(program)
-    if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
-        console.error("validate err ", gl.getProgramInfoLog(program))
-        return null;
-    }
-    gl.useProgram(program)
-
     return program
 }
 
-function putColor(gl: WebGLRenderingContext, program: WebGLProgram, color: RGB) {
-    const colorLoc = gl.getUniformLocation(program, "color");
-    if (!colorLoc) return
-    gl.uniform3fv(colorLoc, new Float32Array(color.map(c => c / 255)))
+// column-major 3x3 affine matrix, ready for gl.uniformMatrix3fv
+function affine(exx: number, exy: number, eyx: number, eyy: number, tx: number, ty: number): Float32Array {
+    return new Float32Array([
+        exx, exy, 0,
+        eyx, eyy, 0,
+        tx, ty, 1,
+    ])
 }
 
-function putVertexUniform(scale: number, offset: Point, resol: [number, number], gl: WebGLRenderingContext, program: WebGLProgram) {
-    const tLoc = gl.getUniformLocation(program, "u_transform")
-    if (!tLoc) {
-        console.error("unable to find transform matrix uniform")
-        return
-    }
-    gl.uniformMatrix3fv(tLoc, false, new Float32Array([
-        scale, 0, 0,
-        0, scale, 0,
-        0, 0, 1
-    ]))
-    // const scaleId =  gl.getUniformLocation(program, "scale")
-    // if (!scaleId) {
-    //     console.error("unable to find scale uniform")
-    //     return
-    // }
-    // console.log(scale)
-    // gl.uniform1f(scaleId, scale)
+// canonical child square -> canonical parent square, as a pure similarity.
+// The isosceles triangle with base angle `angle` sits on the parent's top edge
+// (y = -bl); the child hangs off its left or right leg.
+function baseMatrix(angle: number, bl: number, right: boolean): Float32Array {
+    const a2 = 2 * angle
+    const ax = 0.5 - 0.5 * Math.cos(a2)   // triangle apex, x
+    const ay = -0.5 * Math.sin(a2)        // triangle apex, y offset from the edge
+    return right
+        ? affine(1 - ax, -ay, ay, 1 - ax, ax, ay - bl)
+        : affine(ax, ay, -ay, ax, 0, -bl)
+}
 
-    const positionId =  gl.getUniformLocation(program, "position")
-    if (!positionId) {
-        console.error("unable to find offset uniform")
-        return
-    }
-    gl.uniform2f(positionId, offset.x, offset.y)
+// wobble on the square that gets drawn: base edge fixed, top edge swung by `wobble`
+function wobbleDrawMatrix(wobble: number): Float32Array {
+    return affine(1, 0, -Math.sin(wobble), Math.cos(wobble), 0, 0)
+}
 
-    const resolId =  gl.getUniformLocation(program, "resol")
-    if (!resolId) {
-        console.error("unable to find offset uniform")
-        return
+// wobble carried down a branch: the child's top edge is displaced so the subtree
+// grows from the swung edge, matching the original per-node rotation
+function wobbleSubtreeMatrix(wobble: number, bl: number): Float32Array {
+    return affine(1, 0, 0, 1, bl * Math.sin(wobble), bl * (1 - Math.cos(wobble)))
+}
+
+// canonical root square ([0,1] x [0,-bl]) -> centred screen space, with y flipped
+function rootMatrix(bl: number): Float32Array {
+    return affine(0.3, 0, 0, -0.3, -0.15, -0.15 * bl)
+}
+
+const UNIT_QUAD = new Float32Array([
+    0, 0,
+    1, 0,
+    0, 1,
+    1, 1,
+])
+
+export interface TreeRenderer {
+    render(params: TreeRenderParams): void
+    dispose(): void
+}
+
+export function createTreeRenderer(gl: WebGL2RenderingContext): TreeRenderer {
+    const program = linkProgram(gl)
+
+    const u = {
+        root: gl.getUniformLocation(program, "u_root"),
+        baseL: gl.getUniformLocation(program, "u_baseL"),
+        baseR: gl.getUniformLocation(program, "u_baseR"),
+        baseLAlt: gl.getUniformLocation(program, "u_baseLAlt"),
+        baseRAlt: gl.getUniformLocation(program, "u_baseRAlt"),
+        wobbleDraw: gl.getUniformLocation(program, "u_wobbleDraw"),
+        wobbleSubtree: gl.getUniformLocation(program, "u_wobbleSubtree"),
+        alternation: gl.getUniformLocation(program, "u_alternation"),
+        bl: gl.getUniformLocation(program, "u_bl"),
+        colorRoot: gl.getUniformLocation(program, "u_colorRoot"),
+        colorTip: gl.getUniformLocation(program, "u_colorTip"),
+        depth: gl.getUniformLocation(program, "u_depth"),
+        scale: gl.getUniformLocation(program, "u_scale"),
+        offset: gl.getUniformLocation(program, "u_offset"),
+        resol: gl.getUniformLocation(program, "u_resol"),
     }
-    console.log(resol)
-    gl.uniform2f(resolId, resol[0], resol[1])
+    const aCorner = gl.getAttribLocation(program, "a_corner")
+
+    const bgColor = hexMemo()
+    const rootColor = hexMemo()
+    const tipColor = hexMemo()
+
+    const vao = gl.createVertexArray()
+    gl.bindVertexArray(vao)
+
+    const quadBuffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer)
+    gl.bufferData(gl.ARRAY_BUFFER, UNIT_QUAD, gl.STATIC_DRAW)
+    gl.enableVertexAttribArray(aCorner)
+    gl.vertexAttribPointer(aCorner, 2, gl.FLOAT, false, 0, 0)
+
+    gl.bindVertexArray(null)
+
+    return {
+        render(p: TreeRenderParams) {
+            const bg = bgColor(p.background)
+            gl.clearColor(bg[0], bg[1], bg[2], 1.0)
+            gl.clear(gl.COLOR_BUFFER_BIT)
+
+            const instanceCount = p.n > 0 ? Math.pow(2, p.n) - 1 : 0
+            if (instanceCount === 0) return
+
+            // keep angles just inside (0, pi/2) so the triangle legs never vanish
+            const angle = Math.min(Math.max(p.angle, 1e-4), HALFPI - 1e-4)
+            const altAngle = HALFPI - angle
+            const bl = p.branchLong
+            const root = rootColor(p.colorRoot)
+            const tip = tipColor(p.colorTip)
+
+            gl.useProgram(program)
+            gl.bindVertexArray(vao)
+
+            gl.uniformMatrix3fv(u.root, false, rootMatrix(bl))
+            gl.uniformMatrix3fv(u.baseL, false, baseMatrix(angle, bl, false))
+            gl.uniformMatrix3fv(u.baseR, false, baseMatrix(angle, bl, true))
+            gl.uniformMatrix3fv(u.baseLAlt, false, baseMatrix(altAngle, bl, false))
+            gl.uniformMatrix3fv(u.baseRAlt, false, baseMatrix(altAngle, bl, true))
+            gl.uniformMatrix3fv(u.wobbleDraw, false, wobbleDrawMatrix(p.wobble))
+            gl.uniformMatrix3fv(u.wobbleSubtree, false, wobbleSubtreeMatrix(p.wobble, bl))
+            gl.uniform1i(u.alternation, p.alternation ? 1 : 0)
+            gl.uniform1f(u.bl, bl)
+            gl.uniform3f(u.colorRoot, root[0], root[1], root[2])
+            gl.uniform3f(u.colorTip, tip[0], tip[1], tip[2])
+            gl.uniform1f(u.depth, p.n)
+            gl.uniform1f(u.scale, p.scale)
+            gl.uniform2f(u.offset, p.offset.x, p.offset.y)
+            gl.uniform2f(u.resol, p.resol[0], p.resol[1])
+
+            gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, instanceCount)
+            gl.bindVertexArray(null)
+        },
+
+        dispose() {
+            gl.deleteProgram(program)
+            gl.deleteBuffer(quadBuffer)
+            gl.deleteVertexArray(vao)
+        },
+    }
 }
