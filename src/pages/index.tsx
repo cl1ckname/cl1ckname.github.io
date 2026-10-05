@@ -284,6 +284,11 @@ export default function MainPage() {
                           </a>
                         </li>
                         <li className="toclevel-2 tocsection-4">
+                          <a href="/water">
+                            <span className="tocnumber">3.2</span> <span className="toctext">Water doodle</span>
+                          </a>
+                        </li>
+                        <li className="toclevel-2 tocsection-4">
                           <a href="/toolbox">
                             <span className="tocnumber">4.1</span> <span className="toctext">Toolbox</span>
                           </a>
@@ -530,7 +535,7 @@ export default function MainPage() {
                     </div>
                     <div className="window-body">
                       <picture>
-                        <source type="image/avif" srcSet="/images/me-upside.webp" width={192} height={192} />
+                        <source type="image/avif" srcSet="/images/me-upside.avif" width={192} height={192} />
                         <img src="/images/gopher-dance.webp" alt="clickname watches you" width={192} height={192} />
                       </picture>
                       <br />
@@ -649,6 +654,17 @@ export default function MainPage() {
                   />
                   . So I decided to make one myself. So everyone is encouraged to look, try and explore Newton's pools! Moreover, this
                   became <a href="https://github.com/cl1ckname/newton-pcg">my graduate diploma</a>.
+                </p>
+                <h3>Water doodle</h3>
+                <p>
+                  To be honest, I tried to learn how to draw. I didn't really get anywhere with it because at some point I got bored. Maybe
+                  I didn't actually enjoy drawing—I just enjoyed learning how to draw—and that's why I lost my motivation. But that's
+                  another story. However, I’ve retained my love for drawing geometric shapes. I like what are called “
+                  <a href="https://ru.pinterest.com/cl1ckname/doodles/">doodles</a>”. They’re simple patterns drawn according to an
+                  algorithm. Wait, patterns? According to an algorithm? Oh my gosh, I can do, wait, I can do... <br />I drew a very simple
+                  doodle. It’s water with foam on top. It looks different every time you refresh the page. What’s more, the scene depends on
+                  the actual time of day and will vary depending on the hour and the sun’s position at that time of year! So check out{" "}
+                  <a href="/water">/water</a> every now and then to peacefully gaze at the water’s surface.
                 </p>
                 <h2>
                   <span className="mw-headline" id="Not-so-fun-content-here">

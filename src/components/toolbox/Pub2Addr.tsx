@@ -134,9 +134,7 @@ function pubToTron(uncompressed: Uint8Array): string {
 	const ethNo0x = toHex(keccak256(uncompressed.slice(1)).slice(-20));
 	const tronBytes = Uint8Array.from([0x41, ...hexToBytes(ethNo0x)]);
 	const checksum = sha256(sha256(tronBytes));
-	return base58.encode(
-		Buffer.concat([Buffer.from(tronBytes), Buffer.from(checksum.slice(0, 4))]),
-	);
+	return base58.encode(Uint8Array.from([...tronBytes, ...checksum.slice(0, 4)]));
 }
 
 function pubToBtcSegWit(uncompressed: Uint8Array): string {
